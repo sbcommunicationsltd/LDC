@@ -1,0 +1,15 @@
+
+
+### START DAILY wp-login.php RESTRICTION - DO NOT DELETE ###
+# To allow your IP address to access your Wordpress login, visit http://www.whatismyip.com/
+# copy one of the lines below that start with 'allow' and change the IP address
+# to the IP address shown by http://www.whatismyip.com/, you will then be able to access
+# your Wordpress login
+
+<Files wp-login.php>
+        order deny,allow
+        allow from 127.0.0.1
+        allow from 127.0.0.2
+        deny from all
+</Files>
+### END DAILY wp-login.php RESTRICTION - DO NOT DELETE ###

