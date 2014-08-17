@@ -235,8 +235,8 @@
         <div class="clear"></div> 
        <div class="line"></div>
         <div class="spacebreak"></div>   
-       <h3 class="medium-header center">Sign up to London Dinner Club for free to stay up to date on all the latest networking events in the Knightsbridge, Chelsea and Mayfair area!</h3>
-       <p class="center"><a href="register.php" target="_blank" title="Email London Dinner Club" class="button-signup"><span class="displace"></span></a></p>
+       <!--<h3 class="medium-header center">Sign up to London Dinner Club for free to stay up to date on all the latest networking events in the Knightsbridge, Chelsea and Mayfair area!</h3>
+       <p class="center"><a href="register.php" target="_blank" title="Email London Dinner Club" class="button-signup"><span class="displace"></span></a></p>-->
        
        <div class="spacebreak"></div>    
        

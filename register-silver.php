@@ -59,7 +59,7 @@ include 'database/databaseconnect.php';?>
        <!-- Content-->
        <div class="spacebreak"></div>
        
-       <h1 class="medium-header uppercase">Membership</h1>
+       <h1 class="medium-header uppercase">Silver Membership</h1>
        <div class="line2"></div>
        <?php
 		if(isset($_POST['Submit']))
@@ -324,9 +324,8 @@ include 'database/databaseconnect.php';?>
         if(!isset($_POST['Submit']) || isset($errormess))
         {?>
        		<div class="fl box-326">
-               <p class="bold">To be considered for approval to London Dinner Club, please complete the following form.</p>
-               <p>It is free to register with us, enabling you to attend our exclusive networking dinners and drinks evenings.</p>
-               <p>Once registered and approved, we will email your login details to enable you up book tickets to our events.</p>
+               <p class="bold">This is a FREE membership</p>
+               <p><strong>Benefits include:</strong><br>Dinner parties in Knightsbridge and Mayfair including restaurants such as Budhha Bar and Harvey Nichols<br><br>Drinks/cocktail evenings at Baku Lounge Bar and No 5 Cavendish</p>
                
                <?php 
                if (isset($errormess)) {?>

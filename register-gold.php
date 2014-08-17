@@ -59,7 +59,7 @@ include 'database/databaseconnect.php';?>
        <!-- Content-->
        <div class="spacebreak"></div>
        
-       <h1 class="medium-header uppercase">Membership</h1>
+       <h1 class="medium-header uppercase">Gold Membership</h1>
        <div class="line2"></div>
        <?php
 		if(isset($_POST['Submit']))
@@ -324,9 +324,9 @@ include 'database/databaseconnect.php';?>
         if(!isset($_POST['Submit']) || isset($errormess))
         {?>
        		<div class="fl box-326">
-               <p class="bold">To be considered for approval to London Dinner Club, please complete the following form.</p>
-               <p>It is free to register with us, enabling you to attend our exclusive networking dinners and drinks evenings.</p>
-               <p>Once registered and approved, we will email your login details to enable you up book tickets to our events.</p>
+               <p class="bold">Membership is £59.99 for 6 months </p>
+               <p><strong>Benefits include:</strong><br>Silver membership plus: Exclusive events held at Private Members Clubs such as Home House<br>
+<br>Dinner parties at Michelin star restaurants in London such as Nobu, Hakkasan and Benares<br><br>Benefits and discounts from elite shops in Knightsbridge and Mayfair, spas and hotels</p>
                
                <?php 
                if (isset($errormess)) {?>

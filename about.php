@@ -61,7 +61,7 @@
            <p>She found it increasingly difficult to meet other like-minded Professionals in London, despite attending a number of networking events in the City. She wished for something more upmarket and exclusive so decided to set up London Dinner Club which focused on connecting professionals through events in Knightsbridge, Chelsea and Mayfair.</p>
            
            <div class="greybox">
-           		<p class="bold">Connect with London Dinner Club today and help improve your business contacts.</p>
+           		<p class="bold">Follow us and keep updated with the latest news and member benefits.</p>
            		<a href="http://uk.linkedin.com.pub/salima-manji/4/6a1/3a0" rel="nofollow" target="_blank" title="Follow London Dinner Club on linkedin" class="footer-icon linkedin fr"><span class="displace"></span></a>
                 <a href="https://twitter.com/#!/LdnDinnerClub" rel="nofollow" target="_blank" title="Follow London Dinner Club on twitter" class="footer-icon twitter fr"><span class="displace"></span></a>
                 <a href="https://www.facebook.com/pages/London-Dinner-Club/233376956703832" rel="nofollow" target="_blank" title="Follow London Dinner Club on Facebook" class="footer-icon facebook fr"><span class="displace"></span></a>
