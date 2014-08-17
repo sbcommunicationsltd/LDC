@@ -1,0 +1,115 @@
+container > .dropdown {
+  margin: 0 20px;
+  vertical-align: top;
+}
+.dropdown-container{
+height: 40px;
+  width: 265px;	
+}
+
+.dropdown {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  height:37px;
+  width: 265px;
+  background: #FFF;
+  border: none;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+ 
+}
+
+.dropdown2 {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  height:37px;
+  width: 85px;
+  background: #FFF;
+  border: none;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+ 
+}
+.dropdown:before, .dropdown:after{
+  content: '';
+  position: absolute;
+  z-index: 2;
+  top:13px;
+  right: 20px;
+  width: 0;
+  height: 0;
+  border: 4px dashed;
+  border-color: #888 transparent;
+  pointer-events: none;
+}
+
+
+.dropdown:before,.dropdown2:before {
+  border-bottom-style: solid;
+  border-top: none;
+}
+.dropdown:after,.dropdown2:after {
+  margin-top: 7px;
+  border-top-style: solid;
+  border-bottom: none;
+}
+
+.dropdown-select {
+  position: relative;
+  width: 265px;
+  margin: 0;
+  padding: 0 0 0 15px;
+  height:37px;
+  line-height:37px;
+  font-size: 13px;
+  color: #999;
+  font-family: 'cabinbold',Helvetica,sans-serif;
+  outline:none;
+ 
+  /* Fallback for IE 8 */
+  background: #f2f2f2;
+  /* "transparent" doesn't work with Opera */
+  background: rgba(0, 0, 0, 0) !important;
+  border: 0;
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+
+.dropdown-select:focus {
+  z-index: 3;
+  width: 100%;
+  color: #394349;
+  outline: 2px solid #49aff2;
+  outline: 2px solid -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.dropdown-select > option {
+  margin: 3px;
+  padding: 6px 8px;
+  text-shadow: none;
+  background: #f2f2f2;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* Fix for IE 8 putting the arrows behind the select element. */
+.lt-ie9 .dropdown {
+  z-index: 1;
+}
+.lt-ie9 .dropdown-select {
+  z-index: -1;
+}
+.lt-ie9 .dropdown-select:focus {
+  z-index: 3;
+}
+
+/* Dirty fix for Firefox adding padding where it shouldn't. */
+@-moz-document url-prefix() {
+  .dropdown-select {
+    padding-left: 6px;
+  }
+}

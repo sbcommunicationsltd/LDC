@@ -1,118 +1,83 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-<link href="css/styles.css" rel="stylesheet" type="text/css" />
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>London Dinner Club - exclusive dinner parties and drinks events in London :: terms :: London Dinner Club</title>
-<meta name="description" content="London Dinner Club, exclusive dinner parties and drinks events in London" />
-<meta name="keywords" content="Dinner parties London, London Dinner Club, london events, events, london, salima manji, supperclub, vogue, luxury events, luxe events, networking, socialising, professional networking, city networking, city events" />
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-52364856-1', 'auto');
-    ga('send', 'pageview');
-</script>
+    <title>Terms | London Dinner Club | Connecting People | London</title>
+    
+    <!-- Meta -->
+	<meta charset="UTF-8">
+	<meta name="keywords" content="Dinner parties London, London Dinner Club, london events, events, london, salima manji, supperclub, vogue, luxury events, luxe events, networking, socialising, professional networking, city networking, city events" />
+	<meta name="description" content="London Dinner Club - Terms and condiitons" />
+	<meta name="robots" content="index, follow" />
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        
+    <!-- StyleSheet -->
+    <link rel="stylesheet" media="screen" href="css/mainstyle.css" type="text/css"/>
+    <link rel="stylesheet" media="screen" href="css/fontstyle.css" type="text/css"/>
+        
+    <!--[if lt IE 9]>  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <!-- Icons -->
+    <link rel="icon" href="images/favicon.ico" />
+    <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/apple-touch-icon-114x114.png" type="text/css"/>
+    
+     <!--JS -->
+     <script type="text/javascript" src="js/retina.js"></script>
+     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+     
+     <script type="text/javascript" src="js/jquery.scrollUp.min.js"></script>
+     <script type="text/javascript" src="js/jquery.easing.min.js"></script>
+
 </head>
-<body>
-<div id="wrapper">
-<div id="header">
-<div id="logo"><a href="http://www.londondinnerclub.org/" target="_self"><img src="images/logo.png" alt="London Dinner Club" /></a></div>
-<div id="navigation">
-<ul>
-<li><a href="http://www.londondinnerclub.org/" target="_self">HOME</a></li>
-<li class="topnav" ><a href="aboutus.php" target="_self">ABOUT<br/>US</a></li>
-<li><a href="events.php" target="_self">CURRENT<br/>EVENTS</a></li>
-<li><a href="past_events.php" target="_self">PAST<br/>EVENTS</a></li>
-<li><a href="membership.php" target="_self">MEMBERSHIP</a></li>
-<li><a href="press.php" target="_self">PRESS</a></li>
-<li><a href="team.php" target="_self">THE<br/>TEAM</a></li>
-<li><a href="contact.php" target="_self">CONTACT</a></li>
-</ul>
-</div>
-</div>
-<div id="maincontent">
-<div id="innercontent">
 
-<!-- main content area -->
-	<div id="contentcol1">
-
-		<h1><img src="images/terms.gif" alt="Terms" width="181" height="50"/></h1>
-        <p><strong>Exchange and Refund Policy</strong></p>
-        <p>All ticket purchases are non-refundable. On occasion, London Dinner Club may refund or offer an exchange to a customer post investigation into a specific refund request. As such, there can be no order cancellations made. </p>
-        <p><strong>Prices</strong></p>
-        <p>The price for each product is shown on londondinnerclub.org in UK Sterling and includes VAT (where applicable) at 17.5%. We reserve the right at any time to revise prices to account for any increases in costs including the increase or imposition of any duty, tax, levy or exchange rate variation. We will take all reasonable steps to notify you of any relevant revision of prices before processing your order. </p>
-        <p><strong>Delivery charges</strong></p>
-        <p>There are no such delivery charges as all ticket purchases are based on an eTicket system. Please bring your payment confirmation email to the event as your ticket.</p>
-        <p><strong> Registered office</strong></p>
-        <p>42 Mendora Road, <br>London SW6 7NB</p>
-        <p><strong> Company Number: 8370160</strong></p>
-        <p>London Dinner Club is a sub-division of City Networking Events Limited.</p>
-        <p>&nbsp;</p>
+<body id="subpages">
+	<div class="white-border">
     </div>
-
-    <div id="contentcol2">
-    <span class="lefthandpic"><img src="images/side.jpg" alt="Asian Dinner Club" width="194" height="194" /></span>
-        <?php
-        include('database/databaseconnect.php');
-        $find = "SELECT MAX(ID) FROM LoveItems";
-        $res = mysql_query($find) or die(mysql_error());
-        $ro = mysql_fetch_array($res);
-        $maxid = $ro[0];
-        if($maxid<10)
-        {
-            $firstid = 0;
-        }
-        else
-        {
-            $firstid = $maxid - 10;
-        }
-
-        $query = "SELECT * FROM LoveItems LIMIT $firstid, 10";
-        $result = mysql_query($query) or die(mysql_error());?>
-        <span class='lefthandpic'>
-        <br/>
-        &nbsp;<img src="images/ldclovessmall.png" alt="London Dinner Club Loves" width="190" />
-        &nbsp;<marquee behaviour='scroll' direction='up' scrollamount='1' width='180' style='border:1px solid #EAC117;'>
-        <?php
-        $i = 1;
-        while($row = mysql_fetch_array($result))
-        {
-            $id = $row['ID'];
-            $title = $row['Title'];
-            if(strpos($title, "\'")!==false)
-            {
-                $title = str_replace("\'", "'", $title);
-            }
-
-            if(strpos($title, '\"')!==false)
-            {
-                $title = str_replace('\"', '"', $title);
-            }?>
-            &nbsp;<a href='member/loveposts.php?id=<?php echo $id;?>' style='color:white; text-decoration:none; font-size:11px;' onmouseover="this.style.color='#EAC117';" onmouseout="this.style.color='#FFFFFF';"><?php echo $i . '. ' . $title;?></a><br/><br/>
-            <?php
-            $i++;
-        }?>
-        </marquee>
-        <br/>
-        &nbsp;<a href='member/loveposts.php' style='color:white; text-decoration:none; font-size:11px;' onmouseover="this.style.color='#EAC117';" onmouseout="this.style.color='#FFFFFF';">See all posts</a>
-        </span>
+    
+    <div class="container">
+    	<!-- Main header and Nav -->
+    	<header>
+        	<?php $menu="";?>
+   			<?php include('navigation.php');?>
+    
+       </header>
+    	
+       
+       <!-- Content-->
+       <div class="spacebreak"></div>
+       
+           <h1 class="medium-header uppercase">Terms & Conditions</h1>
+           <div class="line2"></div>
+           
+           <h2 class="medium-header uppercase">Exchange and Refund Policy</h2>
+           <p>All ticket purchases are non-refundable. On occasion, London Dinner Club may refund or offer an exchange to a customer post investigation into a specific refund request. As such, there can be no order cancellations made.</p>
+           
+  		   <h3 class="medium-header uppercase">Prices</h3>
+           <p>The price for each product is shown on londondinnerclub.org in UK Sterling and includes VAT (where applicable) at 20%.</p>
+           <p>We reserve the right at any time to revise prices to account for any increases in costs including the increase or imposition of any duty, tax, levy or exchange rate variation. We will take all reasonable steps to notify you of any relevant revision of prices before processing your order.</p>
+           
+           <h3 class="medium-header uppercase">Delivery charges</h3>
+           <p>There are no such delivery charges as all ticket purchases are based on an eTicket system. Please bring your payment confirmation email to the event as your ticket.</p>
+           
+           <h3 class="medium-header uppercase">Registered office</h3>
+           <p>42 Mendora Road, London, SW6 7NB<br/>
+           Company Number: 8370160</p>
+           
+           <div class="spacebreak"></div>
+           
+       <div class="clear"></div>
+       <div class="spacebreak"></div>
     </div>
-    <!-- end inner content -->
-
-</div>
-</div>
-<div id="footer">
-<div class="footer2col1"><a href="terms.php" class='active'>TERMS</a>&nbsp;|&nbsp;<a href="sitemap.php">SITE MAP</a>&nbsp;|&nbsp;<a href="admin/">ADMINISTRATOR</a></div></div>
-<div id="footer2">
-<span style='float:left;'>
-<a href='http://www.facebook.com/group.php?gid=115974205088756'><img src='images/Facebook_Badge.gif' border='0' alt='Find us on Facebook' /></a>
-</span>
-<div class="footer2col2">Copyright &copy;&nbsp;London Dinner Club&nbsp;2010</div>
-<div class="footer2col2">designed by: <a href="http://www.streeten.co.uk" target='_blank'>streeten</a></div>
-<div class="footer2col2">redeveloped by: <a href="http://www.sbcommunications.co.uk" target='_blank'>S B Communications Ltd.</a></div></div>
-</div>
+    
+   
+    <?php include('footer.php');?>
+   
 </body>
+
 </html>

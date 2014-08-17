@@ -124,13 +124,12 @@ else
 			if(in_array(1, $validated))
 			{
 				$stat = '';
-				$quantity = $_GET['success'];
 				$ticket = addslashes($roweve['Venue']) . ' on ' . date('jS F Y', strtotime($roweve['Date']));
 			
-				$gender = $_GET['gen'];
+				$gender = $_GET['success'];
 				if($gender == 'f')
 				{
-					$femalequantity = $roweve['MaxFemaleQuantity'] - $quantity;
+					$femalequantity = $roweve['MaxFemaleQuantity'] - 1;
 					if($femalequantity <= 5 && $femalequantity > 0)
 					{
 						$to = 'sales@londondinnerclub.org';
@@ -151,7 +150,7 @@ else
 						$body .= "\r\nFemale Tickets for $ticket has SOLD OUT!\r\n";
 						$body .= "\r\nPlease change the ticket status on the events database asap.\r\n";
 						$body .= "\r\nThanks\nAuto Service\nLondon Dinner Club\r\n";
-						$headers .= "From: Asian Dinner Club <sales@londondinnerclub.org> \r\n";
+						$headers .= "From: London Dinner Club <sales@londondinnerclub.org> \r\n";
 						mail($to, $subject, $body, $headers);
 						
 						if($roweve['MaxMaleQuantity'] == 0)
@@ -174,7 +173,7 @@ else
 				}
 				else
 				{
-					$malequantity = $roweve['MaxMaleQuantity'] - $quantity;
+					$malequantity = $roweve['MaxMaleQuantity'] - 1;
 					if($malequantity <= 5 && $malequantity > 0)
 					{
 						$to = 'sales@londondinnerclub.org';
@@ -238,3 +237,4 @@ else
 	}
 	fclose ($fp);
 }
+?>

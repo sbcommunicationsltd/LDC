@@ -13,17 +13,17 @@
 }
 
 .singlebutton {
-	 background-image:url(../images/sumi_buttons_05.png);
-	 background-repeat:repeat-x;
-}
-
-.singlebutton a {
-	text-decoration:none;
-	color:white;
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:12px;
-	font-weight:bold;
-	cursor:pointer;
+	background-image:url(../images/sumi_buttons_05.png);
+	background-repeat:repeat-x;
+    color:white;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:12px;
+    font-weight:bold;
+    cursor:pointer;
+    text-decoration:none;
+    border:none;
+    float:left;
+    height: 19px;
 }
 </style>
 </head>
@@ -41,27 +41,28 @@ if($_GET['approved'] == 'true')
 		while($row2 = mysql_fetch_array($result2))
 		{
 			$id = $row2['ID'];
-			$joined = $row2['DateJoined'];
-			$expire = date('Y-m-d H:i', strtotime(date("Y-m-d H:i", strtotime($joined)) . " +1 year"));
 			
-			$query3 = "UPDATE Members SET Approved = 'Yes', DateExpire = '$expire' WHERE ID = $id";
+			$query3 = "UPDATE Members SET Approved = 'Yes' WHERE ID = $id";
 			$result3 = mysql_query($query3) or die(mysql_error());
 			
 			$to = $row2['EmailAddress'];
 			//$to = 'sumita.biswas@gmail.com';
 			$subject = 'Membership to London Dinner Club';
-			$body = "Dear Member,\n";
-			$body .= "\nThank you for contacting London Dinner Club.\n";
-			$body .= "\nIf you could let me know the type of person you are hoping to meet, this would help me when planning seating arrangements for any dinner party you may attend.\n";
-			$body .= "\nTo book tickets please find below your member username and password:\n";
-			$body .= "\nUsername: member\nPassword: paris\n";
-			$body .= "\nOur events do get booked up quickly, so if you can plan ahead, that would hopefully ensure you can attend the events.\n";
-			$body .= "\nWe hope to see you soon.\n";
-			$body .= "\nThanks,\nAdrianna\n";
-			$body .= "\nLondon Dinner Club\nMembership Manager";
-			$headers = "From: London Dinner Club <sales@londondinnerclub.org> \r\n";
+			$mess = "Dear Member,<br/>";
+			$mess .= "<br/>Thank you for registering with London Dinner Club.<br/>";
+			$mess .= "<br/>To join us at our exclusive networking dinners and drinks evenings, you can book a ticket by selecting the event you'd like to attend. Please find your login details below:<br/>";
+			$mess .= "<br/>Username: member<br/>Password: paris<br/>";
+			$mess .= "<br/>We look forward to seeing you soon.<br/>";
+            
+            $message = "<html><head></head><body><p>" . $mess . "</p>";
+            $message .= "<p>&nbsp;</p><p>Best Wishes,<br/>Adrianna<br/><br/>London Dinner Club<br/>Membership Manager</p>";
+            $message .= "<p><img src='http://www.londondinnerclub.org/images/logo.png' alt='London Dinner Club' border='0' width='150' /></p>";
+            $message .= "<p style='font-size:10px;'>We want to keep you up to date with everything that is happening at London Dinner Club, but you can click here to unsubscribe <a href='mailto:sales@londondinnerclub.org'>sales@londondinnerclub.org</a> if you no longer wish to receive information.Thank you.</p></body></html>";
+            $headers = "MIME-Version: 1.0 \r\n";
+            $headers .= "Content-type: text/html; charset=iso-8859-1 \r\n";
+            $headers .= "From: London Dinner Club <sales@londondinnerclub.org> \r\n";
 
-			if(!mail($to, $subject, $body, $headers))
+			if(!mail($to, $subject, $message, $headers))
 			{
 				$adds[] = $row2['EmailAddress'];
 			}
@@ -96,15 +97,11 @@ while($rows = mysql_fetch_array($result2))
 
 if($app == 'false')
 {?>
-	<!--<p><input type='button' name='approved' value='Approved' style='cursor:pointer;' onclick="location.href='?approved=true';" /></p>-->
-	<table cellspacing='0' cellpadding='0' border='0'>
-		<tr>
-			<td><img src="../images/sumi_buttons_04.png" width="11" height="19" alt=""></td>
-			<td class='singlebutton'><a title='Approved' href='?approved=true'>Approved</a></td>
-			<td><img src="../images/sumi_buttons_06.png" width="11" height="19" alt=""></td>
-		</tr>
-	</table>
-	<br/>
+    <p><img src="../images/sumi_buttons_04.png" width="11" height="19" alt="" style='float:left;' />
+    <input type='button' class='singlebutton' value='Approved' onclick="location.href='?approved=true';" />
+    <img src="../images/sumi_buttons_06.png" width="11" height="19" alt="" style='float:left;' />
+    </p>
+	<p><br/></p>
 <?php  }
 
 if($_POST['sorted']=='forename')
@@ -145,7 +142,7 @@ for ($i=0; $i < $numfields; $i++)
 						<form method="post" name="sortedfirst" action='membertable.php'>
 						<input type="hidden" name="sorted" value="forename" />
 						<th>
-						<a href="#" style="color:black; text-decoration:none;" onclick="sorts1();" style="color:black; text-decoration:none;"><img src="../images/marker-down.GIF" height="10" width="10" style="border: none;" alt="sorted by forename" align="left" class="open" />
+						<a style="color:black; text-decoration:none;" onclick="sorts1();" style="color:black; text-decoration:none;"><img src="../images/marker-down.GIF" height="10" width="10" style="border: none;" alt="sorted by forename" align="left" class="open" />
 						<?php if($_POST['sorted'] == 'surname')
 						{?>
 							<style type="text/css">img.open {display:none;}</style>
@@ -159,7 +156,7 @@ for ($i=0; $i < $numfields; $i++)
 						<form method="post" name="sortedsecond" action='membertable.php'>
 						<input type="hidden" name="sorted" value="surname" />
 						<th>
-						<a href="#" style="color:black; text-decoration:none;" onclick="sorts2();" style="color:black; text-decoration:none;"><img src="../images/marker-right.GIF" height="10" width="10" style="border: none;" alt="sort by surname" align="left" class="closed" />
+						<a style="color:black; text-decoration:none;" onclick="sorts2();" style="color:black; text-decoration:none;"><img src="../images/marker-right.GIF" height="10" width="10" style="border: none;" alt="sort by surname" align="left" class="closed" />
 						<?php if($_POST['sorted'] == 'surname')
 						{?>
 							<style type="text/css">img.closed {display:none;}</style>
@@ -189,34 +186,31 @@ if(mysql_num_rows($result) != 0)
 		$id = $row['ID'];
 		$counter++;
 		$background_color = ( $counter % 2 == 0 ) ? ('#EAC117') : ('#ffffff'); 
-		$date = date('Y-m-d H:i');
-		$dateexpire = $row['DateExpire'];?>
-		<tr class='table' bgcolor="<?php echo $background_color;?>" onclick="parent.location.href='memberamend.php?edit=<?php echo $id;?>';" onmouseover="this.className='table tablehover'" onmouseout="this.className='table'" <?php if($row['Approved'] == 'No'){ echo "style='color:red;'"; } if($dateexpire < $date){echo "style='color:blue;'";} ?>>
-			<td><img src="../member/images/<?php echo $row['Image_Path'];?>" alt="<?php echo $row['Forename'];?>" border='0' height='50' /></td>
-				<?php
-				foreach($fieldname as $field)
-				{
-					if($field!='ID' && $field!='Approved' && $field!='Image_Path')
-					{?>
-						<td <?php if($field=='Height' || $field=='Profession' || $field=='DietaryReq' || $field=='Interests'){echo "nowrap='nowrap'";}
-						if($field=='DietaryReq' || $field=='Interests')
-						{
-							$row[$field] = wordwrap($row[$field], 30, "<br />\n");
-						}
-						if($field == 'DateJoined' || $field == 'DateExpire')
-						{
-							if($row[$field]!='')
-							{
-								$row[$field] = date('d/m/Y H:i', strtotime($row[$field]));	
-							}
-						}?>><?php echo $row[$field];?></td>
-			<?php	}
-				} ?>
-			</tr>
+		$date = date('Y-m-d H:i');?>
+		<tr class='table' bgcolor="<?php echo $background_color;?>" onclick="parent.location.href='memberamend.php?edit=<?php echo $id;?>';" onmouseover="this.className='table tablehover'" onmouseout="this.className='table'" <?php if($row['Approved'] == 'No'){ echo "style='color:red;'"; }?>>
+            <td><img src="../member/images/<?php echo $row['Image_Path'];?>" alt="<?php echo $row['Forename'];?>" border='0' height='50' /></td>
+            <?php
+            foreach($fieldname as $field)
+            {
+                if($field!='ID' && $field!='Approved' && $field!='Image_Path')
+                {?>
+                    <td <?php if($field=='Height' || $field=='Profession' || $field=='DietaryReq' || $field=='Interests'){echo "nowrap='nowrap'";}
+                    if($field=='Interests' || $field == 'DietaryReq')
+                    {
+                        $row[$field] = wordwrap($row[$field], 30, "<br />\n");
+                    }
+                    if($field == 'DateJoined' || $field == 'DateExpire')
+                    {
+                        if($row[$field]!='')
+                        {
+                            $row[$field] = date('d/m/Y H:i', strtotime($row[$field]));	
+                        }
+                    }?>><?php echo $row[$field];?></td>
+        <?php	}
+            } ?>
+		</tr>
   <?php	}
-}
-?>
-
+}?>
 </table>
 <script>
 function sorts1()

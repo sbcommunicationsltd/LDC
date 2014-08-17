@@ -1,0 +1,100 @@
+.carousel-wrapper {
+    margin:50px 0;
+    position: relative;
+}
+
+
+.carousel-wrapper .photo-credits {
+    position: absolute;
+    right: 15px;
+    bottom: 0;
+    font-size: 13px;
+    color: #fff;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.85);
+    opacity: .66;
+}
+
+.carousel-wrapper .photo-credits a {
+    color: #fff;
+}
+
+/** Carousel **/
+
+.carousel {
+    position: relative;
+    overflow: hidden;
+    width:980px;
+    height:260px;
+}
+
+.carousel ul {
+    width: 20000em;
+    position: absolute;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.carousel li {
+    float: left;
+	width:228px;
+	margin:0 25px 10px 0;
+	height:220px;
+}
+
+.testimonials-width{
+	width:470px !important;
+	height:110px !important;
+}
+
+.carousel li p{
+	color:#000;	
+	font-size:15px;
+}
+
+
+.carousel li p span{
+	color:#929191;	
+	font-size:13px;
+}
+
+/** Carousel Controls **/
+
+.carousel-control-prev,
+.carousel-control-next {
+    position: absolute;
+    top: 0px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    background: #dddddd;
+    color: #FFF;
+    text-decoration: none;
+   
+    font: 20px/24px Arial, sans-serif;
+	line-height: 18px;
+}
+
+.carousel-control-prev {
+    right: 22px;
+}
+
+.carousel-control-next {
+    right: 0px;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    color:#FFF;
+	text-decoration:none;
+	background: #e7c95d;
+}
+
+.carousel-control-prev:hover span,
+.carousel-control-next:hover span {
+    display: block;
+
+}
+
+
+

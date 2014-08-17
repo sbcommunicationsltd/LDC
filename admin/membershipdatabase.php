@@ -36,44 +36,80 @@ if(isset($_POST['export']))
 	exit;
 }
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-<link href="../css/styles.css" rel="stylesheet" type="text/css" />
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>London Dinner Club - exclusive dinner parties and drinks events in London :: ADMIN AREA - MEMBERSHIP :: London Dinner Club</title>
-<meta name="description" content="London Dinner Club, exclusive dinner parties and drinks events in London" />
-<meta name="keywords" content="Dinner parties London, London Dinner Club, london events, events, london, salima manji, supperclub, vogue, luxury events, luxe events, networking, socialising, professional networking, city networking, city events" />
+
+    <title>Administrator | London Dinner Club | Connecting People | London</title>
+    
+    <!-- Meta -->
+	<meta charset="UTF-8">
+	<meta name="keywords" content="Dinner parties London, London Dinner Club, london events, events, london, salima manji, supperclub, vogue, luxury events, luxe events, networking, socialising, professional networking, city networking, city events" />
+	<meta name="description" content="London Dinner Club - Admin" />
+	<meta name="robots" content="index, follow" />
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        
+    <!-- StyleSheet -->
+    <link rel="stylesheet" media="screen" href="../css/mainstyle.css" type="text/css"/>
+    <link rel="stylesheet" media="screen" href="../css/fontstyle.css" type="text/css"/>
+    <link rel="stylesheet" media="screen" href="../css/forms.css" type="text/css"/>
+    <link rel="stylesheet" media="screen" href="../css/styles.css" type="text/css" />
+        
+    <!--[if lt IE 9]>  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <!-- Icons -->
+    <link rel="icon" href="images/favicon.ico" />
+    <link rel="apple-touch-icon-precomposed" href="../images/apple-touch-icon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../images/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../images/apple-touch-icon-114x114.png" type="text/css"/>
+    
+     <!--JS -->
+     <script type="text/javascript" src="../js/retina.js"></script>
+     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+     
+     <script type="text/javascript" src="../js/jquery.scrollUp.min.js"></script>
+     <script type="text/javascript" src="../js/jquery.easing.min.js"></script>
+<script>
+function show(id, id2) {
+    var style = document.getElementById(id2).style;
+    
+    if (document.getElementById(id).value == '35+' || document.getElementById(id).value == '30+') {
+        if (style.display == 'inline') {
+            style.display = 'none';
+        }
+    } else {
+        if (style.display == 'none') {
+            style.display = 'inline';
+        }
+    }
+}
+</script>
 </head>
-<body>
-<div id="wrapper">
-<div id="header-admin">
-<div id="logo"><a href="../admin/" target="_self"><img src="../images/logo.png" alt="London Dinner Club" /></a></div>
-<div id="navigation">
-<ul>
-<li><a href="http://www.londondinnerclub.org/" target="_self">HOME</a></li>
-<li class="topnav" ><a href="../aboutus.php" target="_self">ABOUT<br/>US</a></li>
-<li><a href="../events.php" target="_self">CURRENT<br/>EVENTS</a></li>
-<li><a href="../past_events.php" target="_self">PAST<br/>EVENTS</a></li>
-<li><a href="../membership.php" target="_self">MEMBERSHIP</a></li>
-<li><a href="../press.php" target="_self">PRESS</a></li>
-<li><a href="../team.php" target="_self">THE<br/>TEAM</a></li>
-<li><a href="../contact.php" target="_self">CONTACT</a></li>
-</ul>
-</div>
-</div>
-<div id="maincontent-admin">
-<div id="innercontent">
 
-<!-- main content area -->
-<style type="text/css">
-<!--
-.style1 {color: #FF0000}
--->
-</style>
-
-<div id="contentcol1-admin">
-<h2>Admin Area</h2>
+<body id="subpages">
+	<div class="white-border">
+    </div>
+    
+    <div class="container">
+    	<!-- Main header and Nav -->
+    	<header>
+        	<?php $menu="";?>
+   			<?php include('../navigation.php');?>
+    
+       </header>
+    	
+       
+       <!-- Content-->
+       <div class="spacebreak"></div>
+       
+           <h1 class="medium-header uppercase center">Admin Area</h1>
+           <div class="line2"></div>
+           
+           <div class="spacebreak"></div>
 <img src="../images/membership.gif" alt="Membership" width="181" height="50"/>
 
 <iframe name='members' width='100%' allowTransparency="true" align='center' height='400' frameborder='0' src='membertable.php'></iframe>
@@ -108,58 +144,32 @@ $total = $male + $female;?>
 </tr>
 </table>
 <p>&nbsp;</p>
-
-<!--<p><form method="post"><input type="submit" name="export" value="Export Membership Table" onclick="if(confirm('Are you sure you want to export this data?')){<?php $_POST['export'];?>}else{window.location.reload(false);}" /></form></p>-->
 <form method='post' name='Export'>
 <input type='hidden' name='export' />
-<table cellspacing='0' cellpadding='0' border='0'>
-	<tr>
-		<td><img src="../images/sumi_buttons_04.png" width="11" height="19" alt=""></td>
-		<td class='singlebutton'><a title='Export' onclick="if(confirm('Are you sure you want to export this data?')){document.Export.submit();}else{window.location.reload(false);}" href='#'>Export Membership Table</a></td>
-		<td><img src="../images/sumi_buttons_06.png" width="11" height="19" alt=""></td>
-	</tr>
-</table>
+<p><img src="../images/sumi_buttons_04.png" width="11" height="19" alt="" style='float:left;' />
+<input type='submit' class='singlebutton' onclick="if(confirm('Are you sure you want to export this data?')){document.Export.submit();}else{window.location.reload(false);}" value='Export Membership Table' />
+<img src="../images/sumi_buttons_06.png" width="11" height="19" alt="" style='float:left;' />
+</p>
 </form>
 <!--<p><form method='post' action='../admin/'><input type='submit' name='admin' value='Back to Main Admin Page' style='cursor:pointer;' /></form></p>-->
 <br/>
-<table cellspacing='0' cellpadding='0' border='0'>
-	<tr>
-		<td><img src="../images/sumi_buttons_04.png" width="11" height="19" alt=""></td>
-		<td class='singlebutton'><a title='Back' href='../admin/'>Back to Main Admin Page</a></td>
-		<td><img src="../images/sumi_buttons_06.png" width="11" height="19" alt=""></td>
-	</tr>
-</table>
+<form method='post' action='../admin/'>
+<input type='hidden' name='admin' />
+<p><img src="../images/sumi_buttons_04.png" width="11" height="19" alt="" style='float:left;' />
+<input type='submit' class='singlebutton' value='Back to Main Admin Page' />
+<img src="../images/sumi_buttons_06.png" width="11" height="19" alt="" style='float:left;' />
+</p>
+</form>
 <p><br/></p>
-</div>
 
 
-    <div id="contentcol2-admin">
-      <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-    <p>&nbsp;</p>
-  <!--<span class="lefthandpic"><img src="../images/side.jpg" alt="Asian Dinner Club" width="194" height="194" /></span>-->
-
-</div>
-
-<!-- end inner content -->
-
-</div>
-</div>
-<div id="footer-admin">
-<div class="footer2col1"><a href="../terms.php">TERMS</a>&nbsp;|&nbsp;<a href="../sitemap.php">SITE MAP</a>&nbsp;|&nbsp;<a class='active' href="../admin/">ADMINISTRATOR</a>&nbsp;|&nbsp;<a class='active' href="../admin/logout.php">LOG OUT</a></div></div>
-<div id="footer2">
-<div class="footer2col2">Copyright &copy;&nbsp;London Dinner Club&nbsp;2010</div>
-<div class="footer2col2">designed by: <a href="http://www.streeten.co.uk" target='_blank'>streeten</a></div>
-<div class="footer2col2">redeveloped by: <a href="http://www.sbcommunications.co.uk" target='_blank'>S B Communications Ltd.</a></div></div>
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-  //_uacct = "UA-4965994-1";
-  //urchinTracker();
-</script>
-</div>
+   <div class="clear"></div>
+       <div class="spacebreak"></div>
+    </div>
+    
+   
+    <?php include('../footer.php');?>
+   
 </body>
+
 </html>

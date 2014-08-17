@@ -1,28 +1,57 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-<link href="css/styles.css" rel="stylesheet" type="text/css" />
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>London Dinner Club - exclusive dinner parties and drinks events in London :: membership booking login :: London Dinner Club</title>
-<meta name="description" content="London Dinner Club, exclusive dinner parties and drinks events in London" />
-<meta name="keywords" content="Dinner parties London, London Dinner Club, london events, events, london, salima manji, supperclub, vogue, luxury events, luxe events, networking, socialising, professional networking, city networking, city events" />
+
+    <title>Members Booking | London Dinner Club | Connecting People | London</title>
+    
+    <!-- Meta -->
+	<meta charset="UTF-8">
+	<meta name="keywords" content="Dinner parties London, London Dinner Club, london events, events, london, salima manji, supperclub, vogue, luxury events, luxe events, networking, socialising, professional networking, city networking, city events" />
+	<meta name="description" content="Information on new and upcoming events by London Dinner Club" />
+	<meta name="robots" content="index, follow" />
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        
+    <!-- StyleSheet -->
+    <link rel="stylesheet" media="screen" href="../css/mainstyle.css" type="text/css"/>
+    <link rel="stylesheet" media="screen" href="../css/fontstyle.css" type="text/css"/>
+    <link rel="stylesheet" media="screen" href="../css/forms.css" type="text/css"/>
+    <link rel="stylesheet" media="screen" href="../css/styles.css" type="text/css"/>
+    
+    <!--[if lt IE 9]>  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <!-- Icons -->
+    <link rel="icon" href="../images/favicon.ico" />
+    <link rel="apple-touch-icon-precomposed" href="../images/apple-touch-icon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../images/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../images/apple-touch-icon-114x114.png" type="text/css"/>
+    
+     <!--JS -->
+     <script type="text/javascript" src="../js/retina.js"></script>
+     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+     
+     <script type="text/javascript" src="../js/jquery.scrollUp.min.js"></script>
+     <script type="text/javascript" src="../js/jquery.easing.min.js"></script>
 </head>
-<body>
-<div id="wrapper">
-<div id="header">
-<div id="logo"><a href="../member/" target="_self"><img src="../images/logo.png" alt="London Dinner Club" /></a></div>
-<div id="navigation">
-<ul>
-<li><a href="http://www.londondinnerclub.org/" target="_self">HOME</a></li>
-</ul>
-</div>
-</div>
-<div id="maincontent">
-<div id="innercontent">
+<body id="subpages">
+	<div class="white-border">
+    </div>
+    
+    <div class="container">
+    	<!-- Main header and Nav -->
+    	<header>
+        	<?php $menu="new-events";?>
+   			<?php include('../navigation.php');?>
+    
+       </header>
+    	
+       
+       <!-- Content-->
+       <div class="spacebreak"></div>
 
-<!-- main content area -->
-
-<div id="contentcol1">
 <p>Please Wait...</p>
 <p>Redirecting...</p>
 <?php
@@ -48,11 +77,11 @@ if($gender == 'Male')
 	{?>
 		<script>
 		alert('Sorry - Male Tickets for <?php echo $venue;?> are sold out! Please feel free to choose another event.');
-		location.href='../events.php';
+		location.href='../new-events.php';
 		</script>
 	<?php
 	}
-	elseif($maxmale!=0 && ($maxmale < $quantity))
+    elseif($maxmale!=0 && ($maxmale < $quantity))
 	{?>
 		<script>
 		alert('Sorry, we cannot provide that many tickets. Please change the quantity of tickets needed.');
@@ -72,11 +101,11 @@ else
 	{?>
 		<script>
 		alert('Sorry - Female Tickets for <?php echo $venue;?> are sold out! Please feel free to choose another event.');
-		location.href='../events.php';
+		location.href='../new-events.php';
 		</script>
 	<?php
 	}
-	elseif($maxfemale!=0 && ($maxfemale < $quantity))
+    elseif($maxfemale!=0 && ($maxfemale < $quantity))
 	{?>
 		<script>
 		alert('Sorry, we cannot provide that many tickets. Please change the quantity of tickets needed.');
@@ -89,37 +118,17 @@ else
 		$redirect = 1;
 		$url = '=' . $quantity . '&ven=' . $id . '&gen=f';
 	}
-}
-?>
+}?>
 </div>
 
-<div id="contentcol2">
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<!--<span class="lefthandpic"><img src="../images/side.jpg" alt="Asian Dinner Club" width="194" height="194" /></span>-->
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-</div>
-
-
-<!-- end inner content -->
-
-</div>
-</div>
-<div id="footer">
-</div>
-<div id="footer2">
-<div class="footer2col2">Copyright &copy;&nbsp;London Dinner Club&nbsp;2010</div>
-<div class="footer2col2">designed by: <a href="http://www.streeten.com">streeten</a></div>
-<div class="footer2col2">redeveloped by: <a href="http://www.sbcommunications.co.uk">S B Communications Ltd.</a></div></div>
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-  //_uacct = "UA-4965994-1";
-  //urchinTracker();
-</script>
-</div>
+<div class="spacebreak"></div>   
+    </div>
+ 
+   
+    <?php include('../footer.php');?>
+   
 </body>
+
 </html>
 <?php
 if($redirect == 1)
@@ -137,11 +146,11 @@ if($redirect == 1)
 		<option value="Male" <?php if($gender == 'Male'){echo "selected='selected'";}?>>Male</option>
 		<option value="Female" <?php if($gender == 'Female'){echo "selected='selected'";}?>>Female</option>
 	</select>
-	<input type='hidden' name='quantity' value="<?php echo $quantity;?>">
-	<input type="hidden" name="return" value="http://www.londondinnerclub.org/events.php?success<?php echo $url;?>">
+    <input type='hidden' name='quantity' value="<?php echo $quantity;?>">
+	<input type="hidden" name="return" value="http://www.londondinnerclub.org/new-events.php?success<?php echo $url;?>">
 	<!--added in for quantity countdown-->
 	<input type='hidden' name='notify_url' value="http://www.londondinnerclub.org/scripts/ipnprocess.php?success<?php echo $url;?>">
-	<input type="hidden" name="cancel_return" value="http://www.londondinnerclub.org/events.php?cancel<?php echo $url;?>">
+	<input type="hidden" name="cancel_return" value="http://www.londondinnerclub.org/new-events.php?cancel<?php echo $url;?>">
 	</form>
 	<script>document.paypal.submit();</script>
 <?php
