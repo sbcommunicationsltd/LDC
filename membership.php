@@ -1,7 +1,6 @@
 <?php 
 session_start(); 
-include 'database/databaseconnect.php';
-?>
+include 'database/databaseconnect.php';?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -9,17 +8,17 @@ include 'database/databaseconnect.php';
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>London Dinner Club - exclusive dinner parties and drinks events in London :: membership ::  London Dinner Club</title>
 <meta name="description" content="London Dinner Club, exclusive dinner parties and drinks events in London" />
-<meta name="keywords" content="Dinner parties London, London Dinner Club. Singles events london, singles event, dating events, speed dating, match.com, datingdirect.com, dating in london, online dating, dating tips, salima manji, asian dinner club, supperclub, vogue, luxury events, luxe events" />
-</head>
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+<meta name="keywords" content="Dinner parties London, London Dinner Club, london events, events, london, salima manji, supperclub, vogue, luxury events, luxe events, networking, socialising, professional networking, city networking, city events" />
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-52364856-1', 'auto');
+    ga('send', 'pageview');
 </script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-4965994-3");
-pageTracker._trackPageview();
-} catch(err) {}</script>
+</head>
 <body>
 <div id="wrapper">
 <div id="header">
@@ -31,7 +30,6 @@ pageTracker._trackPageview();
 <li><a href="events.php" target="_self">CURRENT<br/>EVENTS</a></li>
 <li><a href="past_events.php" target="_self">PAST<br/>EVENTS</a></li>
 <li><a class="active" href="membership.php" target="_self">MEMBERSHIP</a></li>
-<li><a href="asiandinnerclub.php" target="_self">ASIAN<br/>DINNER CLUB</a></li>
 <li><a href="press.php" target="_self">PRESS</a></li>
 <li><a href="team.php" target="_self">THE<br/>TEAM</a></li>
 <li><a href="contact.php" target="_self">CONTACT</a></li>
@@ -48,7 +46,7 @@ pageTracker._trackPageview();
 -->
 </style>
 
-<div id="contentcol1">
+    <div id="contentcol1">
 
 		<h1><img src="images/membership.gif" alt="Membership" width="181" height="50"/></h1>
 
@@ -56,6 +54,11 @@ pageTracker._trackPageview();
 		if(isset($_POST['Submit']))
 		{
 			$errors = array();
+			
+			if ($_POST['Forename'] == $_POST['Surname']) {
+				$errors[] = "Please enter valid data";
+			}
+			
 			if($_POST['Date_Day']=="" || $_POST['Date_Month']=="" || $_POST['Date_Year']=="")
 			{
 				$_POST['DOB'] == "";
@@ -113,18 +116,19 @@ pageTracker._trackPageview();
 			$_POST['DietaryReq'] = str_replace("\r\n", ', ', $_POST['DietaryReq']);
 			$_POST['DietaryReq'] = preg_replace( $sPattern, $sReplace, $_POST['DietaryReq'] );
 			
-			if(stripos($_POST['DietaryReq'], '[/url]') !== false)
+			if(stripos($_POST['DietaryReq'], '[/url]') !== false || stripos($_POST['DietaryReq'], 'http') !== false)
 			{
 				$errors[] = "Please enter proper information for the Dietary Requirements without links";
 			}
 			
-			if(stripos($_POST['Interests'], '[/url]') !== false)
+			$_POST['Interests'] = str_replace("\r\n", ', ', $_POST['Interests']);
+			$_POST['Interests'] = preg_replace( $sPattern, $sReplace, $_POST['Interests'] );
+			
+			if(stripos($_POST['Interests'], '[/url]') !== false || stripos($_POST['Interests'], 'http') !== false)
 			{
 				$errors[] = "Please enter proper information for the Interests without links";
 			}
-			
-			$_POST['Interests'] = str_replace("\r\n", ', ', $_POST['Interests']);
-			$_POST['Interests'] = preg_replace( $sPattern, $sReplace, $_POST['Interests'] );
+		
 			$_POST['Mobile'] = preg_replace( $sPattern, $sReplace, $_POST['Mobile'] );
 			$_POST['Mobile'] = trim($_POST['Mobile']);
 			if(!is_numeric($_POST['Mobile']))
@@ -331,313 +335,300 @@ pageTracker._trackPageview();
 					}
 					echo '</p><p>Please try again.</p><p><br /></p>';
 			} // End of if (empty($errors)) IF.
-		}
-		?>
+		}?>
 
 	    <p><span class="righthandpic"><img src="images/asian_dinner_3.jpg" alt="London Dinner Club Membership" width="150" height="150" /></span></p>
-	<?php
-	if(!isset($_POST['Submit']))
- 	{?>
- 		<p>To be considered for Membership to the London Dinner Club, please complete the form below. </p>
+        <?php
+        if(!isset($_POST['Submit']))
+        {?>
+            <p>To be considered for Membership to the London Dinner Club, please complete the form below. </p>
 
-      <!--<p>Our membership fee to join London Dinner Club is only &pound;150 for one year, enabling you to attend our monthly dinner parties and networking drinks.</p>-->
-	  <p>There is free membership to the London Dinner Club, enabling you to attend our monthly dinner parties and networking drinks.</p>
-      <p>Once you have registered, and your application is successful, we will email you your login details for booking tickets for our events.</p>
-        <b>Membership Form</b>
-        <p> (<span class="style1">*</span>All Fields are compulsory)</p>
-  <form method="post" id="profileform" name="ContactForm" enctype="multipart/form-data">
-       <div id="regformwrap">
-          <div class="rowwrap">
-            <div class="cell-1">First Name<span class="style1">*</span> <span class="redasterisk" id="usrForename_mark" style="display:none;"> *</span></div>
-            <div class="cell-2">
-              <input class="text long" name="Forename" id="usrForename" type="text" value="<?php echo $_POST['Forename'];?>" />
+            <!--<p>Our membership fee to join London Dinner Club is only &pound;150 for one year, enabling you to attend our monthly dinner parties and networking drinks.</p>-->
+            <p>There is free membership to the London Dinner Club, enabling you to attend our monthly dinner parties and networking drinks.</p>
+            <p>Once you have registered, and your application is successful, we will email you your login details for booking tickets for our events.</p>
+            <b>Membership Form</b>
+            <p> (<span class="style1">*</span>All Fields are compulsory)</p>
+            <form method="post" id="profileform" name="ContactForm" enctype="multipart/form-data">
+            <div id="regformwrap">
+                <div class="rowwrap">
+                    <div class="cell-1">First Name<span class="style1">*</span> <span class="redasterisk" id="usrForename_mark" style="display:none;"> *</span></div>
+                    <div class="cell-2">
+                        <input class="text long" name="Forename" id="usrForename" type="text" value="<?php echo $_POST['Forename'];?>" />
+                    </div>
+                </div>
+                <div class="rowwrap">
+                    <div class="cell-1">Surname <span class="style1">*</span><span class="redasterisk" id="usrSurname_mark" style="display:none;"> *</span></div>
+                    <div class="cell-2">
+                        <input class="text long" name="Surname" id="usrSurname" type="text" value="<?php echo $_POST['Surname'];?>" />
+                    </div>
+                </div>
+                <div class="rowwrap">
+                    <div class="cell-1">Gender<span class="style1">*</span> <span class="redasterisk" id="usrGender_mark" style="display:none;"> *</span></div>
+                    <div class="cell-2">
+                        <select class="drop short" name="Gender" id="usrGender">
+                            <option value="">Select</option>
+                            <option value="Female" <?php if($_POST['Gender'] == 'Female'){echo "selected='selected'";}?>>Female</option>
+                            <option value="Male" <?php if($_POST['Gender'] == 'Male'){echo "selected='selected'";}?>>Male</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="rowwrap">
+                    <div class="cell-1">Status<span class="style1">*</span> <span class="redasterisk" id="usrStatus_mark" style="display:none;"> *</span></div>
+                    <div class="cell-2">
+                        <select class="drop short" name="Status" id="usrStatus">
+                            <option value="">Select</option>
+                            <option value="Single" <?php if($_POST['Status'] == 'Single'){echo "selected='selected'";}?>>Single</option>
+                            <option value="Separated" <?php if($_POST['Status'] == 'Separated'){echo "selected='selected'";}?>>Separated</option>
+                            <option value="Divorced" <?php if($_POST['Status'] == 'Divorced'){echo "selected='selected'";}?>>Divorced</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="rowwrap">
+                    <div class="cell-1">Email Address<span class="style1">*</span> <span class="redasterisk" id="usrEmailAddress_mark" style="display:none;"> *</span></div>
+                    <div class="cell-2">
+                        <input class="text long" name="EmailAddress" id="usrEmailAddress" type="text" value="<?php echo $_POST['EmailAddress'];?>" />
+                    </div>
+                </div>
+                <div class="rowwrap">
+                    <div class="cell-1">Confirm Email Address<span class="style1">*</span> <span class="redasterisk" id="usrEmailAddress_mark" style="display:none;"> *</span></div>
+                    <div class="cell-2">
+                        <input class="text long" name="ConEmailAddress" id="usrConEmailAddress" type="text" value="<?php echo $_POST['ConEmailAddress'];?>" />
+                    </div>
+                </div>
+                <div class="rowwrap">
+                    <div class="cell-1">Date of Birth<span class="style1">*</span> <span class="redasterisk" id="usrDOB_day_mark" style="display:none;"> *</span></div>
+                    <div class="cell-2">
+                        <select name="Date_Day" id="usrDOB_day" class="drop date">
+                            <option value=''>--</option>
+                            <?php 	
+                            for($days=1 ; $days<=31 ; $days++)
+                            {
+                                echo "<option value=\"$days\""; if($_POST['Date_Day'] == $days){echo "selected='selected'";} echo ">"; if(strlen($days)==1){echo "0";} echo "$days</option>";
+                            }?>
+                        </select>
+                        <select name="Date_Month" id="usrDOB_month" class="drop date">
+                            <option value=''>--</option>
+                            <?php 	$months = array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
+                            for($month=1 ; $month<=12 ; $month++)
+                            {
+                                $word = $month-1;
+                                echo "<option value=\"$month\"";  if($_POST['Date_Month'] == $month){echo "selected='selected'";} echo ">$months[$word]</option>";
+                            }?>
+                        </select>
+                        <select name="Date_Year" id="usrDOB_year" class="drop date">
+                            <option value=''>--</option>
+                            <?php	//$startyear = date("Y")-51;
+                            $startyear = 1950;
+                            $endyear = date("Y")-24;
+                            for($year=$startyear; $year<=$endyear; $year++)
+                            {
+                                echo "<option value=\"$year\""; if($_POST['Date_Year'] == $year){echo "selected='selected'";} echo ">$year</option>";
+                            }?>
+                        </select>
+                    </div>
+                </div>
+                <div class="rowwrap">
+                    <div class="cell-1">Profession <span class="style1">*</span><span class="redasterisk" id="usrProfession_mark" style="display:none;"> *</span></div>
+                    <div class="cell-2">
+                        <select class="drop long" name="Profession" id="usrProfession" value="profession">
+                            <option value="Not Specified" <?php if($_POST['Profession'] == 'Not Specified'){echo "selected='selected'";}?>>Not Specified</option>
+                            <option value="Academic" <?php if($_POST['Profession'] == 'Academic'){echo "selected='selected'";}?>>Academic</option>
+                            <option value="Accounting" <?php if($_POST['Profession'] == 'Accounting'){echo "selected='selected'";}?>>Accounting</option>
+                            <option value="Admin / Secretarial" <?php if($_POST['Profession'] == 'Admin / Secretarial'){echo "selected='selected'";}?>>Admin / Secretarial</option>
+                            <option value="Arts / Media" <?php if($_POST['Profession'] == 'Arts / Media'){echo "selected='selected'";}?>>Arts / Media</option>
+                            <option value="Company Director" <?php if($_POST['Profession'] == 'Company Director'){echo "selected='selected'";}?>>Company Director</option>
+                            <option value="Construction / Property Services" <?php if($_POST['Profession'] == 'Construction / Property Services'){echo "selected='selected'";}?>>Construction / Property Services</option>
+                            <option value="Consultant" <?php if($_POST['Profession'] == 'Consultant'){echo "selected='selected'";}?>>Consultant</option>
+                            <option value="Designer" <?php if($_POST['Profession'] == 'Designer'){echo "selected='selected'";}?>>Designer</option>
+                            <option value="Doctor / Medical" <?php if($_POST['Profession'] == 'Doctor / Medical'){echo "selected='selected'";}?>>Doctor / Medical</option>
+                            <option value="Financial Services / Insurance" <?php if($_POST['Profession'] == 'Financial Services / Insurance'){echo "selected='selected'";}?>>Financial Services/ Insurance</option>
+                            <option value="Hospitality / Catering" <?php if($_POST['Profession'] == 'Hospitality / Catering'){echo "selected='selected'";}?>>Hospitality / Catering</option>
+                            <option value="Human Resources" <?php if($_POST['Profession'] == 'Human Resources'){echo "selected='selected'";}?>>Human Resources</option>
+                            <option value="IT / Computing" <?php if($_POST['Profession'] == 'IT / Computing'){echo "selected='selected'";}?>>IT / Computing</option>
+                            <option value="Legal" <?php if($_POST['Profession'] == 'Legal'){echo "selected='selected'";}?>>Legal</option>
+                            <option value="Leisure / Tourism" <?php if($_POST['Profession'] == 'Leisure / Tourism'){echo "selected='selected'";}?>>Leisure / Tourism</option>
+                            <option value="Military" <?php if($_POST['Profession'] == 'Military'){echo "selected='selected'";}?>>Military</option>
+                            <option value="Own Business" <?php if($_POST['Profession'] == 'Own Business'){echo "selected='selected'";}?>>Own Business</option>
+                            <option value="Political / Government" <?php if($_POST['Profession'] == 'Political / Government'){echo "selected='selected'";}?>>Political / Government</option>
+                            <option value="Sales and Marketing" <?php if($_POST['Profession'] == 'Sales and Marketing'){echo "selected='selected'";}?>>Sales and Marketing</option>
+                            <option value="Science / Technical" <?php if($_POST['Profession'] == 'Science / Technical'){echo "selected='selected'";}?>>Science / Technical</option>
+                            <option value="Teaching / Education" <?php if($_POST['Profession'] == 'Teaching / Education'){echo "selected='selected'";}?>>Teaching / Education</option>
+                            <option value="Writer / Journalist" <?php if($_POST['Profession'] == 'Writer / Journalist'){echo "selected='selected'";}?>>Writer / Journalist</option>
+                            <option value="Other" <?php if($_POST['Profession'] == 'Other'){echo "selected='selected'";}?>>Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="rowwrap">
+                    <div class="cell-1">Mobile Number<span class="style1">*</span><span class="redasterisk" id="usrPhone_mark" style="display:none;"> *</span></div>
+                    <div class="cell-2">
+                        <input type="text" size="20" class="text phone" name="Mobile" id="usrPhone" value="<?php echo $_POST['Mobile'];?>" />
+                    </div>
+                </div>
+                <div class="rowwrap">
+                    <div class="cell-1">Dietary Requirements<span class="style1">*</span><span class="redasterisk" id="usrDietary_mark" style="display:none;"></span><span class="redasterisk" id="usrPassword_mark" style="display:none;"> *</span></div>
+                    <div class="cell-2">
+                        <textarea name="DietaryReq" cols="20" class="text long" id="usrDietary"><?php echo $_POST['DietaryReq'];?></textarea>
+                    </div>
+                </div>
+                <div class="rowwrap">
+                    <div class="cell-1">Religion <span class="style1">*</span><span class="redasterisk" id="usrReligion_mark" style="display:none;"> *</span></div>
+                    <div class="cell-2">
+                        <select class="drop long" name="Religion" id="usrReligion">
+                            <option value=''>Select</option>
+                            <option value="Christian" <?php if($_POST['Religion'] == 'Christian'){echo "selected='selected'";}?>>Christian</option>
+                            <option value="Jewish" <?php if($_POST['Religion'] == 'Jewish'){echo "selected='selected'";}?>>Jewish</option>
+                            <option value="Spiritual - Not Religious" <?php if($_POST['Religion'] == 'Spiritual - Not Religious'){echo "selected='selected'";}?>>Spiritual - Not Religious</option>
+                            <option value="Hindu" <?php if($_POST['Religion'] == 'Hindu'){echo "selected='selected'";}?>>Hindu</option>
+                            <option value="Sikh" <?php if($_POST['Religion'] == 'Sikh'){echo "selected='selected'";}?>>Sikh</option>
+                            <option value="Muslim" <?php if($_POST['Religion'] == 'Muslim'){echo "selected='selected'";}?>>Muslim</option>
+                            <option value="No Religion" <?php if($_POST['Religion'] == 'No Religion'){echo "selected='selected'";}?>>No Religion</option>
+                            <option value="Other" <?php if($_POST['Religion'] == 'Other'){echo "selected='selected'";}?>>Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="rowwrap">
+                    <div class="cell-1">Height<span class="style1">*</span><span class="redasterisk" id="usrHeight_mark" style="display:none;"> *</span></div>
+                    <div class="cell-2">
+                        <?php $heigarr = array("4' 11in", "4' 12in", "5' 0in", "5' 1in", "5' 2in", "5' 3in", "5' 4in", "5' 5in", "5' 6in", "5' 7in", "5' 8in", "5' 9in", "5' 10in", "5' 11in", "6' 0in", "6' 1in", "6' 2in", "6' 3in", "6' 4in", "6' 5in", "6' 6in", "6' 7in");?>
+                        <select class="drop long" name="Height" id="usrHeight">
+                            <option value="">Select</option>
+                            <?php 
+                            foreach($heigarr as $heig)
+                            {
+                                echo "<option value=\"$heig\""; if($_POST['Height'] == $heig){echo "selected='selected'";} echo ">$heig</option>";
+                            }?>
+                        </select>
+                    </div>
+                </div>
+                <div class="rowwrap">
+                    <div class="cell-1">Do You Drink? <span class="style1">*</span><span class="redasterisk" id="usrDrink_mark" style="display:none;"> *</span></div>
+                    <div class="cell-2">
+                        <select class="drop short" name="Drink" id="usrDrink">
+                            <option value="">Select</option>
+                            <option value="Yes" <?php if($_POST['Drink'] == 'Yes'){echo "selected='selected'";}?>>Yes</option>
+                            <option value="No" <?php if($_POST['Drink'] == 'No'){echo "selected='selected'";}?>>No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="rowwrap">
+                    <div class="cell-1">How did you hear about us?  <span class="style1">*</span><span class="redasterisk" id="usrHear_mark" style="display:none;"> *</span></div>
+                    <div class="cell-2">
+                        <select class="drop long" name="HeardFrom" id="usrHear">
+                            <option value="">Select</option>
+                            <?php 
+                            $heardarr = array("Google", "Friend", "A Small World", "Magazine", "Newspaper", "Decayenne", "Vogue Aug '11", "Linked In", "Financial World", "City AM", "Daily Mail", "Telegraph");
+                            sort($heardarr);
+                            foreach ($heardarr as $heard) {
+                                echo "<option value='$heard'"; if ($_POST['HeardFrom'] == $heard) {echo "selected='selected'";} echo ">$heard</option>";
+                            }?>
+                        </select>
+                    </div>
+                </div>
+                <div class="rowwrap">
+                    <div class="cell-1">Interests <span class="style1">*</span><span class="redasterisk" id="usrInterests_mark" style="display:none;"> *</span></div>
+                    <div class="cell-2">
+                        <textarea name="Interests" cols="20" class="text long" id="usrInterests"><?php echo $_POST['Interests'];?></textarea>
+                    </div>
+                </div>
+                <div class="rowwrap">
+                    <div class="cell-1">What do you hope to achieve from London Dinner Club? <span class="style1">*</span><span class="redasterisk" id="usrAchieve_mark" style="display:none;"> *</span></div>
+                    <div class="cell-2">
+                        <select class="drop long" name="Achieve" id="usrAchieve">
+                            <option value="">Select</option>
+                            <option value="Friendship" <?php if($_POST['Achieve'] == 'Friendship'){echo "selected='selected'";}?>>Friendship</option>
+                            <option value="Socialising" <?php if($_POST['Achieve'] == 'Socialising'){echo "selected='selected'";}?>>Socialising</option>
+                            <option value="Serious Relationship" <?php if($_POST['Achieve'] == 'Serious Relationship'){echo "selected='selected'";}?>>Serious Relationship</option>
+                            <option value="Networking" <?php if($_POST['Achieve'] == 'Networking'){echo "selected='selected'";}?>>Networking</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="rowwrap">
+                    <div class="cell-1">Which Cities are you interested in? <span class="style1">*</span><span class="redasterisk" id="usrAchieve_mark" style="display:none;"> *</span></div>
+                    <div class="cell-2">
+                        <select class="drop long" name="Cities" id="usrCity">
+                            <option value="">Select</option>
+                            <option value="All" <?php if($_POST['Cities'] == 'All'){echo "selected='selected'";}?>>All</option>
+                            <option value="London" <?php if($_POST['Cities'] == 'London'){echo "selected='selected'";}?>>London</option>
+                            <option value="Paris" <?php if($_POST['Cities'] == 'Paris'){echo "selected='selected'";}?>>Paris</option>
+                            <option value="New York" <?php if($_POST['Cities'] == 'New York'){echo "selected='selected'";}?>>New York</option>
+                            <option value="Dubai" <?php if($_POST['Cities'] == 'Dubai'){echo "selected='selected'";}?>>Dubai</option>
+                        </select>
+                    </div>
+                </div>
+                <input type="hidden" name="MAX_FILE_SIZE" value="2000000" />
+                <div class="rowwrap">
+                    <div class="cell-1">Upload Photo:</div>
+                    <div class="cell-2"><input name="uploadedfile" type="file" /></div>
+                </div>
+                <div class='rowwrap'><span style='font-style:italic; font-size:12px; padding-left:110px;'>Please note that your photo will not be disclosed to anyone.</span></div>
+                <div class='rowwrap'><span style='font-style:italic; color:red; font-size:12px; padding-left:110px;'>Note.. Max Image size - 2MB</span></div>
+                <!--<div class="rowwrap">
+                <div class="cell-1">&nbsp;</div>
+                <div class="cell-2"></div>
+                </div>
+                <div class='rowwrap'>
+                <div class='cell-1'>&nbsp;</div>
+                <div class='cell-2'><img src="scripts/captcha.php" /></div>
+                </div>
+                <div class='rowwrap'>
+                <div class='cell-1'>Write what you see above <span class="style1">*</span><span class="redasterisk" id="Captcha_Code_mark" style="display:none;"> *</span></div>
+                <div class='cell-2'><input type="text" size="20" class="text phone" name="Captcha_Code" id="Captcha_Code" /></div>
+                </div>-->
+                <div class='rowwrap'>
+                    <div class='cell-1'>&nbsp;</div>
+                    <div class='cell-2'></div>
+                </div>
+                <div class="rowwrap submitbutton">
+                    <div class="cell-1">&nbsp;</div>
+                    <div class="cell-2">
+                        <!--<input type="submit" name="Submit" value="Submit">-->
+                        <input type='hidden' name='Submit' />
+                        <table cellspacing='0' cellpadding='0' border='0'>
+                        <tr>
+                            <td><img src="images/sumi_buttons_04.png" width="11" height="19" alt=""></td>
+                            <td class='singlebutton'><a title='Submit' onclick="javascript:document.ContactForm.submit();" href='#'>Submit</a></td>
+                            <td><img src="images/sumi_buttons_06.png" width="11" height="19" alt=""></td>
+                        </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="rowwrap submitbutton"></div>
             </div>
-          </div>
-          <div class="rowwrap">
-            <div class="cell-1">Surname <span class="style1">*</span><span class="redasterisk" id="usrSurname_mark" style="display:none;"> *</span></div>
-            <div class="cell-2">
-              <input class="text long" name="Surname" id="usrSurname" type="text" value="<?php echo $_POST['Surname'];?>" />
-            </div>
-          </div>
-          <div class="rowwrap">
-            <div class="cell-1">Gender<span class="style1">*</span> <span class="redasterisk" id="usrGender_mark" style="display:none;"> *</span></div>
-            <div class="cell-2">
-              <select class="drop short" name="Gender" id="usrGender">
-                <option value="">Select</option>
-                <option value="Female" <?php if($_POST['Gender'] == 'Female'){echo "selected='selected'";}?>>Female</option>
-                <option value="Male" <?php if($_POST['Gender'] == 'Male'){echo "selected='selected'";}?>>Male</option>
-              </select>
-            </div>
-          </div>
-          <div class="rowwrap">
-			  <div class="cell-1">Status<span class="style1">*</span> <span class="redasterisk" id="usrStatus_mark" style="display:none;"> *</span></div>
-			  <div class="cell-2">
-				<select class="drop short" name="Status" id="usrStatus">
-				  <option value="">Select</option>
-				  <option value="Single" <?php if($_POST['Status'] == 'Single'){echo "selected='selected'";}?>>Single</option>
-				  <option value="Separated" <?php if($_POST['Status'] == 'Separated'){echo "selected='selected'";}?>>Separated</option>
-				  <option value="Divorced" <?php if($_POST['Status'] == 'Divorced'){echo "selected='selected'";}?>>Divorced</option>
-				</select>
-			  </div>
-          </div>
-          <div class="rowwrap">
-            <div class="cell-1">Email Address<span class="style1">*</span> <span class="redasterisk" id="usrEmailAddress_mark" style="display:none;"> *</span></div>
-            <div class="cell-2">
-              <input class="text long" name="EmailAddress" id="usrEmailAddress" type="text" value="<?php echo $_POST['EmailAddress'];?>" />
-            </div>
-          </div>
-          <div class="rowwrap">
-			  <div class="cell-1">Confirm Email Address<span class="style1">*</span> <span class="redasterisk" id="usrEmailAddress_mark" style="display:none;"> *</span></div>
-			  <div class="cell-2">
-				<input class="text long" name="ConEmailAddress" id="usrConEmailAddress" type="text" value="<?php echo $_POST['ConEmailAddress'];?>" />
-			  </div>
-          </div>
-          <div class="rowwrap">
-            <div class="cell-1">Date of Birth<span class="style1">*</span> <span class="redasterisk" id="usrDOB_day_mark" style="display:none;"> *</span></div>
-            <div class="cell-2">
-              <select name="Date_Day" id="usrDOB_day" class="drop date">
-                <option value=''>--</option>
-                <?php 	for($days=1 ; $days<=31 ; $days++)
-						{
-							echo "<option value=\"$days\""; if($_POST['Date_Day'] == $days){echo "selected='selected'";} echo ">"; if(strlen($days)==1){echo "0";} echo "$days</option>";
-						}
-				?>
-              </select>
-              <select name="Date_Month" id="usrDOB_month" class="drop date">
-                <option value=''>--</option>
-                <?php 	$months = array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
-                		for($month=1 ; $month<=12 ; $month++)
-						{
-							$word = $month-1;
-							echo "<option value=\"$month\"";  if($_POST['Date_Month'] == $month){echo "selected='selected'";} echo ">$months[$word]</option>";
-						}
-				?>
-              </select>
-              <select name="Date_Year" id="usrDOB_year" class="drop date">
-                <option value=''>--</option>
-                <?php	//$startyear = date("Y")-51;
-                        $startyear = 1950;
-						$endyear = date("Y")-24;
-						for($year=$startyear; $year<=$endyear; $year++)
-						{
-							echo "<option value=\"$year\""; if($_POST['Date_Year'] == $year){echo "selected='selected'";} echo ">$year</option>";
-						}
-				?>
-              </select>
-            </div>
-          </div>
-          <div class="rowwrap">
-            <div class="cell-1">Profession <span class="style1">*</span><span class="redasterisk" id="usrProfession_mark" style="display:none;"> *</span></div>
-            <div class="cell-2">
-              <select class="drop long" name="Profession" id="usrProfession" value="profession">
-                <option value="Not Specified" <?php if($_POST['Profession'] == 'Not Specified'){echo "selected='selected'";}?>>Not Specified</option>
-                <option value="Academic" <?php if($_POST['Profession'] == 'Academic'){echo "selected='selected'";}?>>Academic</option>
-                <option value="Accounting" <?php if($_POST['Profession'] == 'Accounting'){echo "selected='selected'";}?>>Accounting</option>
-                <option value="Admin / Secretarial" <?php if($_POST['Profession'] == 'Admin / Secretarial'){echo "selected='selected'";}?>>Admin / Secretarial</option>
-                <option value="Arts / Media" <?php if($_POST['Profession'] == 'Arts / Media'){echo "selected='selected'";}?>>Arts / Media</option>
-                <option value="Company Director" <?php if($_POST['Profession'] == 'Company Director'){echo "selected='selected'";}?>>Company Director</option>
-                <option value="Construction / Property Services" <?php if($_POST['Profession'] == 'Construction / Property Services'){echo "selected='selected'";}?>>Construction / Property Services</option>
-                <option value="Consultant" <?php if($_POST['Profession'] == 'Consultant'){echo "selected='selected'";}?>>Consultant</option>
-                <option value="Designer" <?php if($_POST['Profession'] == 'Designer'){echo "selected='selected'";}?>>Designer</option>
-                <option value="Doctor / Medical" <?php if($_POST['Profession'] == 'Doctor / Medical'){echo "selected='selected'";}?>>Doctor / Medical</option>
-                <option value="Financial Services / Insurance" <?php if($_POST['Profession'] == 'Financial Services / Insurance'){echo "selected='selected'";}?>>Financial Services/ Insurance</option>
-                <option value="Hospitality / Catering" <?php if($_POST['Profession'] == 'Hospitality / Catering'){echo "selected='selected'";}?>>Hospitality / Catering</option>
-                <option value="Human Resources" <?php if($_POST['Profession'] == 'Human Resources'){echo "selected='selected'";}?>>Human Resources</option>
-                <option value="IT / Computing" <?php if($_POST['Profession'] == 'IT / Computing'){echo "selected='selected'";}?>>IT / Computing</option>
-                <option value="Legal" <?php if($_POST['Profession'] == 'Legal'){echo "selected='selected'";}?>>Legal</option>
-                <option value="Leisure / Tourism" <?php if($_POST['Profession'] == 'Leisure / Tourism'){echo "selected='selected'";}?>>Leisure / Tourism</option>
-                <option value="Military" <?php if($_POST['Profession'] == 'Military'){echo "selected='selected'";}?>>Military</option>
-                <option value="Own Business" <?php if($_POST['Profession'] == 'Own Business'){echo "selected='selected'";}?>>Own Business</option>
-                <option value="Political / Government" <?php if($_POST['Profession'] == 'Political / Government'){echo "selected='selected'";}?>>Political / Government</option>
-                <option value="Sales and Marketing" <?php if($_POST['Profession'] == 'Sales and Marketing'){echo "selected='selected'";}?>>Sales and Marketing</option>
-                <option value="Science / Technical" <?php if($_POST['Profession'] == 'Science / Technical'){echo "selected='selected'";}?>>Science / Technical</option>
-                <option value="Teaching / Education" <?php if($_POST['Profession'] == 'Teaching / Education'){echo "selected='selected'";}?>>Teaching / Education</option>
-                <option value="Writer / Journalist" <?php if($_POST['Profession'] == 'Writer / Journalist'){echo "selected='selected'";}?>>Writer / Journalist</option>
-                <option value="Other" <?php if($_POST['Profession'] == 'Other'){echo "selected='selected'";}?>>Other</option>
-              </select>
-            </div>
-          </div>
-          <div class="rowwrap">
-            <div class="cell-1">Mobile Number<span class="style1">*</span><span class="redasterisk" id="usrPhone_mark" style="display:none;"> *</span></div>
-            <div class="cell-2">
-              <input type="text" size="20" class="text phone" name="Mobile" id="usrPhone" value="<?php echo $_POST['Mobile'];?>" />
-            </div>
-          </div>
-          <div class="rowwrap">
-            <div class="cell-1">Dietary Requirements<span class="style1">*</span><span class="redasterisk" id="usrDietary_mark" style="display:none;"></span><span class="redasterisk" id="usrPassword_mark" style="display:none;"> *</span></div>
-            <div class="cell-2">
-              <textarea name="DietaryReq" cols="20" class="text long" id="usrDietary"><?php echo $_POST['DietaryReq'];?></textarea>
-            </div>
-          </div>
-		       <div class="rowwrap">
-            <div class="cell-1">Religion <span class="style1">*</span><span class="redasterisk" id="usrReligion_mark" style="display:none;"> *</span></div>
-            <div class="cell-2">
-              <select class="drop long" name="Religion" id="usrReligion">
-				<option value=''>Select</option>
-				<option value="Christian" <?php if($_POST['Religion'] == 'Christian'){echo "selected='selected'";}?>>Christian</option>
-				<option value="Jewish" <?php if($_POST['Religion'] == 'Jewish'){echo "selected='selected'";}?>>Jewish</option>
-				<option value="Spiritual - Not Religious" <?php if($_POST['Religion'] == 'Spiritual - Not Religious'){echo "selected='selected'";}?>>Spiritual - Not Religious</option>
-                <option value="Hindu" <?php if($_POST['Religion'] == 'Hindu'){echo "selected='selected'";}?>>Hindu</option>
-				<option value="Sikh" <?php if($_POST['Religion'] == 'Sikh'){echo "selected='selected'";}?>>Sikh</option>
-				<option value="Muslim" <?php if($_POST['Religion'] == 'Muslim'){echo "selected='selected'";}?>>Muslim</option>
-				<option value="No Religion" <?php if($_POST['Religion'] == 'No Religion'){echo "selected='selected'";}?>>No Religion</option>
-                <option value="Other" <?php if($_POST['Religion'] == 'Other'){echo "selected='selected'";}?>>Other</option>
-              </select>
-            </div>
-          </div>
-
-		  		       <div class="rowwrap">
-            <div class="cell-1">Height<span class="style1">*</span><span class="redasterisk" id="usrHeight_mark" style="display:none;"> *</span></div>
-            <div class="cell-2">
-            <?php $heigarr = array("4' 11in", "4' 12in", "5' 0in", "5' 1in", "5' 2in", "5' 3in", "5' 4in", "5' 5in", "5' 6in", "5' 7in", "5' 8in", "5' 9in", "5' 10in", "5' 11in", "6' 0in", "6' 1in", "6' 2in", "6' 3in", "6' 4in", "6' 5in", "6' 6in", "6' 7in");?>
-              <select class="drop long" name="Height" id="usrHeight">
-                <option value="">Select</option>
-                <?php foreach($heigarr as $heig)
-				{
-					echo "<option value=\"$heig\""; if($_POST['Height'] == $heig){echo "selected='selected'";} echo ">$heig</option>";
-				}?>
-              </select>
-            </div>
-          </div>
-
-          <div class="rowwrap">
-            <div class="cell-1">Do You Drink? <span class="style1">*</span><span class="redasterisk" id="usrDrink_mark" style="display:none;"> *</span></div>
-            <div class="cell-2">
-              <select class="drop short" name="Drink" id="usrDrink">
-                <option value="">Select</option>
-                <option value="Yes" <?php if($_POST['Drink'] == 'Yes'){echo "selected='selected'";}?>>Yes</option>
-                <option value="No" <?php if($_POST['Drink'] == 'No'){echo "selected='selected'";}?>>No</option>
-              </select>
-            </div>
-          </div>
-          <div class="rowwrap">
-            <div class="cell-1">How did you hear about us?  <span class="style1">*</span><span class="redasterisk" id="usrHear_mark" style="display:none;"> *</span></div>
-            <div class="cell-2">
-              <select class="drop long" name="HeardFrom" id="usrHear">
-                <option value="">Select</option>
-                <?php 
-                $heardarr = array("Google", "Friend", "A Small World", "Magazine", "Newspaper", "Decayenne", "Vogue Aug '11", "Linked In", "Financial World", "City AM", "Daily Mail", "Telegraph");
-                sort($heardarr);
-                foreach ($heardarr as $heard) {
-                    echo "<option value='$heard'"; if ($_POST['HeardFrom'] == $heard) {echo "selected='selected'";} echo ">$heard</option>";
-                }?>
-              </select>
-            </div>
-          </div>
-          <div class="rowwrap">
-            <div class="cell-1">Interests <span class="style1">*</span><span class="redasterisk" id="usrInterests_mark" style="display:none;"> *</span></div>
-            <div class="cell-2">
-              <textarea name="Interests" cols="20" class="text long" id="usrInterests"><?php echo $_POST['Interests'];?></textarea>
-            </div>
-          </div>
-          <div class="rowwrap">
-		              <div class="cell-1">What do you hope to achieve from London Dinner Club? <span class="style1">*</span><span class="redasterisk" id="usrAchieve_mark" style="display:none;"> *</span></div>
-		              <div class="cell-2">
-		                <select class="drop long" name="Achieve" id="usrAchieve">
-		                  <option value="">Select</option>
-		                  <option value="Friendship" <?php if($_POST['Achieve'] == 'Friendship'){echo "selected='selected'";}?>>Friendship</option>
-		                  <option value="Socialising" <?php if($_POST['Achieve'] == 'Socialising'){echo "selected='selected'";}?>>Socialising</option>
-		                  <option value="Serious Relationship" <?php if($_POST['Achieve'] == 'Serious Relationship'){echo "selected='selected'";}?>>Serious Relationship</option>
-		                  <option value="Networking" <?php if($_POST['Achieve'] == 'Networking'){echo "selected='selected'";}?>>Networking</option>
-		                </select>
-		              </div>
-          </div>
-		  <div class="rowwrap">
-		              <div class="cell-1">Which Cities are you interested in? <span class="style1">*</span><span class="redasterisk" id="usrAchieve_mark" style="display:none;"> *</span></div>
-		              <div class="cell-2">
-		                <select class="drop long" name="Cities" id="usrCity">
-		                  <option value="">Select</option>
-		                  <option value="All" <?php if($_POST['Cities'] == 'All'){echo "selected='selected'";}?>>All</option>
-		                  <option value="London" <?php if($_POST['Cities'] == 'London'){echo "selected='selected'";}?>>London</option>
-		                  <option value="Paris" <?php if($_POST['Cities'] == 'Paris'){echo "selected='selected'";}?>>Paris</option>
-		                  <option value="New York" <?php if($_POST['Cities'] == 'New York'){echo "selected='selected'";}?>>New York</option>
-		                  <option value="Dubai" <?php if($_POST['Cities'] == 'Dubai'){echo "selected='selected'";}?>>Dubai</option>
-		                </select>
-		              </div>
-          </div>
-		<input type="hidden" name="MAX_FILE_SIZE" value="2000000" />
-		<div class="rowwrap">
-			<div class="cell-1">Upload Photo:</div>
-			<div class="cell-2"><input name="uploadedfile" type="file" /></div>
-       	</div>
-		<div class='rowwrap'><span style='font-style:italic; font-size:12px; padding-left:110px;'>Please note that your photo will not be disclosed to anyone.</span></div>
-		<div class='rowwrap'><span style='font-style:italic; color:red; font-size:12px; padding-left:110px;'>Note.. Max Image size - 2MB</span></div>
-          <!--<div class="rowwrap">
-            <div class="cell-1">&nbsp;</div>
-            <div class="cell-2"></div>
-          </div>
-		<div class='rowwrap'>
-			<div class='cell-1'>&nbsp;</div>
-			<div class='cell-2'><img src="scripts/captcha.php" /></div>
-		</div>
-		<div class='rowwrap'>
-			<div class='cell-1'>Write what you see above <span class="style1">*</span><span class="redasterisk" id="Captcha_Code_mark" style="display:none;"> *</span></div>
-			<div class='cell-2'><input type="text" size="20" class="text phone" name="Captcha_Code" id="Captcha_Code" /></div>
-		  </div>-->
-		  <div class='rowwrap'>
-			<div class='cell-1'>&nbsp;</div>
-			<div class='cell-2'></div>
-		  </div>
-          <div class="rowwrap submitbutton">
-            <div class="cell-1">&nbsp;</div>
-            <div class="cell-2">
-              <!--<input type="submit" name="Submit" value="Submit">-->
-              <input type='hidden' name='Submit' />
-              <table cellspacing='0' cellpadding='0' border='0'>
-				<tr>
-					<td><img src="images/sumi_buttons_04.png" width="11" height="19" alt=""></td>
-					<td class='singlebutton'><a title='Submit' onclick="javascript:document.ContactForm.submit();" href='#'>Submit</a></td>
-					<td><img src="images/sumi_buttons_06.png" width="11" height="19" alt=""></td>
-				</tr>
-  			</table>
-            </div>
-          </div>
-          <div class="rowwrap submitbutton">          </div>
+            <p></p>
+        </form>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p><br></p>
+        <?php 
+        }?>
     </div>
-        <p></p>
-  </form>
-      <p>&nbsp;</p>
-	    <p>&nbsp;</p>
-	    <p><br>
-</p>
 
-<?php }?>
+    <div id="contentcol2">
+        <span class="lefthandpic"><img src="images/side.jpg" alt="London Dinner Club" width="194" height="194" /></span>
+        <?php
+        $find = "SELECT MAX(ID) FROM LoveItems";
+        $res = mysql_query($find) or die(mysql_error());
+        $ro = mysql_fetch_array($res);
+        $maxid = $ro[0];
+        if($maxid<10)
+        {
+            $firstid = 0;
+        }
+        else
+        {
+            $firstid = $maxid - 10;
+        }
 
-</div>
-
-
-
-
-
-
-
-<div id="contentcol2">
-<span class="lefthandpic"><img src="images/side.jpg" alt="London Dinner Club" width="194" height="194" /></span>
- <?php
- 	 $find = "SELECT MAX(ID) FROM LoveItems";
- 	 $res = mysql_query($find) or die(mysql_error());
- 	 $ro = mysql_fetch_array($res);
- 	 $maxid = $ro[0];
- 	 if($maxid<10)
- 	 {
- 		$firstid = 0;
- 	 }
- 	 else
- 	 {
- 		$firstid = $maxid - 10;
- 	 }
-
- 	 $query3 = "SELECT * FROM LoveItems LIMIT $firstid, 10";
- 	 $result3 = mysql_query($query3) or die(mysql_error());
- 	 ?>
- 	 <span class='lefthandpic'>
- 	 <br/>
- 	 &nbsp;<img src="images/ldclovessmall.png" alt="London Dinner Club Loves" width="190" />
- 	 &nbsp;<marquee behaviour='scroll' direction='up' scrollamount='1' width='180' style='border:1px solid #EAC117;'>
- 	 <?php
- 	 $i = 1;
- 	 while($row3 = mysql_fetch_array($result3))
- 	 {
+        $query3 = "SELECT * FROM LoveItems LIMIT $firstid, 10";
+        $result3 = mysql_query($query3) or die(mysql_error());?>
+        <span class='lefthandpic'>
+        <br/>
+        &nbsp;<img src="images/ldclovessmall.png" alt="London Dinner Club Loves" width="190" />
+        &nbsp;<marquee behaviour='scroll' direction='up' scrollamount='1' width='180' style='border:1px solid #EAC117;'>
+        <?php
+        $i = 1;
+        while($row3 = mysql_fetch_array($result3))
+        {
  			$id = $row3['ID'];
  			$title = $row3['Title'];
  			if(strpos($title, "\'")!==false)
@@ -650,14 +641,14 @@ pageTracker._trackPageview();
 				$title = str_replace('\"', '"', $title);
 			}?>
  			&nbsp;<a href='member/loveposts.php?id=<?php echo $id;?>' style='color:white; text-decoration:none; font-size:11px;' onmouseover="this.style.color='#EAC117';" onmouseout="this.style.color='#FFFFFF';"><?php echo $i . '. ' . $title;?></a><br/><br/>
- 	 <?php
+            <?php
  			$i++;
- 	 }?>
- 	 </marquee>
-	 <br/>
- 	 &nbsp;<a href='member/loveposts.php' style='color:white; text-decoration:none; font-size:11px;' onmouseover="this.style.color='#EAC117';" onmouseout="this.style.color='#FFFFFF';">See all posts</a>
-	 </span>
-</div>
+        }?>
+        </marquee>
+        <br/>
+        &nbsp;<a href='member/loveposts.php' style='color:white; text-decoration:none; font-size:11px;' onmouseover="this.style.color='#EAC117';" onmouseout="this.style.color='#FFFFFF';">See all posts</a>
+        </span>
+    </div>
 <!-- end inner content -->
 
 </div>

@@ -5,17 +5,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>London Dinner Club - exclusive dinner parties and drinks events in London :: press ::  London Dinner Club</title>
 <meta name="description" content="London Dinner Club, exclusive dinner parties and drinks events in London" />
-<meta name="keywords" content="Dinner parties London, London Dinner Club. Singles events london, singles event, dating events, speed dating, match.com, datingdirect.com, dating in london, online dating, dating tips, salima manji, asian dinner club, supperclub, vogue, luxury events, luxe events" />
-</head>
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+<meta name="keywords" content="Dinner parties London, London Dinner Club, london events, events, london, salima manji, supperclub, vogue, luxury events, luxe events, networking, socialising, professional networking, city networking, city events" />
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-52364856-1', 'auto');
+    ga('send', 'pageview');
 </script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-4965994-3");
-pageTracker._trackPageview();
-} catch(err) {}</script>
+</head>
 <body>
 <div id="wrapper">
 <div id="header">
@@ -27,7 +27,6 @@ pageTracker._trackPageview();
 <li><a href="events.php" target="_self">CURRENT<br/>EVENTS</a></li>
 <li><a href="past_events.php" target="_self">PAST<br/>EVENTS</a></li>
 <li><a href="membership.php" target="_self">MEMBERSHIP</a></li>
-<li><a href="asiandinnerclub.php" target="_self">ASIAN<br/>DINNER CLUB</a></li>
 <li><a class="active" href="press.php" target="_self">PRESS</a></li>
 <li><a href="team.php" target="_self">THE<br/>TEAM</a></li>
 <li><a href="contact.php" target="_self">CONTACT</a></li>
@@ -38,142 +37,124 @@ pageTracker._trackPageview();
 <div id="innercontent">
 
 <!-- main content area -->
-
-
-
-
-
-
-
-
-
-
-
 	<div id="contentcol1">
 
 		<h1><img src="images/press.gif" alt="Press Releases" width="89" height="50"/></h1>
-<?php
-include 'database/databaseconnect.php';
-if(!isset($_GET['id']))
-{
-	?>
+        <?php
+        include 'database/databaseconnect.php';
+        if(!isset($_GET['id']))
+        {?>
+            <table width='100%' cellspacing='2' cellpadding='2' border='0'>
+            <?php
+            $query = "SELECT * FROM Press ORDER BY Date DESC";
+            $result = mysql_query($query) or die(mysql_error());
+            while($row = mysql_fetch_array($result))
+            {
+                $gid = $row['ID'];?>
+                <tr>
+                    <td style='color:#EAC117;'><?php $date = date('d.m.Y', strtotime($row['Date'])); echo $date;?></td>
+                </tr>
+                <tr>
+                    <th align='left' style='color:#0000A0;' class='fontstyle3'><a href="?id=<?php echo $gid;?>" class='go'><?php echo $row['Title'];?></a></th>
+                </tr>
+                <tr>
+                    <td style='color:#0000A0;' class='fontstyle4'><?php echo $row['Summary'];?></td>
+                </tr>
+                <tr>
+                    <td><a href="?id=<?php echo $gid;?>" class='go fontstyle4'>READ MORE <img src='images/marker-right2.gif' alt='read more' height='8' width='8' border='0' /></a><span style='float:right;'><img src="images/<?php echo $row['Image_Path'];?>" border='0' height='65' /></span></td>
+                </tr>
+                <tr height='50'>
+                    <td>&nbsp;</td>
+                </tr>
+            <?php
+            }?>
+            </table>
+        <?php
+        }
+        else
+        {
+            $id = $_GET['id'];
+            $query2 = "SELECT * FROM Press WHERE ID = '$id'";
+            $result2 = mysql_query($query2) or die(mysql_error());
+            $row2 = mysql_fetch_array($result2);?>
+            <table width='100%' cellspacing='2' cellpadding='2' border='0'>
+            <tr>
+                <td style='color:#EAC117;'><?php $date = date('d.m.Y', strtotime($row2['Date'])); echo $date;?><span style='float:right;'><img src="images/<?php echo $row2['Image_Path'];?>" border='0' height='150' /></span></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <th align='left' style='color:#0000A0;'><?php echo $row2['Title'];?></th>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td style='color:#0000A0;'><?php echo $row2['Article'];?></td>
+            </tr>
+            <?php
 
-	<table width='100%' cellspacing='2' cellpadding='2' border='0'>
-	<?php
-	$query = "SELECT * FROM Press ORDER BY Date DESC";
-	$result = mysql_query($query) or die(mysql_error());
-	while($row = mysql_fetch_array($result))
-	{
-		$gid = $row['ID'];?>
-		<tr>
-			<td style='color:#EAC117;'><?php $date = date('d.m.Y', strtotime($row['Date'])); echo $date;?></td>
-		</tr>
-		<tr>
-			<th align='left' style='color:#0000A0;' class='fontstyle3'><a href="?id=<?php echo $gid;?>" class='go'><?php echo $row['Title'];?></a></th>
-		</tr>
-		<tr>
-			<td style='color:#0000A0;' class='fontstyle4'><?php echo $row['Summary'];?></td>
-		</tr>
-		<tr>
-			<td><a href="?id=<?php echo $gid;?>" class='go fontstyle4'>READ MORE <img src='images/marker-right2.gif' alt='read more' height='8' width='8' border='0' /></a><span style='float:right;'><img src="images/<?php echo $row['Image_Path'];?>" border='0' height='65' /></span></td>
-		</tr>
-		<tr height='50'>
-			<td>&nbsp;</td>
-		</tr>
-	<?php
-	}
-	?>
-	</table>
-<?php
-}
-else
-{
-	$id = $_GET['id'];
-	$query2 = "SELECT * FROM Press WHERE ID = '$id'";
-	$result2 = mysql_query($query2) or die(mysql_error());
-	$row2 = mysql_fetch_array($result2);?>
-	<table width='100%' cellspacing='2' cellpadding='2' border='0'>
-	<tr>
-		<td style='color:#EAC117;'><?php $date = date('d.m.Y', strtotime($row2['Date'])); echo $date;?><span style='float:right;'><img src="images/<?php echo $row2['Image_Path'];?>" border='0' height='150' /></span></td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<th align='left' style='color:#0000A0;'><?php echo $row2['Title'];?></th>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<td style='color:#0000A0;'><?php echo $row2['Article'];?></td>
-	</tr>
-	<?php
+            if($row2['Hyperlink'] != '')
+            {?>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td align='left'>To read the full article, please go to <br/><a href="<?php echo $row2['Hyperlink'];?>" target='_blank' border='0' style='color:blue;' onmouseover="this.style.color='#EAC117';" onmouseout="this.style.color='blue';"><?php echo $row2['Hyperlink'];?></td>
+            </tr>
+            <?php
+            }?>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>
+                    <table cellspacing='0' cellpadding='0' border='0'>
+                        <tr>
+                            <td><img src="../images/sumi_buttons_04.png" width="11" height="19" alt=""></td>
+                            <td class='singlebutton'><a title="Back" name='back' href="press.php">Back</a></td>
+                            <td><img src="../images/sumi_buttons_06.png" width="11" height="19" alt=""></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            </table>
+        <?php
+        }?>
 
-	if($row2['Hyperlink'] != '')
-	{?>
-	<tr>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<td align='left'>To read the full article, please go to <br/><a href="<?php echo $row2['Hyperlink'];?>" target='_blank' border='0' style='color:blue;' onmouseover="this.style.color='#EAC117';" onmouseout="this.style.color='blue';"><?php echo $row2['Hyperlink'];?></td>
-	</tr>
-	<?php
-	}?>
-	<tr>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<td>
-			<table cellspacing='0' cellpadding='0' border='0'>
-				<tr>
-					<td><img src="../images/sumi_buttons_04.png" width="11" height="19" alt=""></td>
-					<td class='singlebutton'><a title="Back" name='back' href="press.php">Back</a></td>
-					<td><img src="../images/sumi_buttons_06.png" width="11" height="19" alt=""></td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-	</table>
-<?php
-}
-?>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+	    <div><div></div></div>
+    </div>
 
-	<p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-	    <div><div></div>
-	  </div>
-</div>
+    <div id="contentcol2">
+        <span class="lefthandpic"><img src="images/side.jpg" alt="London Dinner Club" width="194" height="194" /></span>
+        <?php
+        $find = "SELECT MAX(ID) FROM LoveItems";
+        $res = mysql_query($find) or die(mysql_error());
+        $ro = mysql_fetch_array($res);
+        $maxid = $ro[0];
+        if($maxid<10)
+        {
+            $firstid = 0;
+        }
+        else
+        {
+            $firstid = $maxid - 10;
+        }
 
-
-<div id="contentcol2">
-  <span class="lefthandpic"><img src="images/side.jpg" alt="London Dinner Club" width="194" height="194" /></span>
-  <?php
-  	 $find = "SELECT MAX(ID) FROM LoveItems";
-  	 $res = mysql_query($find) or die(mysql_error());
-  	 $ro = mysql_fetch_array($res);
-  	 $maxid = $ro[0];
-  	 if($maxid<10)
-  	 {
-  		$firstid = 0;
-  	 }
-  	 else
-  	 {
-  		$firstid = $maxid - 10;
-  	 }
-
-  	 $query3 = "SELECT * FROM LoveItems LIMIT $firstid, 10";
-  	 $result3 = mysql_query($query3) or die(mysql_error());
-  	 ?>
-  	 <span class='lefthandpic'>
-  	 <br/>
-  	 &nbsp;<img src="images/ldclovessmall.png" alt="London Dinner Club Loves" width="190" />
-  	 &nbsp;<marquee behaviour='scroll' direction='up' scrollamount='1' width='180' style='border:1px solid #EAC117;'>
-  	 <?php
-  	 $i = 1;
-  	 while($row3 = mysql_fetch_array($result3))
-  	 {
+        $query3 = "SELECT * FROM LoveItems LIMIT $firstid, 10";
+        $result3 = mysql_query($query3) or die(mysql_error());?>
+        <span class='lefthandpic'>
+        <br/>
+        &nbsp;<img src="images/ldclovessmall.png" alt="London Dinner Club Loves" width="190" />
+        &nbsp;<marquee behaviour='scroll' direction='up' scrollamount='1' width='180' style='border:1px solid #EAC117;'>
+        <?php
+        $i = 1;
+        while($row3 = mysql_fetch_array($result3))
+        {
   			$id = $row3['ID'];
   			$title = $row3['Title'];
   			if(strpos($title, "\'")!==false)
@@ -186,14 +167,14 @@ else
 				$title = str_replace('\"', '"', $title);
 			}?>
   			&nbsp;<a href='member/loveposts.php?id=<?php echo $id;?>' style='color:white; text-decoration:none; font-size:11px;' onmouseover="this.style.color='#EAC117';" onmouseout="this.style.color='#FFFFFF';"><?php echo $i . '. ' . $title;?></a><br/><br/>
-  	 <?php
+            <?php
   			$i++;
-  	 }?>
-  	 </marquee>
-	 <br/>
-  	 &nbsp;<a href='member/loveposts.php' style='color:white; text-decoration:none; font-size:11px;' onmouseover="this.style.color='#EAC117';" onmouseout="this.style.color='#FFFFFF';">See all posts</a>
-	</span>
-</div>
+        }?>
+        </marquee>
+        <br/>
+        &nbsp;<a href='member/loveposts.php' style='color:white; text-decoration:none; font-size:11px;' onmouseover="this.style.color='#EAC117';" onmouseout="this.style.color='#FFFFFF';">See all posts</a>
+        </span>
+    </div>
 <!-- end inner content -->
 
 </div>

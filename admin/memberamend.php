@@ -46,26 +46,19 @@ if(isset($_GET['renew']))
 if(isset($_GET['delete']))
 {
 	$delid = $_GET['delete'];
-	$query2 = "SELECT Forename, Surname FROM Members WHERE ID = '$delid'";
+	$query2 = "SELECT Forename, Surname, Image_Path FROM Members WHERE ID = '$delid'";
 	$result2 = mysql_query($query2) or die(mysql_error());
 	$row = mysql_fetch_array($result2);
 	$fullname = "$row[0] $row[1]";
 	$query3 = "DELETE FROM Members WHERE ID = $delid";
 	$result3 = mysql_query($query3) or die(mysql_error());
-	/*$que = "SELECT ID FROM Members WHERE ID > $delid";
-	$res = mysql_query($que) or die(mysql_error());
-	while($rowarrange = mysql_fetch_array($res))
+	if(file_exists('../member/images/' . $row[2]))
 	{
-		$idnew = $rowarrange[0] - 1;
-		$idold = $rowarrange[0];
-		$qu = "UPDATE Members SET ID = '$idnew' WHERE ID = '$idold'";
-		$re = mysql_query($qu) or die(mysql_error());
-    }*/
-	?>
+		unlink('../member/images/' . $row[2]);
+	}?>
 	<script>
 	alert("Thanks - Member '<?php echo $fullname;?> Deleted!");
-	top.opener.top.location.reload(true);
-	window.close();
+	location.href='membershipdatabase.php';
 	</script>
 	<?php
 }
@@ -140,8 +133,7 @@ if(isset($_POST['Submit']))
 		?>
 				<script>
 				alert("Thanks - Member '<?php echo $name;?>' Details Amended!");
-				top.opener.top.location.reload(true);
-				window.close();
+				location.href='membershipdatabase.php';
 				</script>
 		<?php
 	}
@@ -156,7 +148,7 @@ if(isset($_POST['Submit']))
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>London Dinner Club - exclusive dinner parties and drinks events in London :: ADMIN AREA - MEMBERSHIP ::  London Dinner Club</title>
 <meta name="description" content="London Dinner Club, exclusive dinner parties and drinks events in London" />
-<meta name="keywords" content="Dinner parties London, London Dinner Club. Singles events london, singles event, dating events, speed dating, match.com, datingdirect.com, dating in london, online dating, dating tips, salima manji, asian dinner club, supperclub, vogue, luxury events, luxe events" />
+<meta name="keywords" content="Dinner parties London, London Dinner Club, london events, events, london, salima manji, supperclub, vogue, luxury events, luxe events, networking, socialising, professional networking, city networking, city events" />
 </head>
 <body>
 <div id="wrapper">
@@ -169,7 +161,6 @@ if(isset($_POST['Submit']))
 <li><a href="../events.php" target="_self">CURRENT<br/>EVENTS</a></li>
 <li><a href="../past_events.php" target="_self">PAST<br/>EVENTS</a></li>
 <li><a href="../membership.php" target="_self">MEMBERSHIP</a></li>
-<li><a href="../asiandinnerclub.php" target="_self">ASIAN<br/>DINNER CLUB</a></li>
 <li><a href="../press.php" target="_self">PRESS</a></li>
 <li><a href="../team.php" target="_self">THE<br/>TEAM</a></li>
 <li><a href="../contact.php" target="_self">CONTACT</a></li>
@@ -229,6 +220,14 @@ if(isset($_GET['edit']))
 	$sur = $row3['Surname'];
 	$names = "$fore $sur";
 	?>
+	<table cellspacing='0' cellpadding='0' border='0'>
+		<tr>
+			<td><img src="../images/sumi_buttons_04.png" width="11" height="19" alt="" /></td>
+			<td class='singlebutton'><a title='Back' href='membershipdatabase.php'>Back to Members Database</a></td>
+			<td><img src="../images/sumi_buttons_06.png" width="11" height="19" alt="" /></td>
+		</tr>
+	</table>
+	<br/><br/>
 	<table cellspacing='0' cellpadding='0' border='0'>
 		<tr>
 			<td><img src="../images/sumi_buttons_04.png" width="11" height="19" alt="" /></td>

@@ -13,8 +13,7 @@ else
 	if(!isset($_SESSION['member_is_logged_in'])){
 		header('Location: login.php?eid=' . $eid);
 	}
-}
-?>
+}?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -22,7 +21,7 @@ else
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>London Dinner Club - exclusive dinner parties and drinks events in London :: events :: London Dinner Club</title>
 <meta name="description" content="London Dinner Club, exclusive dinner parties and drinks events in London" />
-<meta name="keywords" content="Dinner parties London, London Dinner Club. Singles events london, singles event, dating events, speed dating, match.com, datingdirect.com, dating in london, online dating, dating tips, salima manji, asian dinner club, supperclub, vogue, luxury events, luxe events" />
+<meta name="keywords" content="Dinner parties London, London Dinner Club, london events, events, london, salima manji, supperclub, vogue, luxury events, luxe events, networking, socialising, professional networking, city networking, city events" />
 <script type='text/javascript'>
 function reload(gen, loc)
 {
@@ -58,7 +57,6 @@ function reload(gen, loc)
 <li><a href="events.php" target="_self">CURRENT<br/>EVENTS</a></li>
 <li><a href="past_events.php" target="_self">PAST<br/>EVENTS</a></li>
 <li><a href="membership.php" target="_self">MEMBERSHIP</a></li>
-<li><a href="asiandinnerclub.php" target="_self">ASIAN<br/>DINNER CLUB</a></li>
 <li><a href="press.php" target="_self">PRESS</a></li>
 <li><a href="team.php" target="_self">THE<br/>TEAM</a></li>
 <li><a href="contact.php" target="_self">CONTACT</a></li>
@@ -204,8 +202,7 @@ $row = mysql_fetch_array($result);?>
 
 		$datepart = explode('-', $row['Date']);
 		$date2 = $datepart[2] . $datepart[1] . $datepart[0];
-		$url = $_SERVER['REQUEST_URI'];
-		?>
+		$url = $_SERVER['REQUEST_URI'];?>
 			<form action="redirecting.php" method="post" name='redirecting'>
 			<input type='hidden' name='amount' value="<?php echo $amount;?>">
 			<!--<input type='hidden' name='amount' value="0.01">-->
@@ -213,10 +210,60 @@ $row = mysql_fetch_array($result);?>
 			<input type='hidden' name='item_number' value="<?php echo $date2;?>">
 			<input type='hidden' name='id' value="<?php echo $eid;?>">
 			<table>
-			<tr><td>Gender:</td></tr><tr><td><select name="gender" id='gender' onChange="reload('gender', '<?php echo $url;?>');")>
-				<option value="Male" <?php if(isset($_GET['gen'])){if($_GET['gen'] == 'm'){echo "selected='selected'";}}?>>Male</option>
-				<option value="Female" <?php if(isset($_GET['gen'])){if($_GET['gen'] == 'f'){echo "selected='selected'";}}?>>Female</option>
-			</select> </td>
+			<tr>
+				<td>Gender:</td><td>Quantity:</td>
+			</tr>
+			<tr>
+				<td>
+					<select name="gender" id='gender' onChange="reload('gender', '<?php echo $url;?>');")>
+					<option value="Female" <?php if(isset($_GET['gen'])){if($_GET['gen'] == 'f'){echo "selected='selected'";}} if($row['MaxFemaleQuantity'] <= 0) {echo "disabled='disabled'";}?>>Female</option>
+					<option value="Male" <?php if(isset($_GET['gen'])){if($_GET['gen'] == 'm'){echo "selected='selected'";}} if($row['MaxMaleQuantity'] <= 0) {echo "disabled='disabled'";}?>>Male</option>
+					</select> 
+				</td>
+				<td>
+					<?php
+					if(isset($_GET['gen']) && strlen($_GET['gen']) > 0)
+					{
+						if($_GET['gen'] == 'f')
+						{
+							$gender = 'Female';
+						}
+						else
+						{
+							$gender = 'Male';
+						}
+					}
+					else
+					{
+						if ($row['MaxFemaleQuantity'] <= 0 && $row['MaxMaleQuantity'] <= 0) {
+							$gender = 'Female';
+						} elseif ($row['MaxFemaleQuantity'] <= 0) {
+							$gender = 'Male';
+						} else {
+							$gender = 'Female';
+						}
+						
+					}
+					
+					$fieldname = 'Max' .  $gender . 'Quantity';
+					if (3 > $row["$fieldname"]) {
+						$quantity = $row["$fieldname"];
+					} else {
+						$quantity = 3;
+					}
+					
+					$option = '';
+					if (0 < $quantity) {
+						for($i=1; $i<=$quantity; $i++)
+						{
+							$option .= "<option value='$i'>$i</option>";
+						}
+						
+						echo "<select name='quantity'>$option</select>";
+					} else {
+						echo "N/A";
+					}?>
+				</td>
 			</tr>
 			</table>
 			<input type="image" src="http://www.londondinnerclub.org/images/paypalbutton.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online.">

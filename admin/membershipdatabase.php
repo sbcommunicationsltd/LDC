@@ -43,7 +43,7 @@ if(isset($_POST['export']))
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>London Dinner Club - exclusive dinner parties and drinks events in London :: ADMIN AREA - MEMBERSHIP :: London Dinner Club</title>
 <meta name="description" content="London Dinner Club, exclusive dinner parties and drinks events in London" />
-<meta name="keywords" content="Dinner parties London, London Dinner Club. Singles events london, singles event, dating events, speed dating, match.com, datingdirect.com, dating in london, online dating, dating tips, salima manji, asian dinner club, supperclub, vogue, luxury events, luxe events" />
+<meta name="keywords" content="Dinner parties London, London Dinner Club, london events, events, london, salima manji, supperclub, vogue, luxury events, luxe events, networking, socialising, professional networking, city networking, city events" />
 </head>
 <body>
 <div id="wrapper">
@@ -56,7 +56,6 @@ if(isset($_POST['export']))
 <li><a href="../events.php" target="_self">CURRENT<br/>EVENTS</a></li>
 <li><a href="../past_events.php" target="_self">PAST<br/>EVENTS</a></li>
 <li><a href="../membership.php" target="_self">MEMBERSHIP</a></li>
-<li><a href="../asiandinnerclub.php" target="_self">ASIAN<br/>DINNER CLUB</a></li>
 <li><a href="../press.php" target="_self">PRESS</a></li>
 <li><a href="../team.php" target="_self">THE<br/>TEAM</a></li>
 <li><a href="../contact.php" target="_self">CONTACT</a></li>

@@ -191,9 +191,8 @@ if(mysql_num_rows($result) != 0)
 		$background_color = ( $counter % 2 == 0 ) ? ('#EAC117') : ('#ffffff'); 
 		$date = date('Y-m-d H:i');
 		$dateexpire = $row['DateExpire'];?>
-		<tr class='table' bgcolor="<?php echo $background_color;?>" onmouseover="this.className='table tablehover'" onmouseout="this.className='table'" <?php if($row['Approved'] == 'No'){ echo "style='color:red;'"; } if($dateexpire < $date){echo "style='color:blue;'";} ?>>
-				<a style='text-decoration:none;' href="javascript:void(0)" onclick="window.open('memberamend.php?edit=<?php echo $id;?>', 'child', 'height=500,width=600,status=yes,resizable=yes,scrollbars=yes')">
-				<td><img src="../member/images/<?php echo $row['Image_Path'];?>" alt="<?php echo $row['Forename'];?>" border='0' height='50' /></td>
+		<tr class='table' bgcolor="<?php echo $background_color;?>" onclick="parent.location.href='memberamend.php?edit=<?php echo $id;?>';" onmouseover="this.className='table tablehover'" onmouseout="this.className='table'" <?php if($row['Approved'] == 'No'){ echo "style='color:red;'"; } if($dateexpire < $date){echo "style='color:blue;'";} ?>>
+			<td><img src="../member/images/<?php echo $row['Image_Path'];?>" alt="<?php echo $row['Forename'];?>" border='0' height='50' /></td>
 				<?php
 				foreach($fieldname as $field)
 				{
@@ -213,7 +212,6 @@ if(mysql_num_rows($result) != 0)
 						}?>><?php echo $row[$field];?></td>
 			<?php	}
 				} ?>
-				</a>
 			</tr>
   <?php	}
 }
@@ -233,4 +231,3 @@ function sorts2()
 </script>
 </body>
 </html>
-

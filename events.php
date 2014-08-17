@@ -7,17 +7,17 @@ session_start();?>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>London Dinner Club - exclusive dinner parties and drinks events in London :: events ::  London Dinner Club</title>
 <meta name="description" content="London Dinner Club, exclusive dinner parties and drinks events in London" />
-<meta name="keywords" content="Dinner parties London, London Dinner Club. Singles events london, singles event, dating events, speed dating, match.com, datingdirect.com, dating in london, online dating, dating tips, salima manji, asian dinner club, supperclub, vogue, luxury events, luxe events" />
-</head>
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+<meta name="keywords" content="Dinner parties London, London Dinner Club, london events, events, london, salima manji, supperclub, vogue, luxury events, luxe events, networking, socialising, professional networking, city networking, city events" />
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-52364856-1', 'auto');
+    ga('send', 'pageview');
 </script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-4965994-3");
-pageTracker._trackPageview();
-} catch(err) {}</script>
+</head>
 <body>
 <div id="wrapper">
 <div id="header">
@@ -29,7 +29,6 @@ pageTracker._trackPageview();
 <li><a class="active" href="events.php" target="_self">CURRENT<br/>EVENTS</a></li>
 <li><a href="past_events.php" target="_self">PAST<br/>EVENTS</a></li>
 <li><a href="membership.php" target="_self">MEMBERSHIP</a></li>
-<li><a href="asiandinnerclub.php" target="_self">ASIAN<br/>DINNER CLUB</a></li>
 <li><a href="press.php" target="_self">PRESS</a></li>
 <li><a href="team.php" target="_self">THE<br/>TEAM</a></li>
 <li><a href="contact.php" target="_self">CONTACT</a></li>
@@ -64,7 +63,7 @@ pageTracker._trackPageview();
 		
 		if(isset($_GET['success']))
 		{?>
-			<script>alert("Thank you for purchasing a ticket for <?php echo $ticket;?>. Your paypal confirmation email is your e-ticket. We will be in-touch nearer the time with more details of the event. Thank you.");</script>
+			<script>alert('Thanks for buying <?php echo $quantity;?> ticket(s) for <?php echo $ticket;?>. Please print email receipt to ensure entry to the event. Please feel free to choose any other event aswell.');</script>
 		<?php
 			/*$gender = $_GET['success'];
 			$stat = '';
@@ -160,7 +159,7 @@ pageTracker._trackPageview();
 		if(isset($_GET['cancel']))
 		{?>
 			<script>
-			alert("You have just cancelled a ticket for <?php echo $ticket;?>. Please feel free to choose any other event.");
+			alert('You have just cancelled <?php echo $quantity;?> ticket(s) for <?php echo $ticket;?>. Please feel free to choose any other event.');
 			location.href='events.php';
 			</script>
 		<?php
@@ -178,78 +177,79 @@ pageTracker._trackPageview();
 				<p><span class="righthandpic"><a name="<?php echo $row['Venue'];?>" id="<?php echo $row['Venue'];?>"></a><img src="images/<?php echo $row['Image_Path'];?>" alt="<?php echo $row['Venue'];?>" width="188" height="168" /></span></p>
 				<table width='390' border='0' cellpadding='0' cellspacing='0'>
 					<tr>
-					  <th align='left' width='100'>Venue:</th>
-					  <td>&nbsp;</td>
-					  <th align='left'><?php echo $row['Venue'];?></th>
+                        <th align='left' width='100'>Venue:</th>
+                        <td>&nbsp;</td>
+                        <th align='left'><?php echo $row['Venue'];?></th>
 					</tr>
 					<tr>
-					  <td>&nbsp;</td>
-					  <td>&nbsp;</td>
-					  <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
 					</tr>
 					<tr>
-					  <th align='left'>City:</th>
-					  <td>&nbsp;</td>
-					  <td align='left'><?php echo $row['City'];?></td>
+                        <th align='left'>City:</th>
+                        <td>&nbsp;</td>
+                        <td align='left'><?php echo $row['City'];?></td>
 					</tr>
 					<tr>
-					  <td>&nbsp;</td>
-					  <td>&nbsp;</td>
-					  <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
 					</tr>
 					<tr>
-					  <th align='left'>Address:</th>
-					  <td>&nbsp;</td>
-					  <td><?php echo $row['Address_Street'];?></td>
+                        <th align='left'>Address:</th>
+                        <td>&nbsp;</td>
+                        <td><?php echo $row['Address_Street'];?></td>
 					</tr>
 					<tr>
-					  <td>&nbsp;</td>
-					  <td>&nbsp;</td>
-					  <td><?php echo $row['Address_Town'] . ' ' . $row['Address_City'];?></td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td><?php echo $row['Address_Town'] . ' ' . $row['Address_City'];?></td>
 					</tr>
 					<tr>
-					  <td>&nbsp;</td>
-					  <td>&nbsp;</td>
-					  <td><?php echo $row['Address_PostCode'];?></td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td><?php echo $row['Address_PostCode'];?></td>
 					</tr>
 					<tr>
-					  <td>&nbsp;</td>
-					  <td>&nbsp;</td>
-					  <?php if(stristr($row['Address_PostCode'], ' '))
-							{
-								$post = str_replace(' ', '+', $row['Address_PostCode']);
-							}
-							else
-							{
-								$post = $row['Address_PostCode'];
-							}?>
-					  <td><a style='text-decoration:none;' href="http://maps.google.co.uk/maps?f=q&hl=en&geocode=&q=<?php echo $post;?>" target="_blank">google map</a></td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <?php 
+                        if(stristr($row['Address_PostCode'], ' '))
+                        {
+                            $post = str_replace(' ', '+', $row['Address_PostCode']);
+                        }
+                        else
+                        {
+                            $post = $row['Address_PostCode'];
+                        }?>
+                        <td><a style='text-decoration:none;' href="http://maps.google.co.uk/maps?f=q&hl=en&geocode=&q=<?php echo $post;?>" target="_blank">google map</a></td>
 					</tr>
 					<tr>
-					  <td>&nbsp;</td>
-					  <td>&nbsp;</td>
-					  <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
 					</tr>
 					<tr>
-					  <th align='left'>Date:</th>
-					  <td>&nbsp;</td>
-					  <?php $date = date('jS F Y', strtotime($row['Date']));?>
-					  <td><?php echo $date;?></td>
+                        <th align='left'>Date:</th>
+                        <td>&nbsp;</td>
+                        <?php $date = date('jS F Y', strtotime($row['Date']));?>
+                        <td><?php echo $date;?></td>
 					</tr>
 					<tr>
-					  <td>&nbsp;</td>
-					  <td>&nbsp;</td>
-					  <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
 					</tr>
 					<tr>
-					  <th align='left'>Time:</th>
-					  <td>&nbsp;</td>
-					  <td><?php echo $row['Time'];?>pm</td>
+                        <th align='left'>Time:</th>
+                        <td>&nbsp;</td>
+                        <td><?php echo $row['Time'];?>pm</td>
 					</tr>
 					<tr>
-					  <td>&nbsp;</td>
-					  <td>&nbsp;</td>
-					  <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
 					</tr>
 				</table>
 				<table width='100%' cellspacing='0' cellpadding='0' border='0' />
@@ -275,34 +275,34 @@ pageTracker._trackPageview();
 						</td>
 					</tr>
 					<tr>
-					  <td>&nbsp;</td>
-					  <td>&nbsp;</td>
-					  <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
 					</tr>
 					<tr>
-					  <th align='left'>Event Type:</td>
-					  <td>&nbsp;</td>
-					  <td><?php echo $row['Event_Type'];?></td>
+                        <th align='left'>Event Type:</td>
+                        <td>&nbsp;</td>
+                        <td><?php echo $row['Event_Type'];?></td>
 					</tr>
 					<tr>
-					  <td>&nbsp;</td>
-					  <td>&nbsp;</td>
-					  <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
 					</tr>
 					<tr>
-					  <th align='left'>Availability:</th>
-					  <td>&nbsp;</td>
-					  <td><?php echo $row['Availability'];?></td>
+                        <th align='left'>Availability:</th>
+                        <td>&nbsp;</td>
+                        <td><?php echo $row['Availability'];?></td>
 					</tr>
 					<tr>
-					  <td>&nbsp;</td>
-					  <td>&nbsp;</td>
-					  <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
 					</tr>
 					<tr>
-					  <th valign="top" align='left'>Description:</th>
-					  <td>&nbsp;</td>
-					  <td valign="top"><?php echo $row['Description'];?></td>
+                        <th valign="top" align='left'>Description:</th>
+                        <td>&nbsp;</td>
+                        <td valign="top"><?php echo $row['Description'];?></td>
 					</tr>
 				</table>
   				<br/>
@@ -310,58 +310,55 @@ pageTracker._trackPageview();
 			<p><hr/></p>
 <?php	}
 	}?>
-
-
 	</div>
 
 	<div id="contentcol2">
-	  <span class="lefthandpic"><img src="images/side.jpg" alt="London Dinner Club" width="194" height="194" /></span>
-	  <?php
-		 $find = "SELECT MAX(ID) FROM LoveItems";
-		 $res = mysql_query($find) or die(mysql_error());
-		 $ro = mysql_fetch_array($res);
-		 $maxid = $ro[0];
-		 if($maxid<10)
-		 {
+        <span class="lefthandpic"><img src="images/side.jpg" alt="London Dinner Club" width="194" height="194" /></span>
+        <?php
+		$find = "SELECT MAX(ID) FROM LoveItems";
+		$res = mysql_query($find) or die(mysql_error());
+		$ro = mysql_fetch_array($res);
+		$maxid = $ro[0];
+		if($maxid<10)
+		{
 			$firstid = 0;
-		 }
-		 else
-		 {
+		}
+		else
+		{
 			$firstid = $maxid - 10;
-		 }
+		}
 
-		 $query2 = "SELECT * FROM LoveItems LIMIT $firstid, 10";
-		 $result2 = mysql_query($query2) or die(mysql_error());
-		 ?>
-		 <span class='lefthandpic'>
-		 <br/>
-		 &nbsp;<img src="images/ldclovessmall.png" alt="London Dinner Club Loves" width="190" />
-		 &nbsp;<marquee behaviour='scroll' direction='up' scrollamount='1' width='180' style='border:1px solid #EAC117;'>
-		 <?php
-		 $i = 1;
-		 while($row2 = mysql_fetch_array($result2))
-		 {
-				$id = $row2['ID'];
-				$title = $row2['Title'];
-				if(strpos($title, "\'")!==false)
-				{
-					$title = str_replace("\'", "'", $title);
-				}
+		$query2 = "SELECT * FROM LoveItems LIMIT $firstid, 10";
+		$result2 = mysql_query($query2) or die(mysql_error());?>
+		<span class='lefthandpic'>
+		<br/>
+		&nbsp;<img src="images/ldclovessmall.png" alt="London Dinner Club Loves" width="190" />
+		&nbsp;<marquee behaviour='scroll' direction='up' scrollamount='1' width='180' style='border:1px solid #EAC117;'>
+		<?php
+		$i = 1;
+		while($row2 = mysql_fetch_array($result2))
+		{
+			$id = $row2['ID'];
+			$title = $row2['Title'];
+			if(strpos($title, "\'")!==false)
+			{
+				$title = str_replace("\'", "'", $title);
+			}
 
-				if(strpos($title, '\"')!==false)
-				{
-					$title = str_replace('\"', '"', $title);
-				}?>
-				&nbsp;<a href='member/loveposts.php?id=<?php echo $id;?>' style='color:white; text-decoration:none; font-size:11px;' onmouseover="this.style.color='#EAC117';" onmouseout="this.style.color='#FFFFFF';"><?php echo $i . '. ' . $title;?></a><br/><br/>
-		 <?php
-				$i++;
-		 }?>
-		 </marquee>
-		 <br/>
-		 &nbsp;<a href='member/loveposts.php' style='color:white; text-decoration:none; font-size:11px;' onmouseover="this.style.color='#EAC117';" onmouseout="this.style.color='#FFFFFF';">See all posts</a>
-		 </span>
-</div>
-<!-- end inner content -->
+            if(strpos($title, '\"')!==false)
+            {
+                $title = str_replace('\"', '"', $title);
+            }?>
+            &nbsp;<a href='member/loveposts.php?id=<?php echo $id;?>' style='color:white; text-decoration:none; font-size:11px;' onmouseover="this.style.color='#EAC117';" onmouseout="this.style.color='#FFFFFF';"><?php echo $i . '. ' . $title;?></a><br/><br/>
+            <?php
+			$i++;
+		}?>
+		</marquee>
+		<br/>
+		&nbsp;<a href='member/loveposts.php' style='color:white; text-decoration:none; font-size:11px;' onmouseover="this.style.color='#EAC117';" onmouseout="this.style.color='#FFFFFF';">See all posts</a>
+		</span>
+    </div>
+    <!-- end inner content -->
 
 </div>
 </div>

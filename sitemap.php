@@ -5,17 +5,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>London Dinner Club - exclusive dinner parties and drinks events in London :: site map ::  London Dinner Club</title>
 <meta name="description" content="London Dinner Club, exclusive dinner parties and drinks events in London" />
-<meta name="keywords" content="Dinner parties London, London Dinner Club. Singles events london, singles event, dating events, speed dating, match.com, datingdirect.com, dating in london, online dating, dating tips, salima manji, asian dinner club, supperclub, vogue, luxury events, luxe events" />
-</head>
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+<meta name="keywords" content="Dinner parties London, London Dinner Club, london events, events, london, salima manji, supperclub, vogue, luxury events, luxe events, networking, socialising, professional networking, city networking, city events" />
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-52364856-1', 'auto');
+    ga('send', 'pageview');
 </script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-4965994-3");
-pageTracker._trackPageview();
-} catch(err) {}</script>
+</head>
 <body>
 <div id="wrapper">
 <div id="header">
@@ -27,7 +27,6 @@ pageTracker._trackPageview();
 <li><a href="events.php" target="_self">CURRENT<br/>EVENTS</a></li>
 <li><a href="past_events.php" target="_self">PAST<br/>EVENTS</a></li>
 <li><a href="membership.php" target="_self">MEMBERSHIP</a></li>
-<li><a href="asiandinnerclub.php" target="_self">ASIAN<br/>DINNER CLUB</a></li>
 <li><a href="press.php" target="_self">PRESS</a></li>
 <li><a href="team.php" target="_self">THE<br/>TEAM</a></li>
 <li><a href="contact.php" target="_self">CONTACT</a></li>
@@ -38,112 +37,104 @@ pageTracker._trackPageview();
 <div id="innercontent">
 
 <!-- main content area -->
-
-
-<div id="contentcol1">
+    <div id="contentcol1">
 
 		<h1><img src="images/site_map.gif" alt="Site Map" width="181" height="50"/></h1>
-
- <div id="">     <p>
-		<ul>
-		<li><a href="index.php" target="_self">Home</a>
-		  <ul>
-            <li><a href="aboutus.php" target="_self">About us </a>
-          </ul>
-		  <ul>
-            <li><a href="events.php" target="_self">Current Events</a>
-          </ul>
-          <ul>
-		    <li><a href="past_events.php" target="_self">Past Events</a>
-          </ul>
-		  <ul>
-            <li><a href="membership.php" target="_self">Membership</a>
-          </ul> 
-		  <ul>
-            <li><a href="asiandinnerclub.php" target="_self">Asian Dinner Club</a>
-          </ul>
-		  <ul>
-            <li><a href="press.php" target="_self">Press</a>
-          </ul>
-		  <ul>
-            <li><a href="team.php" target="_self">The Team</a>
-          </ul>
-          <ul>
-            <li><a href="contact.php" target="_self">Contact Us</a>
-          </ul>
+        <div id="">     
+            <p>
+                <ul>
+                    <li><a href="index.php" target="_self">Home</a>
+                </ul>
+                <ul>
+                    <li><a href="aboutus.php" target="_self">About us</a>
+                </ul>
+                <ul>
+                    <li><a href="events.php" target="_self">Current Events</a>
+                </ul>
+                <ul>
+                    <li><a href="past_events.php" target="_self">Past Events</a>
+                </ul>
+                <ul>
+                    <li><a href="membership.php" target="_self">Membership</a>
+                </ul> 
+                <ul>
+                    <li><a href="press.php" target="_self">Press</a>
+                </ul>
+                <ul>
+                    <li><a href="team.php" target="_self">The Team</a>
+                </ul>
+                <ul>
+                    <li><a href="contact.php" target="_self">Contact Us</a>
+                </ul>
             </p>
 
-          <p>
-		<ul>
-		<li><a href="terms.php" target="_self">Terms</a></li></ul>
-		<ul>
-            <li><a href="member/loveposts.php" target="_self">London Dinner Club Loves...</a>
-        </ul></p>
+            <p>
+                <ul>
+                    <li><a href="terms.php" target="_self">Terms</a></li>
+                </ul>    
+                <ul>
+                    <li><a href="member/loveposts.php" target="_self">London Dinner Club Loves...</a>
+                </ul>
+            </p>
+        </div>
 
-     </div>
-
-      <p>&nbsp;</p>
         <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-	    </p>
-</div>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+    </div>
 
+    <div id="contentcol2">
+    <span class="lefthandpic"><img src="images/side.jpg" alt="London Dinner Club" width="194" height="194" /></span>
+        <?php
+        include('database/databaseconnect.php');
+        $find = "SELECT MAX(ID) FROM LoveItems";
+        $res = mysql_query($find) or die(mysql_error());
+        $ro = mysql_fetch_array($res);
+        $maxid = $ro[0];
+        if($maxid<10)
+        {
+            $firstid = 0;
+        }
+        else
+        {
+            $firstid = $maxid - 10;
+        }
 
-<div id="contentcol2">
-<span class="lefthandpic"><img src="images/side.jpg" alt="London Dinner Club" width="194" height="194" /></span>
-  <?php
-     include('database/databaseconnect.php');
-  	 $find = "SELECT MAX(ID) FROM LoveItems";
-  	 $res = mysql_query($find) or die(mysql_error());
-  	 $ro = mysql_fetch_array($res);
-  	 $maxid = $ro[0];
-  	 if($maxid<10)
-  	 {
-  		$firstid = 0;
-  	 }
-  	 else
-  	 {
-  		$firstid = $maxid - 10;
-  	 }
+        $query = "SELECT * FROM LoveItems LIMIT $firstid, 10";
+        $result = mysql_query($query) or die(mysql_error());?>
+        <span class='lefthandpic'>
+        <br/>
+        &nbsp;<img src="images/ldclovessmall.png" alt="London Dinner Club Loves" width="190" />
+        &nbsp;<marquee behaviour='scroll' direction='up' scrollamount='1' width='180' style='border:1px solid #EAC117;'>
+        <?php
+        $i = 1;
+        while($row = mysql_fetch_array($result))
+        {
+            $id = $row['ID'];
+            $title = $row['Title'];
+            if(strpos($title, "\'")!==false)
+            {
+                $title = str_replace("\'", "'", $title);
+            }
 
-  	 $query = "SELECT * FROM LoveItems LIMIT $firstid, 10";
-  	 $result = mysql_query($query) or die(mysql_error());
-  	 ?>
-  	 <span class='lefthandpic'>
-  	 <br/>
-  	 &nbsp;<img src="images/ldclovessmall.png" alt="London Dinner Club Loves" width="190" />
-  	 &nbsp;<marquee behaviour='scroll' direction='up' scrollamount='1' width='180' style='border:1px solid #EAC117;'>
-  	 <?php
-  	 $i = 1;
-  	 while($row = mysql_fetch_array($result))
-  	 {
-  			$id = $row['ID'];
-  			$title = $row['Title'];
-  			if(strpos($title, "\'")!==false)
-			{
-				$title = str_replace("\'", "'", $title);
-			}
-
-			if(strpos($title, '\"')!==false)
-			{
-				$title = str_replace('\"', '"', $title);
-			}?>
-  			&nbsp;<a href='member/loveposts.php?id=<?php echo $id;?>' style='color:white; text-decoration:none; font-size:11px;' onmouseover="this.style.color='#EAC117';" onmouseout="this.style.color='#FFFFFF';"><?php echo $i . '. ' . $title;?></a><br/><br/>
-  	 <?php
-  			$i++;
-  	 }?>
-  	 </marquee>
-	 <br/>
-  	 &nbsp;<a href='member/loveposts.php' style='color:white; text-decoration:none; font-size:11px;' onmouseover="this.style.color='#EAC117';" onmouseout="this.style.color='#FFFFFF';">See all posts</a>
-	</span>
-</div>
-
-
-<!-- end inner content -->
+            if(strpos($title, '\"')!==false)
+            {
+                $title = str_replace('\"', '"', $title);
+            }?>
+            &nbsp;<a href='member/loveposts.php?id=<?php echo $id;?>' style='color:white; text-decoration:none; font-size:11px;' onmouseover="this.style.color='#EAC117';" onmouseout="this.style.color='#FFFFFF';"><?php echo $i . '. ' . $title;?></a><br/><br/>
+            <?php
+            $i++;
+        }?>
+        </marquee>
+        <br/>
+        &nbsp;<a href='member/loveposts.php' style='color:white; text-decoration:none; font-size:11px;' onmouseover="this.style.color='#EAC117';" onmouseout="this.style.color='#FFFFFF';">See all posts</a>
+        </span>
+    </div>
+    <!-- end inner content -->
 
 </div>
 </div>

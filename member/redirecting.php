@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>London Dinner Club - exclusive dinner parties and drinks events in London :: membership booking login :: London Dinner Club</title>
 <meta name="description" content="London Dinner Club, exclusive dinner parties and drinks events in London" />
-<meta name="keywords" content="Dinner parties London, London Dinner Club. Singles events london, singles event, dating events, speed dating, match.com, datingdirect.com, dating in london, online dating, dating tips, salima manji, asian dinner club" />
+<meta name="keywords" content="Dinner parties London, London Dinner Club, london events, events, london, salima manji, supperclub, vogue, luxury events, luxe events, networking, socialising, professional networking, city networking, city events" />
 </head>
 <body>
 <div id="wrapper">
@@ -32,6 +32,7 @@ $redirect = 0;
 $amount = $_POST['amount'];
 $item = $_POST['item_name'];
 $itemnumber = $_POST['item_number'];
+$quantity = $_POST['quantity'];
 $id = $_POST['id'];
 $gender = $_POST['gender'];
 
@@ -51,10 +52,18 @@ if($gender == 'Male')
 		</script>
 	<?php
 	}
+	elseif($maxmale!=0 && ($maxmale < $quantity))
+	{?>
+		<script>
+		alert('Sorry, we cannot provide that many tickets. Please change the quantity of tickets needed.');
+		location.href="../events.php";
+		</script>
+	<?php
+	}
 	else
 	{
 		$redirect = 1;
-		$url = '=m&ven=' . $id;
+		$url = '=' . $quantity . '&ven=' . $id . '&gen=m';
 	}
 }
 else
@@ -67,10 +76,18 @@ else
 		</script>
 	<?php
 	}
+	elseif($maxfemale!=0 && ($maxfemale < $quantity))
+	{?>
+		<script>
+		alert('Sorry, we cannot provide that many tickets. Please change the quantity of tickets needed.');
+		location.href="../events.php";
+		</script>
+	<?php
+	}
 	else
 	{
 		$redirect = 1;
-		$url = '=f&ven=' . $id;
+		$url = '=' . $quantity . '&ven=' . $id . '&gen=f';
 	}
 }
 ?>
@@ -120,6 +137,7 @@ if($redirect == 1)
 		<option value="Male" <?php if($gender == 'Male'){echo "selected='selected'";}?>>Male</option>
 		<option value="Female" <?php if($gender == 'Female'){echo "selected='selected'";}?>>Female</option>
 	</select>
+	<input type='hidden' name='quantity' value="<?php echo $quantity;?>">
 	<input type="hidden" name="return" value="http://www.londondinnerclub.org/events.php?success<?php echo $url;?>">
 	<!--added in for quantity countdown-->
 	<input type='hidden' name='notify_url' value="http://www.londondinnerclub.org/scripts/ipnprocess.php?success<?php echo $url;?>">
@@ -128,4 +146,3 @@ if($redirect == 1)
 	<script>document.paypal.submit();</script>
 <?php
 }
-?>

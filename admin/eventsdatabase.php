@@ -13,12 +13,12 @@ if(!isset($_SESSION['admin_is_logged_in'])){
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>London Dinner Club - exclusive dinner parties and drinks events in London :: ADMIN AREA - EVENTS :: London Dinner Club</title>
 <meta name="description" content="London Dinner Club, exclusive dinner parties and drinks events in London" />
-<meta name="keywords" content="Dinner parties London, London Dinner Club. Singles events london, singles event, dating events, speed dating, match.com, datingdirect.com, dating in london, online dating, dating tips, salima manji, asian dinner club, supperclub, vogue, luxury events, luxe events" />
+<meta name="keywords" content="Dinner parties London, London Dinner Club, london events, events, london, salima manji, supperclub, vogue, luxury events, luxe events, networking, socialising, professional networking, city networking, city events" />
 <script>
 function show(id, id2) {
     var style = document.getElementById(id2).style;
     
-    if (document.getElementById(id).value == '35+' || document.getElementById(id).value == '30+') {
+    if (document.getElementById(id).value == '35+' || document.getElementById(id).value == '30+' || document.getElementById(id).value == '40+') {
         if (style.display == 'inline') {
             style.display = 'none';
         }
@@ -41,7 +41,6 @@ function show(id, id2) {
 <li><a href="../events.php" target="_self">CURRENT<br/>EVENTS</a></li>
 <li><a href="../past_events.php" target="_self">PAST<br/>EVENTS</a></li>
 <li><a href="../membership.php" target="_self">MEMBERSHIP</a></li>
-<li><a href="../asiandinnerclub.php" target="_self">ASIAN<br/>DINNER CLUB</a></li>
 <li><a href="../press.php" target="_self">PRESS</a></li>
 <li><a href="../team.php" target="_self">THE<br/>TEAM</a></li>
 <li><a href="../contact.php" target="_self">CONTACT</a></li>
@@ -125,7 +124,7 @@ if(isset($_POST['submitedit']))
 		$errors[] = 'The date provided is in the past';
 	}
 	
-    if ($_POST['AgeMin'] == '35+' || $_POST['AgeMin'] == '30+') {
+    if ($_POST['AgeMin'] == '35+' || $_POST['AgeMin'] == '30+' || $_POST['AgeMin'] == '40+') {
         $_POST['Age'] = $_POST['AgeMin'];
     } else {
         if($_POST['AgeMax'] < $_POST['AgeMin'])
@@ -310,7 +309,7 @@ if(isset($_GET['edit']))
 	$datemonth = $arrdate[1];
 	$dateyear = $arrdate[0];
 	$age = $row2['Age'];
-    if ($age != '35+' && $age != '30+') {
+    if ($age != '35+' && $age != '30+' && $age != '40+') {
         $arrage = split(' - ', $age);
         $agemin = $arrage[0];
         $agemax = $arrage[1];
@@ -415,6 +414,7 @@ if(isset($_GET['edit']))
 				}?>
                 <option value='30+' <?php if(isset($_POST['AgeMin'])){if($_POST['AgeMin'] == '30+'){echo "selected='selected'"; $display = 'none';}}else{if($agemin=='30+'){echo "selected='selected'"; $display = 'none';}}?>>30+</option>
                 <option value='35+' <?php if(isset($_POST['AgeMin'])){if($_POST['AgeMin'] == '35+'){echo "selected='selected'"; $display = 'none';}}else{if($agemin=='35+'){echo "selected='selected'"; $display = 'none';}}?>>35+</option>
+                <option value='40+' <?php if(isset($_POST['AgeMin'])){if($_POST['AgeMin'] == '40+'){echo "selected='selected'"; $display = 'none';}}else{if($agemin=='40+'){echo "selected='selected'"; $display = 'none';}}?>>40+</option>
 				</select> - <select name='AgeMax' id='AgeMax' style='display:<?php echo $display;?>;'><option value="">Max</option>
 				<?php
 				for($max=26; $max<=42; $max++)
@@ -573,7 +573,7 @@ if(isset($_POST['submitadd']))
 		$errors[] = 'The date provided is in the past!';
 	}
 
-	if ($_POST['AgeMin'] == '35+' || $_POST['AgeMin'] == '30+') {
+	if ($_POST['AgeMin'] == '35+' || $_POST['AgeMin'] == '30+' || $_POST['AgeMin'] == '40+') {
         $_POST['Age'] = $_POST['AgeMin'];
     } else {
         if($_POST['AgeMax'] < $_POST['AgeMin'])
@@ -838,6 +838,7 @@ if(isset($_GET['add']))
 					}?>
                     <option value='30+' <?php if('30+' == $_POST['AgeMin']){echo "selected='selected'"; $display = 'none';}?>>30+</option>
                     <option value='35+' <?php if('35+' == $_POST['AgeMin']){echo "selected='selected'"; $display = 'none';}?>>35+</option>
+                    <option value='40+' <?php if('40+' == $_POST['AgeMin']){echo "selected='selected'"; $display = 'none';}?>>40+</option>
 					</select> - <select name='AgeMax' id='AgeMax' style="display:<?php echo $display;?>;"><option value="">Max</option>
 					<?php
 					for($max=26; $max<=42; $max++)
