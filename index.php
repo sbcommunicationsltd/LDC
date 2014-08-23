@@ -5,11 +5,11 @@
 <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
 <head>
 
-    <title>London Dinner Club | Connecting People | London</title>
+    <title>London Dinner Club | Connecting Single Professionals</title>
     
     <!-- Meta -->
 	<meta charset="UTF-8">
-	<meta name="keywords" content="Dinner parties London, London Dinner Club, london events, events, london, salima manji, supperclub, vogue, luxury events, luxe events, networking, socialising, professional networking, city networking, city events" />
+	<meta name="keywords" content="Dating, singles, singles London, singles events, dinners, dinner parties, exclusive dating, matchmaking, professional matchmakers, Mayfair, Knightsbridge, Chelsea, networking" />
 	<meta name="description" content="The website of London Dinner Club - an exclusive Private Members Club, connecting single professionals through stylish dinner parties and cocktail parties. Held in Knightsbridge, Mayfair and Chelsea" />
 	<meta name="robots" content="index, follow" />
     
@@ -28,15 +28,47 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/apple-touch-icon-72x72.png" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/apple-touch-icon-114x114.png" type="text/css"/>
     
-     <!--JS -->
-     <script type="text/javascript" src="js/retina.js"></script>
-     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-     
-     <script type="text/javascript" src="js/jcarousel.simple.js"></script>
-     <script type="text/javascript" src="js/jquery.jcarousel.min.js"></script>
-     
-     <script type="text/javascript" src="js/jquery.scrollUp.min.js"></script>
-     <script type="text/javascript" src="js/jquery.easing.min.js"></script>
+	<!--JS -->
+	<script type="text/javascript" src="js/retina.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+
+	<script type="text/javascript" src="js/jcarousel.simple.js"></script>
+	<script type="text/javascript" src="js/jquery.jcarousel.min.js"></script>
+
+	<script type="text/javascript" src="js/jquery.scrollUp.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easing.min.js"></script>
+	
+	<style>
+	 	.event-gold{
+			position:absolute;
+			bottom:0;
+			left:0;
+			width:300px;
+			text-align:center;
+			color:#000;
+			font-family: 'cabinregular', Helvetica,Arial, sans-serif;
+			font-size:14px;	
+			background:#e7c95d;
+			height: 25px;
+			line-height:25px;
+			text-shadow:0 1px 0 #e8e196;
+		}
+		
+		.event-silver{
+			position:absolute;
+			bottom:0;
+			left:0;
+			width:300px;
+			text-align:center;
+			color:#000;
+			font-family: 'cabinregular', Helvetica,Arial, sans-serif;
+			font-size:14px;	
+			background:#b9b8b8;
+			height: 25px;
+			line-height:25px;
+			text-shadow:0 1px 0 #ccc;
+		}
+	 </style>
 
 </head>
 
@@ -53,13 +85,13 @@
          
          	<h1 class="big-header-home center">Connecting People</h1>
             <h2 class="medium-header center">London Dinner Club is an exclusive Private Members Club, connecting single professionals through stylish dinner parties and cocktail parties. Held in Knightsbridge, Mayfair and Chelsea</h2>
-            <a href="register.php" target="_self" title="Email London Dinner Club" class="button-signup"><span class="displace"></span></a>
+            <a href="register.php" target="_self" title="Email London Dinner Club" class="button-apply"><span class="displace"></span></a>
        </header>
     	
        
        <!-- Content-->
       <div class="box-280-margin fl">
-        	<h3 class="little-header free-icon">Free to register</h3>
+        	<h3 class="little-header free-icon">Membership privileges</h3>
             <p>No joining or membership fees. Simply join and once approved you’ll have access to our exclusive networking events.</p>
        </div>
         
@@ -89,7 +121,7 @@
                 while ($row = mysql_fetch_array($result)) {
                     $eid = $row['ID'];
                     $venue = $row['Venue'];?>
-                    <div class="img">
+                    <div class="img" style="height:auto; display:block;">
                         <!--<a href="new-events.php#<?php echo $venue;?>" title="<?php echo $row['Event_Title'];?>" target="_self"><img src="images/<?php echo $row['Image_Path'];?>" alt="<?php echo $row['Event_Title'];?>" width="300" height="209" border='0' /></a>-->
                         <a href="new-events.php#<?php echo $venue;?>" title="<?php echo $venue;?>" target="_self"><img src="images/<?php echo $row['Image_Path'];?>" alt="<?php echo $venue;?>" width="300" height="209" border='0' /></a>
                         <span class="box-calender">
@@ -97,6 +129,9 @@
                         <span class="box-month"><?php echo date('M', strtotime($row['Date']));?></span>
                         </span>
                         
+						<!-- Event indicator -->
+						<span class="event-gold">Event for Gold Members</span>
+						<!--<span class="event-silver">Event for Silver Members</span>-->
                     </div>
                     
                     <div class="description">
