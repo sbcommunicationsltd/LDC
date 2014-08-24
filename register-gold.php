@@ -366,7 +366,6 @@ include 'database/databaseconnect.php';?>
                      <div class="dropdown">
                       <select class="dropdown-select" name="Status" id="status" >
                         <option value="">Please Select:</option>
-                      
                         <option value="Single" <?php if(isset($_POST['Status']) && $_POST['Status'] == 'Single'){echo "selected='selected'";}?>>Single</option>
                         <option value="Divorced" <?php if(isset($_POST['Status']) && $_POST['Status'] == 'Divorced'){echo "selected='selected'";}?>>Divorced</option>
                         <option value="Separated" <?php if(isset($_POST['Status']) && $_POST['Status'] == 'Separated'){echo "selected='selected'";}?>>Separated</option>

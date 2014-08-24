@@ -365,7 +365,6 @@ include 'database/databaseconnect.php';?>
                      <div class="dropdown">
                       <select class="dropdown-select" name="Status" id="status" >
                         <option value="">Please Select:</option>
-                      
                         <option value="Single" <?php if(isset($_POST['Status']) && $_POST['Status'] == 'Single'){echo "selected='selected'";}?>>Single</option>
                         <option value="Divorced" <?php if(isset($_POST['Status']) && $_POST['Status'] == 'Divorced'){echo "selected='selected'";}?>>Divorced</option>
                         <option value="Separated" <?php if(isset($_POST['Status']) && $_POST['Status'] == 'Separated'){echo "selected='selected'";}?>>Separated</option>
@@ -393,7 +392,7 @@ include 'database/databaseconnect.php';?>
                       <select class="dropdown-select" name="Religion" id="religion">
                         <option value="">Please Select:</option>
                         <?php
-                        $proarr = array('Hindu', 'Sikh', 'Muslim', 'Christian', 'Spritual - Not religious', 'No religion', 'Other');
+                        $proarr = array('Hindu', 'Sikh', 'Muslim', 'Christian', 'Jewish', 'Spiritual - Not religious', 'No religion', 'Other');
                         foreach($proarr as $pro)
                         {
                             echo "<option value='$pro'"; if(isset($_POST['Religion']) && $_POST['Religion'] == $pro){echo "selected='selected'";} echo ">$pro</option>";
@@ -502,6 +501,7 @@ include 'database/databaseconnect.php';?>
                           <option value="Socialising" <?php if(isset($_POST['Achieve']) && $_POST['Achieve'] == 'Socialising'){echo "selected='selected'";}?>>Socialising</option>
                           <option value="Networking" <?php if(isset($_POST['Achieve']) && $_POST['Achieve'] == 'Networking'){echo "selected='selected'";}?>>Networking</option>
 		                  <option value="Friendship" <?php if(isset($_POST['Achieve']) && $_POST['Achieve'] == 'Friendship'){echo "selected='selected'";}?>>Friendship</option>
+						  <option value="Relationship" <?php if(isset($_POST['Achieve']) && $_POST['Achieve'] == 'Relationship'){echo "selected='selected'";}?>>Serious Relationship</option>
                       </select>
                     </div>
             		
