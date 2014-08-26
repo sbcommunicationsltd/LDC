@@ -7,12 +7,12 @@ if(!isset($_SESSION['admin_is_logged_in'])){
 
 $emailsil = "location.href='emailmembers.php?type=Silver';";
 if(!isset($_SESSION['admin2_is_logged_in'])){
-	$emailsil = "location.href='confirm.php';";
+	$emailsil = "location.href='confirm.php?type=Silver';";
 }
 
 $emailgold = "location.href='emailmembers.php?type=Gold';";
 if(!isset($_SESSION['admin2_is_logged_in'])){
-	$emailgold = "location.href='confirm.php';";
+	$emailgold = "location.href='confirm.php?type=Gold';";
 }
 ?>
 <!DOCTYPE html>

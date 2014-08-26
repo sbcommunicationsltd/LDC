@@ -99,9 +99,11 @@ if (isset($_POST['txtUserId']) && isset($_POST['txtPassword'])) {
 			$_SESSION['admin2_is_logged_in'] = true;
 
 			// after login we move to the main page
-			?>
+			if (isset($_GET['type'])) {
+				$type = $_GET['type'];
+			}?>
 			<script>
-			location.href = 'emailmembers.php';
+			location.href = 'emailmembers.php?type=<?php echo $type;?>';
 			</script>
 			<?php
 			exit;

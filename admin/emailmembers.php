@@ -107,9 +107,9 @@ function check()
 						<th colspan='3' align='left'>Email:</th>
 					</tr>
 					<tr>
-						<th width='33%'><input type='radio' name='email' value='All' <?php if(isset($_GET['email'])){if($_GET['email'] == 'all'){ echo "checked='checked'"; }}else{ echo "checked='checked'"; }  ?> onclick="location.href='?email=all';" />All Standard Members</th>
-						<th width='33%'><input type='radio' name='email' value='Male' <?php if(isset($_GET['email']) && $_GET['email'] == 'male'){echo "checked='checked'";} ?> onclick="location.href='?email=male';" />Male</th>
-						<th width='33%'><input type='radio' name='email' value='Female' <?php if(isset($_GET['email']) && $_GET['email'] == 'female'){echo "checked='checked'";} ?> onclick="location.href='?email=female';" />Female</th>
+						<th width='33%'><input type='radio' name='email' value='All' checked='checked' onclick="document.getElementById('EmailType').value='all'; document.getElementById('membertype').innerHTML = 'All <?php echo $type;?> Members';" />All Standard Members</th>
+						<th width='33%'><input type='radio' name='email' value='Male'  onclick="document.getElementById('EmailType').value='male'; document.getElementById('membertype').innerHTML = 'All Male <?php echo $type;?> Members';" />Male</th>
+						<th width='33%'><input type='radio' name='email' value='Female' onclick="document.getElementById('EmailType').value='female'; document.getElementById('membertype').innerHTML = 'All Female <?php echo $type;?> Members';" />Female</th>
 					</tr>
 					<tr height='40'>
 						<td colspan='3'>&nbsp;</td>
@@ -119,56 +119,14 @@ function check()
 					</tr>
 					<tr>
 						<td colspan='3'>
-							<?php
-							$query = "SELECT EmailAddress FROM $tableName";
-							if(isset($_GET['email']))
-							{
-								$gen = $_GET['email'];
-								if($gen == 'male')
-								{
-									$query .= " WHERE Gender = 'Male'";
-								}
-								elseif($gen == 'female')
-								{
-									$query .= " WHERE Gender = 'Female'";
-								}
-							}
-							$result = mysql_query($query) or die(mysql_error());
-							while($row = mysql_fetch_array($result))
-							{
-								$emails .= $row[0] . ',';
-							}
-							$emails = substr($emails, 0, -1);?>
 							<form method='post' name='send'>
 								<table width='100%' cellspacing='2' cellpadding='2' border='0'>
 									<tr>
 										<th width='15%' align='left'>To:</th>
-										<td><?php
-											if(isset($_GET['email']))
-											{
-												$gen = $_GET['email'];
-												if($gen == 'all')
-												{
-													echo "All $type Members";
-												}
-												elseif($gen == 'male')
-												{
-													echo "All Male $type Members";
-												}
-												else
-												{
-													echo "All Female $type Members";
-												}
-											}
-											else
-											{
-												echo "All $type Members";
-											}?>
-											<input type='hidden' name='EmailAdd' value='<?php echo $emails;?>' />
-										</td>
+										<td id='membertype'>All <?php echo $type;?> Members</td>
 									</tr>
 									<tr>
-										<td colspan='2'>&nbsp;</td>
+										<td colspan='2'><input type='hidden' name='EmailType' id='EmailType' value='all' /><input type='hidden' name='type' value="<?php echo $type;?>" />&nbsp;</td>
 									</tr>
 									<tr>
 										<th align='left'>Subject:</th>
@@ -202,52 +160,69 @@ function check()
 				}
 				else
 				{
-					$toemails = $_POST['EmailAdd'];
-					//$toemails = 'sumita.biswas@gmail.com,sumi@blueyonder.co.uk,sumita_biswas@hotmail.com';
-					//$toemails = 'sumita.biswas@gmail.com';
-					$toemails2 = explode(',', $toemails);
-					foreach($toemails2 as $toe)
+					$subject = $_POST['Subject'];
+					if(strpos($subject, '\"') !== false)
 					{
-						$to = $toe;
-						$subject = $_POST['Subject'];
-						if(strpos($subject, '\"') !== false)
-						{
-							$subject = str_replace('\"', '"', $subject);
-						}
+						$subject = str_replace('\"', '"', $subject);
+					}
 
-						if(strpos($subject, "\'") !== false)
-						{
-							$subject = str_replace("\'", "'", $subject);
-						}
+					if(strpos($subject, "\'") !== false)
+					{
+						$subject = str_replace("\'", "'", $subject);
+					}
 
-						$mess = $_POST['Message'];
-						if(strpos($mess, "\r\n") !== false)
-						{
-							$mess = str_replace("\r\n", '<br/>', $mess);
-						}
+					$mess = $_POST['Message'];
+					if(strpos($mess, "\r\n") !== false)
+					{
+						$mess = str_replace("\r\n", '<br/>', $mess);
+					}
 
-						if(strpos($mess, '\"') !== false)
-						{
-							$mess = str_replace('\"', '"', $mess);
-						}
+					if(strpos($mess, '\"') !== false)
+					{
+						$mess = str_replace('\"', '"', $mess);
+					}
 
-						if(strpos($mess, "\'") !== false)
-						{
-							$mess = str_replace("\'", "'", $mess);
-						}
+					if(strpos($mess, "\'") !== false)
+					{
+						$mess = str_replace("\'", "'", $mess);
+					}
 
-						$message = "<html><head></head><body><p>" . $mess . "</p>";
-						$message .= "<p>&nbsp;</p><p>Best Wishes,<br/><br/>From the London Dinner Club Team</p>";
-						$message .= "<p><img src='http://www.londondinnerclub.org/images/logo.png' alt='London Dinner Club' border='0' width='150' /></p>";
-						$message .= "<p style='font-size:10px;'>We want to keep you up to date with everything that is happening at London Dinner Club, but you can click here to unsubscribe <a href='mailto:sales@londondinnerclub.org'>sales@londondinnerclub.org</a> if you no longer wish to receive information. Thank you.</p></body></html>";
-						$headers = "MIME-Version: 1.0 \r\n";
-						$headers .= "Content-type: text/html; charset=iso-8859-1 \r\n";
-						$headers .= "From: London Dinner Club <sales@londondinnerclub.org> \r\n";
+					$message = "<html><head></head><body><p>" . $mess . "</p>";
+					$message .= "<p>&nbsp;</p><p>Best Wishes,<br/><br/>From the London Dinner Club Team</p>";
+					$message .= "<p><img src='http://www.londondinnerclub.org/images/logoapproval.JPG' alt='London Dinner Club' border='0' width='150' /></p>";
+					$message .= "<p style='font-size:10px;'>We want to keep you up to date with everything that is happening at London Dinner Club, but you can click here to unsubscribe <a href='mailto:sales@londondinnerclub.org'>sales@londondinnerclub.org</a> if you no longer wish to receive information. Thank you.</p></body></html>";
+					$headers = "MIME-Version: 1.0 \r\n";
+					$headers .= "Content-type: text/html; charset=iso-8859-1 \r\n";
+					$headers .= "From: London Dinner Club <sales@londondinnerclub.org> \r\n";
+					
+					$query = "SELECT EmailAddress FROM $tableName";
+					if(isset($_POST['EmailType']))
+					{
+						$gen = $_POST['EmailType'];
+						if($gen == 'male')
+						{
+							$query .= " WHERE Gender = 'Male'";
+						}
+						elseif($gen == 'female')
+						{
+							$query .= " WHERE Gender = 'Female'";
+						}
+					}
+					//$query .= " LIMIT 1";
+					$result = mysql_query($query) or die(mysql_error());
+					$failed = array();
+					while($row = mysql_fetch_array($result))
+					{
+						$to = $row['EmailAddress'];
+						//echo "TO: $to\n";
+						//$to = 'sumita.biswas@gmail.com';
 
 						if(!mail($to, $subject, $message, $headers))
 						{
-							$failed[] = $toe;
+							$failed[] = $to;
 						}
+						
+						sleep(1);
 					}
 
 					if(empty($failed))
@@ -256,7 +231,7 @@ function check()
 						<p>&nbsp;</p>
 						<p>
 						<form method='post' name='mainadmin' action='emailmembers.php'>
-						<input type='hidden' name='sendmore' />
+						<input type='hidden' name='type' value="<?php echo $type;?>" />
 						<p><img src="../images/sumi_buttons_04.png" width="11" height="19" alt="" style='float:left;' />
 						<input type='submit' value='Send More Emails' class='singlebutton' />
 						<img src="../images/sumi_buttons_06.png" width="11" height="19" alt="" style='float:left;' />
