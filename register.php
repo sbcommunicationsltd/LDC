@@ -114,7 +114,7 @@ include 'database/databaseconnect.php';?>
        <!-- Content-->
        <div class="spacebreak"></div>
        
-       <h1 class="medium-header uppercase">London Dinner Club offers two levels of membership, a Silver Membership and a Gold Membership</h1>
+       <h2 class="medium-header">London Dinner Club offers two levels of membership, a Silver Membership and a Gold Membership</h2>
        <div class="line2"></div>
        
        <div class="box475 fl">

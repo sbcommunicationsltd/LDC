@@ -417,6 +417,20 @@ margin:35px 0;
 	margin:25px auto;
 }
 
+.button-apply{
+	border: none;
+	padding: 0;
+	width:230px;
+	height: 51px;
+	text-indent: 10000px;
+	overflow: hidden;
+	display: block;
+	font-size: 0px;
+	cursor: pointer;
+	background: url("../images/button-apply.png") top left no-repeat;
+	margin:25px auto;
+}
+
 .button-login{
 	border: none;
 	padding: 0;
@@ -498,7 +512,8 @@ margin:35px 0;
 .button-tickets:hover,
 .button-upload:hover,
 .button-submit:hover,
-.button-login:hover{
+.button-login:hover,
+.button-apply:hover{
 	background-position:bottom left;	
 }
 

@@ -53,7 +53,13 @@
        <!-- Content-->
        <div class="spacebreak"></div>
        
-       <h1 class="medium-header uppercase center">Login</h1>
+		<h1 class="medium-header uppercase center">
+		<?php 
+		if (!isset($_GET['type'])) {
+			echo 'Silver';
+		} else {
+			echo 'Gold';
+		}?>	Member's Login</h1>
        <div class="line2"></div>
        <div class="spacebreak"></div>
 
@@ -69,33 +75,60 @@ if (isset($_POST['txtUserId']) && isset($_POST['txtPassword'])) {
    $password = $_POST['txtPassword'];
 
    // check if the user id and password combination exist in database
-   $sql = "SELECT *
-		   FROM tbl_auth_user
-		   WHERE member_id = '$userId'
-				 AND user_pass = '$password'";
+   if (!isset($_GET['type'])) {
+	    $sql = "SELECT *
+			    FROM tbl_auth_user
+			    WHERE member_id = '$userId'
+					AND user_pass = '$password'";
+	} else {
+		$todaydate = date('Y-m-d');
+		$sql = "SELECT * 
+				FROM Gold_Members 
+				WHERE EmailAddress = '$userId' 
+					AND Approved = 'Yes' AND DateExpire > '$todaydate'";
+	}
 
-   $result = mysql_query($sql)
-			 or die('Query failed. ' . mysql_error());
+    $result = mysql_query($sql)
+				or die('Query failed. ' . mysql_error());
+	
+	$continue = 0;
+    if (mysql_num_rows($result) == 1) {
+		if (isset($_GET['type'])) {
+			$sqlcheck = "SELECT *
+						FROM tbl_auth_user
+						WHERE member_id = 'gold'
+							AND user_pass = '$password'";
+			
+			$resultcheck = mysql_query($sqlcheck)
+				or die('Query check failed. ' . mysql_error());
 
-   if (mysql_num_rows($result) == 1) {
-	  // the user id and password match,
-	  // set the session
-	  $_SESSION['member_is_logged_in'] = true;
-
-	  // after login we move to the main page
-	  header('Location: ../member/?eid=' . $eid);
-	  exit;
-   } else {
-	  $errorMessage = 'Sorry, wrong user id / password';
-   }
+			if (mysql_num_rows($resultcheck) == 1) {
+				$_SESSION['goldmem_is_logged_in'] = true;
+				$url = '../member/?type=gold&eid=' . $eid;
+				$continue = 1;
+			}
+		} else {
+			// the user id and password match,
+			// set the session
+			$_SESSION['member_is_logged_in'] = true;
+			$url = '../member/?eid=' . $eid;
+			$continue = 1;
+		}
+	}
+	
+	if (1 == $continue) {
+		// after login we move to the main page
+		header("Location: $url");
+		exit;
+	} else {
+		$errorMessage = 'Sorry, wrong user id / password';
+	}
 }
 
-if ($errorMessage != '') {
-?>
+if ($errorMessage != '') {?>
 <p align="center" style='color:#990000; font-weight:bold;'><?php echo $errorMessage; ?></p>
 <?php
-}
-?>
+}?>
 <form class="form-container" action="" method="post" style="margin:auto;" name='frmLogin'>
 	<a name="contact" id="contact"></a>
     <fieldset>
@@ -121,7 +154,6 @@ if ($errorMessage != '') {
 <div class="spacebreak"></div>   
     </div>
  
-   
     <?php include('../footer.php');?>
    
 </body>

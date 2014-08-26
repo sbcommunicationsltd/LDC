@@ -13,7 +13,7 @@ $to = 'sumita.biswas@gmail.com';
 $subject = 'ldc cron daily';
 $body = "Triggered \n";
 
-$query = "SELECT * FROM Members";
+$query = "SELECT * FROM Gold_Members";
 $result = mysql_query($query) or die(mysql_error());
 $date = date('Y-m-d H:i');
 while($row = mysql_fetch_array($result))
@@ -30,14 +30,16 @@ while($row = mysql_fetch_array($result))
 				mysql_query($update) or die(mysql_error());
 
 				$email = $row['EmailAddress'];
-				$to2 = $email;
+				//$to2 = $email;
 				//$to = 'sumita.biswas@gmail.com';
 				$firstname = $row['Forename'];
-				$subject2 = 'Renew Membership to London Dinner Club';
-				$body2 = "<html><head><title>Renew Membership to London Dinner Club</title></head><body>";
-				$body2 .= "<p>Dear $firstname,</p>";
-				$body2 .= "<p>Your Membership will be expiring in 7 days.</p>";
-				$body2 .= "<p>If you would like to continue, please <a href='http://www.londondinnerclub.org/member/paypal.php' style='text-decoration:underline;' border='0'>click here</a>. After you have paid, you will receive email confirmation.</p>";
+				$surname = $row['Surname']
+				$subject2 = 'Renew Membership Required for London Dinner Club';
+				$body2 = "<html><head><title>Renew Membership required for London Dinner Club</title></head><body>";
+				//$body2 .= "<p>Dear $firstname,</p>";
+				$body2 .= "<p>The following member's Membership will be expiring in 7 days:</p>";
+				$body2 .= "<p>Name: $firstname $surname<br/>Email Address: $email</p>";
+				//$body2 .= "<p>If you would like to continue, please <a href='http://www.londondinnerclub.org/member/paypal.php' style='text-decoration:underline;' border='0'>click here</a>. After you have paid, you will receive email confirmation.</p>";
 				$body2 .= "<p><br/></p><p>Best Wishes,</p>";
 				$body2 .= "<p><br/></p><p>London Dinner Club</p>";
 				$body2 .= "<p><img src='http://www.londondinnerclub.org/images/logo2.png' alt='London Dinner Club' border='0' /></p></body></html>";
@@ -45,10 +47,10 @@ while($row = mysql_fetch_array($result))
 				$headers2 = "MIME-Version: 1.0 \r\n";
 				$headers2 .= "Content-type: text/html; charset=iso-8859-1 \r\n";
 				$headers2 .= "From: London Dinner Club <info@londondinnerclub.org> \r\n";
-				$headers2 .= "Cc: sales@londondinnerclub.org \r\n";
+				//$headers2 .= "Cc: sales@londondinnerclub.org \r\n";
 
-
-				if(mail($to2, $subject2, $body2, $headers2))
+				$to = 'sales@londondinnerclub.org';
+				if(mail($to, $subject2, $body2, $headers2))
 				{
 					$body .= "Mail Sent \n";
 				}
@@ -65,4 +67,3 @@ $headers = "From: Auto <auto@londondinnerclub.org> \r\n";
 mail($to, $subject, $body, $headers);
 
 exit;
-?>

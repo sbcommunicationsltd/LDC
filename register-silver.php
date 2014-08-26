@@ -106,7 +106,7 @@ include 'database/databaseconnect.php';?>
 				$re = mysql_query($qu) or die(mysql_error());
 				if(mysql_num_rows($re) == 1)
 				{
-					$errors[] = "The email address provided has already been used to register for Membership.";
+					$errors[] = "The email address provided has already been used to register for Silver Membership.";
 				}
 			}
 			
@@ -258,17 +258,14 @@ include 'database/databaseconnect.php';?>
 				//$to = 'info@asiandinnerclub.com, lovesalima@googlemail.com';
 				$to = 'info@londondinnerclub.org';
 				//$to = 'sumita.biswas@gmail.com';
-				$subject = 'Membership Form Submission for London Dinner Club';
+				$subject = 'Silver Membership Application Form: London Dinner Club';
 				$body = '';
 				foreach($fields as $field)
 				{
 					$formvar = $_POST[$field];
 					//if($field!='ConEmailAddress' && $field!='Captcha_Code')
-					if($field!='ConEmailAddress')
-					{
-						$formvar = addslashes($formvar);
-						$query2 .= "'$formvar', ";
-					}
+					$formvar = addslashes($formvar);
+					$query2 .= "'$formvar', ";
 					$formvar2 = $formvar;
 					if(strpos($formvar2, "\'")!==false)
 					{
@@ -279,10 +276,7 @@ include 'database/databaseconnect.php';?>
 						$formvar2 = str_replace('\"', '"', $formvar2);
 					}
 					//if($field!='ConEmailAddress' && $field!='Captcha_Code')
-					if($field!='ConEmailAddress')
-					{
-						$body .= "\n$field: $formvar2 \n";
-					}
+					$body .= "\n$field: $formvar2 \n";
 				}
 				$query2 .= "'$date', 'No')";
 				$headers = "From: London Dinner Club <sales@londondinnerclub.org> \r\n";

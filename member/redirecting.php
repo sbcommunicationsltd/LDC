@@ -63,6 +63,12 @@ $item = $_POST['item_name'];
 $itemnumber = $_POST['item_number'];
 $quantity = $_POST['quantity'];
 $id = $_POST['id'];
+$location = $_POST['location'];
+if ($location == 'silver') {
+	$url2 = "../member/?eid=$id";
+} elseif ($location == 'gold') {
+	$url2 = "../member/?type=gold&eid=$id";
+}
 $gender = $_POST['gender'];
 
 $query = "SELECT * FROM Events WHERE ID = $id";
@@ -71,52 +77,39 @@ $row = mysql_fetch_array($result);
 $venue = $row['Venue'] . ' on ' . date('jS F Y', strtotime($row['Date']));
 $maxmale = $row['MaxMaleQuantity'];
 $maxfemale = $row['MaxFemaleQuantity'];
-if($gender == 'Male')
-{
-	if($maxmale == 0)
-	{?>
+if ($gender == 'Male') {
+	if ($maxmale == 0) {?>
 		<script>
 		alert('Sorry - Male Tickets for <?php echo $venue;?> are sold out! Please feel free to choose another event.');
 		location.href='../new-events.php';
 		</script>
 	<?php
-	}
-    elseif($maxmale!=0 && ($maxmale < $quantity))
-	{?>
+	} elseif($maxmale!=0 && ($maxmale < $quantity)) {?>
 		<script>
 		alert('Sorry, we cannot provide that many tickets. Please change the quantity of tickets needed.');
-		location.href="../events.php";
+		location.href="<?php echo $url2;?>";
 		</script>
 	<?php
-	}
-	else
-	{
+	} else {
 		$redirect = 1;
-		$url = '=' . $quantity . '&ven=' . $id . '&gen=m';
+		$url = '=' . $quantity . '&ven=' . $id . '&gen=m&loc=' . $location;
 	}
-}
-else
-{
-	if($maxfemale == 0)
-	{?>
+} else {
+	if ($maxfemale == 0) {?>
 		<script>
 		alert('Sorry - Female Tickets for <?php echo $venue;?> are sold out! Please feel free to choose another event.');
 		location.href='../new-events.php';
 		</script>
 	<?php
-	}
-    elseif($maxfemale!=0 && ($maxfemale < $quantity))
-	{?>
+	} elseif ($maxfemale!=0 && ($maxfemale < $quantity)) {?>
 		<script>
 		alert('Sorry, we cannot provide that many tickets. Please change the quantity of tickets needed.');
-		location.href="../events.php";
+		location.href="<?php echo $url2;?>";
 		</script>
 	<?php
-	}
-	else
-	{
+	} else {
 		$redirect = 1;
-		$url = '=' . $quantity . '&ven=' . $id . '&gen=f';
+		$url = '=' . $quantity . '&ven=' . $id . '&gen=f&loc=' . $location;
 	}
 }?>
 </div>
@@ -131,8 +124,7 @@ else
 
 </html>
 <?php
-if($redirect == 1)
-{?>
+if ($redirect == 1) {?>
 	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" name='paypal'>
 	<input type="hidden" name="business" value="sales@londondinnerclub.org">
 	<input type='hidden' name='cmd' value='_xclick'>

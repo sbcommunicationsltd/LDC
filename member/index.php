@@ -2,14 +2,11 @@
 include '../database/databaseconnect.php';
 $eid = $_GET['eid'];
 
-if(isset($_GET['type']))
-{
-	if(!isset($_SESSION['premmem_is_logged_in'])){
-		header('Location: login.php?type=premier&eid=' . $eid);
+if (isset($_GET['type'])) {
+	if(!isset($_SESSION['goldmem_is_logged_in'])){
+		header('Location: login.php?type=gold&eid=' . $eid);
 	}
-}
-else
-{
+} else {
 	if(!isset($_SESSION['member_is_logged_in'])){
 		header('Location: login.php?eid=' . $eid);
 	}
@@ -85,13 +82,19 @@ function reload(gen, loc)
         	<?php $menu="new-events";?>
    			<?php include('../navigation.php');?>
     
-       </header>
+        </header>
     	
        
-       <!-- Content-->
-       <div class="spacebreak"></div>
-       
-       <h1 class="medium-header uppercase">Members Booking</h1>
+        <!-- Content-->
+        <div class="spacebreak"></div>
+        <?php
+		if (!isset($_GET['type'])) {?>
+			<h1 class="medium-header uppercase">Silver Members Booking</h1>
+		<?php
+		} else {?>
+			<h1 class="medium-header uppercase">Gold Members Booking</h1>
+		<?php
+		}?>
        <div class="line"></div>
        
 		<p>You can book for any number of events, but please specify if you are MALE or FEMALE as there are limited spaces available for men and women at each event. <span class="bold">Book now to avoid disappointment!</span></p>
@@ -173,6 +176,14 @@ $row = mysql_fetch_array($result);?>
 	  <td>&nbsp;</td>
 	</tr>
 	<tr>
+	  <th align='left'>Member Type:</td>
+	  <td><?php echo $row['Member_Type'];?></td>
+	</tr>
+	<tr>
+	  <td>&nbsp;</td>
+	  <td>&nbsp;</td>
+	</tr>
+	<tr>
 	  <th valign="top" align='left'>Description:</th>
 	  <td valign="top"><?php echo $row['Description'];?></td>
 	</tr>
@@ -184,6 +195,11 @@ $row = mysql_fetch_array($result);?>
 		<td align='left'>
 		<?php
 		$venue = $row['Venue'];
+		if (!isset($_GET['type'])) {
+			$item = $venue . ' - Silver';
+		} else {
+			$item = $venue . ' - Gold';
+		}
 		$amount = $row['Price'];
 
 		$datepart = explode('-', $row['Date']);
@@ -192,9 +208,17 @@ $row = mysql_fetch_array($result);?>
 			<form action="redirecting.php" method="post" name='redirecting'>
 			<input type='hidden' name='amount' value="<?php echo $amount;?>">
 			<!--<input type='hidden' name='amount' value="0.01">-->
-			<input type='hidden' name='item_name' value="<?php echo $venue;?>">
+			<input type='hidden' name='item_name' value="<?php echo $item;?>">
 			<input type='hidden' name='item_number' value="<?php echo $date2;?>">
 			<input type='hidden' name='id' value="<?php echo $eid;?>">
+			<?php
+			if (!isset($_GET['type'])) {?>
+				<input type='hidden' name='location' value='silver'>
+			<?php
+			} else {?>
+				<input type='hidden' name='location' value='gold'>
+			<?php
+			}?>
 			<table class="fl">
 			<tr>
                 <td><span class="bold">Gender:</span></td>

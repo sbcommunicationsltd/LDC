@@ -30,12 +30,44 @@ session_start();?>
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/apple-touch-icon-72x72.png" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/apple-touch-icon-114x114.png" type="text/css"/>
     
-     <!--JS -->
-     <script type="text/javascript" src="js/retina.js"></script>
-     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-     
-     <script type="text/javascript" src="js/jquery.scrollUp.min.js"></script>
-     <script type="text/javascript" src="js/jquery.easing.min.js"></script>
+	<!--JS -->
+	<script type="text/javascript" src="js/retina.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+
+	<script type="text/javascript" src="js/jquery.scrollUp.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easing.min.js"></script>
+	 
+	<style>
+	 	.event-gold{
+			position:absolute;
+			bottom:0;
+			left:0;
+			width:300px;
+			text-align:center;
+			color:#000;
+			font-family: 'cabinregular', Helvetica,Arial, sans-serif;
+			font-size:14px;	
+			background:#e7c95d;
+			height: 25px;
+			line-height:25px;
+			text-shadow:0 1px 0 #e8e196;
+		}
+		
+		.event-silver{
+			position:absolute;
+			bottom:0;
+			left:0;
+			width:300px;
+			text-align:center;
+			color:#000;
+			font-family: 'cabinregular', Helvetica,Arial, sans-serif;
+			font-size:14px;	
+			background:#b9b8b8;
+			height: 25px;
+			line-height:25px;
+			text-shadow:0 1px 0 #ccc;
+		}
+	</style>
 
 </head>
 
@@ -181,62 +213,72 @@ session_start();?>
         {
             while($row = mysql_fetch_array($result))
             {
-                $eid = $row['ID'];?>
-               <!-- Event box-->   
-               <div class="event-wrapper">
-                    <div class="img">
+                $eid = $row['ID'];
+				$type = $row['Member_Type'];
+				$lowerclass = strtolower($type);
+				if ('Gold' == $type) {
+					$url = '?type=gold&eid=' . $eid;
+				} else {
+					$url = '?eid=' . $eid;?>
+				<?php
+				}?>
+                <!-- Event box-->   
+                <div class="event-wrapper">
+                    <div class="img" style="height:auto; display:block;">
                         <!--<a href="member/?eid=<?php echo $eid;?>" title="<?php echo $row['Event_Title'];?>" target="_self"><img src="images/<?php echo $row['Image_Path'];?>" alt="<?php echo $row['Event_Title'];?>" width='300' height='209' border='0' /></a>-->
-                        <a href="member/?eid=<?php echo $eid;?>" title="<?php echo $row['Venue'];?>" target="_self"><img src="images/<?php echo $row['Image_Path'];?>" alt="<?php echo $row['Venue'];?>" width='300' height='209' border='0' /></a>
+                        <a href="member/<?php echo $url;?>" title="<?php echo $row['Venue'];?>" target="_self"><img src="images/<?php echo $row['Image_Path'];?>" alt="<?php echo $row['Venue'];?>" width='300' height='209' border='0' /></a>
                         
-                    <span class="box-calender">
-                    <span class="box-date"><?php echo date('d', strtotime($row['Date']));?></span>
-                    <span class="box-month"><?php echo date('M', strtotime($row['Date']));?></span>
-                    </span>
-                    
-                    </div>
-                
-                    <div class="description">
-                
-                        <!--<h3 class="little-header uppercase"><?php echo $row['Event_Title'];?></h3>-->
-                        <h3 class="little-header uppercase"><?php echo $row['Venue'];?></h3>
-                            <div class="details">
-                                <p><?php echo $row['Description'];?></p>
-                                    <ul class="bullets fl">
-                                        <li><span class="bold">Type:</span><?php echo $row['Event_Type'];?></li>
-                                        <li><span class="bold">Date:</span><?php echo date('dS F Y', strtotime($row['Date']));?></li>
-                                        <li><span class="bold">Time:</span><?php echo $row['Time'];?> hrs</li>
-                                        <li><span class="bold">Price:</span>&pound;<?php echo $row['Price'];?> Per Person</li>
-                                    </ul>
-                                    <dl class="bullets fl">
-                                      <dt class="bold">Location</dt>
-                                      <dd><?php echo $row['Venue'];?></dd>
-                                      <dd><?php echo $row['Address_Street'];?></dd>
-                                      <dd><?php echo $row['Address_Town'];?></dd>
-                                      <dd><?php echo $row['Address_City'];?></dd>
-                                      <dd><?php echo $row['Address_PostCode'];?></dd>
-                                    </dl>
-                            </div>
-                            
-                            <div class="event-buttons fr">
-                                <a href="member/?eid=<?php echo $eid;?>" title="Book Tickets For This Event" class="button-tickets"><span class="displace"></span></a>
-                                <div class="availablity-wrapper relative">
-                                    <p class="title">Availability</p>
-                                    <p class="availability"><?php echo $row['Availability'];?></p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    <div class="clear"></div>  
-               </div>
-               
-               <div class="line"></div>
+						<span class="box-calender">
+						<span class="box-date"><?php echo date('d', strtotime($row['Date']));?></span>
+						<span class="box-month"><?php echo date('M', strtotime($row['Date']));?></span>
+						</span>
+						
+						<!-- Event indicator -->
+						<span class="event-<?php echo $lowerclass;?>">Event for <?php echo $type;?> Members</span>
+			
+					</div>
+			
+					<div class="description">
+				
+						<!--<h3 class="little-header uppercase"><?php echo $row['Event_Title'];?></h3>-->
+						<h3 class="little-header uppercase"><?php echo $row['Venue'];?></h3>
+						<div class="details">
+							<p><?php echo $row['Description'];?></p>
+								<ul class="bullets fl">
+									<li><span class="bold">Type:</span><?php echo $row['Event_Type'];?></li>
+									<li><span class="bold">Date:</span><?php echo date('dS F Y', strtotime($row['Date']));?></li>
+									<li><span class="bold">Time:</span><?php echo $row['Time'];?> hrs</li>
+									<li><span class="bold">Price:</span>&pound;<?php echo $row['Price'];?> Per Person</li>
+								</ul>
+								<dl class="bullets fl">
+								  <dt class="bold">Location</dt>
+								  <dd><?php echo $row['Venue'];?></dd>
+								  <dd><?php echo $row['Address_Street'];?></dd>
+								  <dd><?php echo $row['Address_Town'];?></dd>
+								  <dd><?php echo $row['Address_City'];?></dd>
+								  <dd><?php echo $row['Address_PostCode'];?></dd>
+								</dl>
+						</div>
+						
+						<div class="event-buttons fr">
+							<a href="member/<?php echo $url;?>" title="Book Tickets For This Event" class="button-tickets"><span class="displace"></span></a>
+							<div class="availablity-wrapper relative">
+								<p class="title">Availability</p>
+								<p class="availability"><?php echo $row['Availability'];?></p>
+							</div>
+						</div>
+					</div>
+					
+					<div class="clear"></div>  
+				</div>
+				   
+				<div class="line"></div>
             <?php
             }
-        }?>  
-       </div>
+        }?> 
        
       
-       <div class="spacebreak"></div>   
+    <div class="spacebreak"></div>   
     </div>
  
    

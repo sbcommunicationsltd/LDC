@@ -5,9 +5,22 @@ if(!isset($_SESSION['admin_is_logged_in'])){
 	header('Location: login.php');
 }
 
+if (isset($_REQUEST['type'])) {
+	$type = $_REQUEST['type'];
+	if ('Gold' == $type) {
+		$tableName = 'Gold_Members';
+		$filenametype = 'goldmembers';
+		$subtable = 'goldmembertable.php';
+	} else {
+		$tableName = 'Members';
+		$filenametype = 'silvermembers';
+		$subtable = 'membertable.php';
+	}
+}
+
 if(isset($_POST['export']))
 {
-	$qu = "SELECT * FROM Members ORDER BY ID ASC";
+	$qu = "SELECT * FROM $tableName ORDER BY ID ASC";
 	$re = mysql_query($qu) or die(mysql_error());
 	$num = mysql_num_fields($re);
 
@@ -29,13 +42,12 @@ if(isset($_POST['export']))
 		$output .= "\n";
 	}
 
-	$filename = "members_".date("Y-m-d_H-i",time());
+	$filename = "$filenametype_" . date("Y-m-d_H-i", time());
 	header("Content-Type: application/vnd.ms-excel");
 	header("Content-Disposition: attachment; filename=".$filename.".xls");
 	print $output;
 	exit;
-}
-?>
+}?>
 <!DOCTYPE html>
 <!--[if lt IE 7]> <html class="ie6" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="ie7" lang="en"> <![endif]-->
@@ -106,52 +118,75 @@ function show(id, id2) {
        <!-- Content-->
        <div class="spacebreak"></div>
        
-           <h1 class="medium-header uppercase center">Admin Area</h1>
-           <div class="line2"></div>
+			<h1 class="medium-header uppercase center">Admin Area</h1>
+			<div class="line2"></div>
            
-           <div class="spacebreak"></div>
-<img src="../images/membership.gif" alt="Membership" width="181" height="50"/>
+			<div class="spacebreak"></div>
+			<img src="../images/membership.gif" alt="Membership" width="181" height="50"/>
 
-<iframe name='members' width='100%' allowTransparency="true" align='center' height='400' frameborder='0' src='membertable.php'></iframe>
-
-<p>&nbsp;</p>
 <?php
-$query = "SELECT * FROM Members WHERE Gender = 'Male'";
-$result = mysql_query($query) or die(mysql_error());
-$male = mysql_num_rows($result);
+if (isset($_REQUEST['type'])) {?>
+	<iframe name='members' width='100%' allowTransparency="true" align='center' height='400' frameborder='0' src='<?php echo $subtable;?>'></iframe>
 
-$query2 = "SELECT * FROM Members WHERE Gender = 'Female'";
-$result2 = mysql_query($query2) or die(mysql_error());
-$female = mysql_num_rows($result2);
+	<p>&nbsp;</p>
+	<?php
+	$query = "SELECT * FROM $tableName WHERE Gender = 'Male'";
+	$result = mysql_query($query) or die(mysql_error());
+	$male = mysql_num_rows($result);
 
-$total = $male + $female;?>
+	$query2 = "SELECT * FROM $tableName WHERE Gender = 'Female'";
+	$result2 = mysql_query($query2) or die(mysql_error());
+	$female = mysql_num_rows($result2);
 
-<table width='100%' border='0' cellpadding='2' cellspacing='2' style='border:2px #99CCFF double; border-width:6px; background-color:#B0E0E6;'>
-<tr>
-	<th align='left'>Total Members:</th>
-	<td> Male </td>
-	<td><?php echo $male;?></td>
-</tr>
-<tr>
-	<td>&nbsp;</td>
-	<td style='border-bottom:1px black solid;'> Female </td>
-	<td style='border-bottom:1px black solid;'><?php echo $female;?></td>
-</tr>
-<tr>
-	<td>&nbsp;</td>
-	<td> Grand Total </td>
-	<td><?php echo $total;?></td>
-</tr>
-</table>
-<p>&nbsp;</p>
-<form method='post' name='Export'>
-<input type='hidden' name='export' />
-<p><img src="../images/sumi_buttons_04.png" width="11" height="19" alt="" style='float:left;' />
-<input type='submit' class='singlebutton' onclick="if(confirm('Are you sure you want to export this data?')){document.Export.submit();}else{window.location.reload(false);}" value='Export Membership Table' />
-<img src="../images/sumi_buttons_06.png" width="11" height="19" alt="" style='float:left;' />
-</p>
-</form>
-<!--<p><form method='post' action='../admin/'><input type='submit' name='admin' value='Back to Main Admin Page' style='cursor:pointer;' /></form></p>-->
+	$total = $male + $female;?>
+
+	<table width='100%' border='0' cellpadding='2' cellspacing='2' style='border:2px #99CCFF double; border-width:6px; background-color:#B0E0E6;'>
+	<tr>
+		<th align='left'>Total <?php echo $type;?> Members:</th>
+		<td> Male </td>
+		<td><?php echo $male;?></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td style='border-bottom:1px black solid;'> Female </td>
+		<td style='border-bottom:1px black solid;'><?php echo $female;?></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td> Grand Total </td>
+		<td><?php echo $total;?></td>
+	</tr>
+	</table>
+	<p>&nbsp;</p>
+	<form method='post' name='Export'>
+	<input type='hidden' name='export' />
+	<input type='hidden' name='type' value='<?php echo $type;?>' />
+	<p><img src="../images/sumi_buttons_04.png" width="11" height="19" alt="" style='float:left;' />
+	<input type='submit' class='singlebutton' onclick="if(confirm('Are you sure you want to export the <?php echo $filenametype;?> database?')){document.Export.submit();}else{window.location.reload(false);}" value='Export Membership Table' />
+	<img src="../images/sumi_buttons_06.png" width="11" height="19" alt="" style='float:left;' />
+	</p>
+	</form>
+	<!--<p><form method='post' action='../admin/'><input type='submit' name='admin' value='Back to Main Admin Page' style='cursor:pointer;' /></form></p>-->
+<?php
+}  else {?>
+	<form method='post' name='redirect'>
+	<input type='hidden' name='type' value='Silver' />
+	<p><img src="../images/sumi_buttons_04.png" width="11" height="19" alt="" style='float:left;' />
+	<input type='submit' value='View Silver Members' class='singlebutton' />
+	<img src="../images/sumi_buttons_06.png" width="11" height="19" alt="" style='float:left;' />
+	</p>
+	</form>
+	<br/><br/>
+	<form method='post' name='redirect'>
+	<input type='hidden' name='type' value='Gold' />
+	<p><img src="../images/sumi_buttons_04.png" width="11" height="19" alt="" style='float:left;' />
+	<input type='submit' value='View Gold Members' class='singlebutton' />
+	<img src="../images/sumi_buttons_06.png" width="11" height="19" alt="" style='float:left;' />
+	</p>
+	</form>
+	<br/><br/>
+<?php
+}?>
 <br/>
 <form method='post' action='../admin/'>
 <input type='hidden' name='admin' />
@@ -162,14 +197,11 @@ $total = $male + $female;?>
 </form>
 <p><br/></p>
 
-
    <div class="clear"></div>
        <div class="spacebreak"></div>
     </div>
-    
    
     <?php include('../footer.php');?>
    
 </body>
-
 </html>

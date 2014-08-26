@@ -5,9 +5,14 @@ if(!isset($_SESSION['admin_is_logged_in'])){
 	header('Location: login.php');
 }
 
-$admin2 = "location.href='emailmembers.php';";
+$emailsil = "location.href='emailmembers.php?type=Silver';";
 if(!isset($_SESSION['admin2_is_logged_in'])){
-	$admin2 = "location.href='confirm.php';";
+	$emailsil = "location.href='confirm.php';";
+}
+
+$emailgold = "location.href='emailmembers.php?type=Gold';";
+if(!isset($_SESSION['admin2_is_logged_in'])){
+	$emailgold = "location.href='confirm.php';";
 }
 ?>
 <!DOCTYPE html>
@@ -89,8 +94,15 @@ if(!isset($_SESSION['admin2_is_logged_in'])){
 	<h1><img src="../images/welcome.gif" alt="welcome" width="181" height="50"/></h1>
 <table width='80%' align='center' cellspacing='2' cellpadding='2' border='0' style='border:2px #99CCFF double; border-width:6px;'>
 <tr>
-	<th width='50%'><span onclick="location.href='membershipdatabase.php';"><input type='submit' name='members' value='' class='adminbutton' /><br/><br/><span class='adminbutton'>Members Database</span></span></th>
-	<th width='50%'><span onclick="<?php echo $admin2;?>"><input type='submit' name='emailmembers' value='' class='adminbutton' /><br/><br/><span class='adminbutton'>Email Members</span></span></th>
+	<th width='50%'><span onclick="location.href='membershipdatabase.php?type=Silver';"><input type='submit' name='memberssilver' value='' class='adminbutton' /><br/><br/><span class='adminbutton'>Silver Members Database</span></span></th>
+	<th width='50%'><span onclick="location.href='membershipdatabase.php?type=Gold';"><input type='submit' name='membersgold' value='' class='adminbutton' /><br/><br/><span class='adminbutton'>Gold Members Database</span></span></th>
+</tr>
+<tr>
+	<td colspan='2'>&nbsp;</td>
+</tr>
+<tr>
+	<th width='50%'><span onclick="<?php echo $emailsil;?>"><input type='submit' name='emailmemberssilver' value='' class='adminbutton' /><br/><br/><span class='adminbutton'>Email Silver Members</span></span></th>
+	<th width='50%'><span onclick="<?php echo $emailgold;?>"><input type='submit' name='emailmembersgold' value='' class='adminbutton' /><br/><br/><span class='adminbutton'>Email Gold Members</span></span></th>
 </tr>
 <tr>
 	<td colspan='2'>&nbsp;</td>

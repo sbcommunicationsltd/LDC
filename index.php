@@ -1,3 +1,16 @@
+<?php
+include_once('database/databaseconnect.php');
+if (isset($_GET['success'])) {?>
+	<script>alert('You have successfully paid for your Gold Membership. Please wait for the approval email.');
+	location.href='../';
+	</script>
+<?php
+} elseif (isset($_GET['cancel'])) {?>
+	<script>alert('You have cancelled the payment for Gold Membership. Please contact sales@londondinnerclub.org when you wish to pay.');
+	location.href='../';
+	</script>
+<?php
+}?>
 <!DOCTYPE html>
 <!--[if lt IE 7]> <html class="ie6" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="ie7" lang="en"> <![endif]-->
@@ -68,7 +81,7 @@
 			line-height:25px;
 			text-shadow:0 1px 0 #ccc;
 		}
-	 </style>
+	</style>
 
 </head>
 
@@ -92,7 +105,7 @@
        <!-- Content-->
       <div class="box-280-margin fl">
         	<h3 class="little-header free-icon">Membership privileges</h3>
-            <p>No joining or membership fees. Simply join and once approved you’ll have access to our exclusive networking events.</p>
+            <p>Members will receive benefits and discounts to elite stores, spas, hotels and clubs.</p>
        </div>
         
        <div class="box-280-margin fl">
@@ -112,12 +125,9 @@
         <!-- Upcoming Event -->
         <div class="event-wrapper">
             <?php
-            include_once('database/databaseconnect.php');
-            
             $query = "SELECT * FROM Events WHERE Date >= CURDATE() ORDER BY Date ASC";
             $result = mysql_query($query) or die(mysql_error());
-            if(mysql_num_rows($result) != 0)
-            {
+            if (mysql_num_rows($result) != 0) {
                 while ($row = mysql_fetch_array($result)) {
                     $eid = $row['ID'];
                     $venue = $row['Venue'];?>
@@ -130,8 +140,16 @@
                         </span>
                         
 						<!-- Event indicator -->
-						<span class="event-gold">Event for Gold Members</span>
-						<!--<span class="event-silver">Event for Silver Members</span>-->
+						<?php 
+						if ('Gold' == $row['Member_Type']) {
+							$url = '?type=gold&eid=' . $eid;?>
+							<span class="event-gold">Event for Gold Members</span>
+						<?php
+						} else {
+							$url = '?eid=' . $eid;?>
+							<span class="event-silver">Event for Silver Members</span>
+						<?php
+						}?>
                     </div>
                     
                     <div class="description">
@@ -147,16 +165,16 @@
                                     <li><span class="bold">Price:</span>&pound;<?php echo $row['Price'];?> Per Person</li>
                                 </ul>
                                 <dl class="bullets fl">
-                                  <dt class="bold">Location</dt>
-                                  <dd><?php echo $venue;?></dd>
-                                  <dd><?php echo $row['Address_Street'];?></dd>
-                                  <dd><?php echo $row['Address_Town'];?></dd>
-                                  <dd><?php echo $row['Address_City'];?></dd>
-                                  <dd><?php echo $row['Address_PostCode'];?></dd>
+									<dt class="bold">Location</dt>
+									<dd><?php echo $venue;?></dd>
+									<dd><?php echo $row['Address_Street'];?></dd>
+									<dd><?php echo $row['Address_Town'];?></dd>
+									<dd><?php echo $row['Address_City'];?></dd>
+									<dd><?php echo $row['Address_PostCode'];?></dd>
                                 </dl>
                         </div>
                         <div class="event-buttons fr">
-                            <a href="member/?eid=<?php echo $eid;?>" title="Book Tickets For This Event" class="button-tickets"><span class="displace"></span></a>
+                            <a href="member/<?php echo $url;?>" title="Book Tickets For This Event" class="button-tickets"><span class="displace"></span></a>
                             <div class="availablity-wrapper relative">
                                 <p class="title">Availability</p>
                                 <p class="availability"><?php echo $row['Availability'];?></p>
@@ -169,7 +187,7 @@
                 }
             }?>
             <!--<h4 class="little-header center uppercase"><a href="new-events.php" title="See all events" target="_self">See All Upcoming Events</a></h4>-->
-       </div>
+        </div>
   
    
   		<div class="carousel-wrapper">
@@ -180,10 +198,8 @@
                 <?php 	
                 $query = "SELECT * FROM Events WHERE Date < CURDATE() ORDER BY Date DESC";
                 $result = mysql_query($query) or die(mysql_error());
-                if(mysql_num_rows($result)!=0)
-                {
-                    while($row = mysql_fetch_array($result))
-                    {
+                if (mysql_num_rows($result)!=0) {
+                    while ($row = mysql_fetch_array($result)) {
                         $venue = $row['Venue'];?>
                         <li>
                         <!--<a href="past-events.php#<?php echo $venue;?>" title="<?php echo $row['Event_Title'];?>" >-->
@@ -213,12 +229,12 @@
 						<span>A Hirsch.</span></p>
                         </li>
                         
-                         <li class="testimonials-width">
+                        <li class="testimonials-width">
                         <p class="left">"Great food (China Tang, Dorchester Hotel), the best cocktails at the bar after dinner...will definitely come to another dinner party!"<br>
 						<span>B Hughes</span></p>
                         </li>
                         
-                         <li class="testimonials-width">
+                        <li class="testimonials-width">
                         <p class="left">"Loved the lounge bar (Baku, Knightsbridge) and the cocktails. A more sophisticated way to network!"<br>
 						<span>P Vyas</span></p>
                         </li>

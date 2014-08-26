@@ -356,6 +356,14 @@ if(isset($_GET['edit']))
 			}?></select></td>
 		</tr>
 		<tr>
+			<th align='left'>Type of Membership</th>
+			<td valign='middle'><select name='Member_Type'>
+				<option value='' <?php if(isset($_POST['Member_Type'])){if($_POST['Member_Type'] == ''){echo "selected='selected'";}}else{if($row2['Member_Type'] == ''){echo "selected='selected'";}}?>>Select</option>
+				<option value='Silver' <?php if(isset($_POST['Member_Type'])){if($_POST['Member_Type'] == 'Silver'){echo "selected='selected'";}}else{if($row2['Member_Type'] == 'Silver'){echo "selected='selected'";}}?>>Silver</option>
+				<option value='Gold' <?php if(isset($_POST['Member_Type'])){if($_POST['Member_Type'] == 'Gold'){echo "selected='selected'";}}else{if($row2['Member_Type'] == 'Gold'){echo "selected='selected'";}}?>>Gold</option>
+			</select></td>
+		</tr>
+		<tr>
 			<td colspan='2'>&nbsp;</td>
 		</tr>
 		<tr>
@@ -385,7 +393,7 @@ if(isset($_GET['edit']))
 			<th align='left'>Time</th>
 			<td><select name="Time"><option value="">Time</option>
 				<?php
-				/*for ($i = 12; $i <= 21; $i++)
+				for ($i = 12; $i <= 21; $i++)
 				{
     				if($i == 21)
     				{
@@ -400,30 +408,6 @@ if(isset($_GET['edit']))
     				{
     					$time = "$i" . $min;
     					echo "<option value='$time'"; if(isset($_POST['Time'])){if($_POST['Time'] == $time){echo "selected='selected'";}}else{if($row2['Time'] == $time){echo "selected='selected'";}} echo ">$time</option>";
-    				}
-    			}*/
-                for ($i = 0; $i <= 9; $i++)
-				{
-    				if($i == 9)
-    				{
-    					$mins = array('.00', '.15', '.30');
-    				}
-    				else
-    				{
-    					$mins = array('.00', '.15', '.30', '.45');
-    				}
-
-    				foreach($mins as $min)
-    				{
-    					if($i == 0)
-    					{
-    						$time = '12' . $min;
-    					}
-    					else
-    					{
-    						$time = "$i" . $min;
-    					}
-    					echo "<option value='$time'"; if(isset($_POST['Time'])){if($_POST['Time'] == $time){echo "selected='selected'";}}else{if($row2['Time'] == $time){echo "selected='selected'";}} echo ">$time pm</option>";
     				}
     			}?>
 				</select>
@@ -444,7 +428,7 @@ if(isset($_GET['edit']))
 			</td>
 		</tr>
 		<tr>
-			<th align='left'>Description</th>
+			<th align='left' valign='top'>Description</th>
 			<td><textarea name='Description' rows="4" cols="30"><?php if(isset($_POST['Description'])){echo $_POST['Description'];}else{echo $row2['Description'];}?></textarea></td>
 		</tr>
 		<tr>
@@ -463,7 +447,7 @@ if(isset($_GET['edit']))
 		</tr>
 		<input type="hidden" name="MAX_FILE_SIZE" value="2000000" />
 		<tr>
-			<th align='left'>Image</th>
+			<th align='left' valign='top'>Image</th>
 			<td><img src="../images/<?php echo $row2['Image_Path'];?>" alt="<?php echo $row2['Venue'];?>" border='0' height='200' width='309' /></td>
 			<input type='hidden' name='image' value="<?php echo $row2['Image_Path'];?>" />
 		</tr>
@@ -737,6 +721,16 @@ if(isset($_GET['add']))
 				</select></td>
 			</tr>
 			<tr>
+				<th align='left'>Type of Membership</th>
+				<td valign='middle'>
+					<select name='Member_Type'>
+					<option value='' <?php if($_POST['Member_Type'] == ''){echo "selected='selected'";}?>>Select</option>
+					<option value='Silver' <?php if($_POST['Member_Type'] == 'Silver'){echo "selected='selected'";}?>>Silver</option>
+					<option value='Gold' <?php if($_POST['Member_Type'] == 'Gold'){echo "selected='selected'";}?>>Gold</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td colspan='2'>&nbsp;</td>
 			</tr>
 			<tr>
@@ -801,7 +795,7 @@ if(isset($_GET['add']))
 				</td>
 			</tr>
 			<tr>
-				<th align='left'>Description</th>
+				<th align='left' valign='top'>Description</th>
 				<td><textarea name='Description' rows="4" cols="30"><?php echo $_POST['Description'];?></textarea></td>
 			</tr>
 			<input type='hidden' name='Availability' value='Available' />
@@ -908,7 +902,11 @@ if((!isset($_GET['edit'])) && (!isset($_POST['submitedit'])) && (!isset($_GET['a
 					<td><?php echo $row['Event_Type']; ?></td>
 				</tr>
 				<tr>
-					<th align='left'>Address</th>
+					<th align='left'>Member Type</th>
+					<td><?php echo $row['Member_Type']; ?></td>
+				</tr>
+				<tr>
+					<th align='left' valign='top'>Address</th>
 					<td>
 						<table>
 							<tr>
@@ -935,14 +933,14 @@ if((!isset($_GET['edit'])) && (!isset($_POST['submitedit'])) && (!isset($_GET['a
 				</tr>
 				<tr>
 					<th align='left'>Time</th>
-					<td><?php echo $row['Time'];?></td>
+					<td><?php echo $row['Time'];?> hrs</td>
 				</tr>
 				<tr>
 					<th align='left'>Price</th>
 					<td><?php if($row['Price'] == 0){echo "Free";}else{echo "&pound;" . $row['Price'];}?></td>
 				</tr>
 				<tr>
-					<th align='left'>Description</th>
+					<th align='left' valign='top'>Description</th>
 					<td><?php echo $row['Description'];?></td>
 				</tr>
 				<tr>
@@ -950,7 +948,7 @@ if((!isset($_GET['edit'])) && (!isset($_POST['submitedit'])) && (!isset($_GET['a
 					<td><?php echo $row['Availability'];?></td>
 				</tr>
 				<tr>
-					<th align='left'>Image</th>
+					<th align='left' valign='top'>Image</th>
 					<td><img src="../images/<?php echo $row['Image_Path'];?>" alt="<?php echo $venue;?>" border='0' height='200' width='309' /></td>
 				</tr>
 				<tr>

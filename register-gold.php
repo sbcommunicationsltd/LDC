@@ -102,11 +102,11 @@ include 'database/databaseconnect.php';?>
 			else
 			{
 				$email = $_POST['EmailAddress'];
-				$qu = "SELECT * FROM Members WHERE EmailAddress = '$email'";
+				$qu = "SELECT * FROM Gold_Members WHERE EmailAddress = '$email'";
 				$re = mysql_query($qu) or die(mysql_error());
 				if(mysql_num_rows($re) == 1)
 				{
-					$errors[] = "The email address provided has already been used to register for Membership.";
+					$errors[] = "The email address provided has already been used to register for Gold Membership.";
 				}
 			}
 			
@@ -132,11 +132,11 @@ include 'database/databaseconnect.php';?>
 				$errors[] = "The mobile number must be numeric!";
 			}
 			
-			$target_path = 'member/images/';
+			$target_path = 'member/goldimages/';
 
 			$filename = basename($_FILES['uploadedfile']['name']);
 			
-			$query = "SELECT MAX(ID) FROM Members";
+			$query = "SELECT MAX(ID) FROM Gold_Members";
 			$result = mysql_query($query) or die(mysql_error());
 			if(mysql_num_rows($result) == 0)
 			{
@@ -254,21 +254,18 @@ include 'database/databaseconnect.php';?>
 			{
 				$fields = array_diff($fields, array('ConEmailAddress'));
 				$date = date('Y-m-d H:i');
-				$query2 = "INSERT INTO Members (ID, " . implode(', ', $fields) . ", DateJoined, Approved) VALUES ('$idmax', ";
+				$query2 = "INSERT INTO Gold_Members (ID, " . implode(', ', $fields) . ", DateJoined, Approved) VALUES ('$idmax', ";
 				//$to = 'info@asiandinnerclub.com, lovesalima@googlemail.com';
 				$to = 'info@londondinnerclub.org';
 				//$to = 'sumita.biswas@gmail.com';
-				$subject = 'Membership Form Submission for London Dinner Club';
+				$subject = 'Gold Membership Application Form: London Dinner Club';
 				$body = '';
 				foreach($fields as $field)
 				{
 					$formvar = $_POST[$field];
-					//if($field!='ConEmailAddress' && $field!='Captcha_Code')
-					if($field!='ConEmailAddress')
-					{
-						$formvar = addslashes($formvar);
-						$query2 .= "'$formvar', ";
-					}
+					$formvar = addslashes($formvar);
+					$query2 .= "'$formvar', ";
+					
 					$formvar2 = $formvar;
 					if(strpos($formvar2, "\'")!==false)
 					{
@@ -278,17 +275,24 @@ include 'database/databaseconnect.php';?>
 					{
 						$formvar2 = str_replace('\"', '"', $formvar2);
 					}
-					//if($field!='ConEmailAddress' && $field!='Captcha_Code')
-					if($field!='ConEmailAddress')
-					{
-						$body .= "\n$field: $formvar2 \n";
-					}
+					$body .= "\n$field: $formvar2 \n";
 				}
 				$query2 .= "'$date', 'No')";
 				$headers = "From: London Dinner Club <sales@londondinnerclub.org> \r\n";
 				if(mail($to, $subject, $body, $headers))
 				{
-					echo '<p><b>Thank You!</b></p><p>We will contact you within 48hrs to discuss your membership application.</p>';
+					echo "<p><b>Thank You</b></p><p>Please proceed to PayPal by clicking the button below.</p>";?>
+					<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+					<input type="hidden" name="business" value="sales@londondinnerclub.org">
+					<input type='hidden' name='cmd' value='_xclick'>
+					<input type='hidden' name='amount' value="59.99">
+					<input type='hidden' name='currency_code' value="GBP">
+					<input type='hidden' name='item_name' value="Gold Membership">
+					<input type="hidden" name="return" value="http://www.londondinnerclub.org/?success">
+					<input type="hidden" name="cancel_return" value="http://www.londondinnerclub.org/?cancel">
+					<input type="image" src="http://www.londondinnerclub.org/images/paypalbutton2.png" border="0" name="submit" alt="PayPal - The safer, easier way to pay online.">
+					</form>
+					<?php
 					$result2 = mysql_query($query2) or die(mysql_error());
 		                    //echo 'QUERY: ' . $query2;
 				}
@@ -311,7 +315,7 @@ include 'database/databaseconnect.php';?>
 					}
 				}
 				
-				unlink('member/images/' . $imagefile);
+				unlink('member/goldimages/' . $imagefile);
 				$errormess = '<p><b>Error</b></p>
 					<p>The following error(s) occurred:<br />';
 					foreach ($errors as $msg) { // Print each error.

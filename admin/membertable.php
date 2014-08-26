@@ -47,16 +47,17 @@ if($_GET['approved'] == 'true')
 			
 			$to = $row2['EmailAddress'];
 			//$to = 'sumita.biswas@gmail.com';
-			$subject = 'Membership to London Dinner Club';
+			$subject = "Silver Membership Application Form: London Dinner Club";
 			$mess = "Dear Member,<br/>";
-			$mess .= "<br/>Thank you for registering with London Dinner Club.<br/>";
-			$mess .= "<br/>To join us at our exclusive networking dinners and drinks evenings, you can book a ticket by selecting the event you'd like to attend. Please find your login details below:<br/>";
+			$mess .= "<br/>Welcome to London Dinner Club, an exclusive Private Member's dining club for busy Single professionals.<br/>";
+			$mess .= "<br/>To book tickets for our Silver Membership events, please find below your member username and password:<br/>";
 			$mess .= "<br/>Username: member<br/>Password: paris<br/>";
-			$mess .= "<br/>We look forward to seeing you soon.<br/>";
+			$mess .= "<br/>Our events do get booked up quickly, so if you can plan ahead, that would hopefully ensure you can attend our dinner parties and cocktail evenings in Mayfair and Knightsbridge.<br/>";
+			$mess .= "<br/>We hope to see you soon.<br/>";
             
             $message = "<html><head></head><body><p>" . $mess . "</p>";
-            $message .= "<p>&nbsp;</p><p>Best Wishes,<br/>Adrianna<br/><br/>London Dinner Club<br/>Membership Manager</p>";
-            $message .= "<p><img src='http://www.londondinnerclub.org/images/logo.png' alt='London Dinner Club' border='0' width='150' /></p>";
+            $message .= "<p>&nbsp;</p><p>Kind Regards,<br/>Adrianna<br/><br/>London Dinner Club<br/>Membership Manager</p>";
+            $message .= "<p><img src='http://www.londondinnerclub.org/images/logoapproval.JPG' alt='London Dinner Club' border='0' width='150' /></p>";
             $message .= "<p style='font-size:10px;'>We want to keep you up to date with everything that is happening at London Dinner Club, but you can click here to unsubscribe <a href='mailto:sales@londondinnerclub.org'>sales@londondinnerclub.org</a> if you no longer wish to receive information.Thank you.</p></body></html>";
             $headers = "MIME-Version: 1.0 \r\n";
             $headers .= "Content-type: text/html; charset=iso-8859-1 \r\n";
@@ -85,7 +86,7 @@ if($_GET['approved'] == 'true')
 }
 
 $query = "SELECT * FROM Members";
-$result2 = mysql_query($query) or die(mysql_error());
+$result2 = mysql_query($query) or die($query.mysql_error());
 $app = 'true';
 while($rows = mysql_fetch_array($result2))
 {
@@ -187,7 +188,7 @@ if(mysql_num_rows($result) != 0)
 		$counter++;
 		$background_color = ( $counter % 2 == 0 ) ? ('#EAC117') : ('#ffffff'); 
 		$date = date('Y-m-d H:i');?>
-		<tr class='table' bgcolor="<?php echo $background_color;?>" onclick="parent.location.href='memberamend.php?edit=<?php echo $id;?>';" onmouseover="this.className='table tablehover'" onmouseout="this.className='table'" <?php if($row['Approved'] == 'No'){ echo "style='color:red;'"; }?>>
+		<tr class='table' bgcolor="<?php echo $background_color;?>" onclick="parent.location.href='memberamend.php?type=Silver&edit=<?php echo $id;?>';" onmouseover="this.className='table tablehover'" onmouseout="this.className='table'" <?php if($row['Approved'] == 'No'){ echo "style='color:red;'"; }?>>
             <td><img src="../member/images/<?php echo $row['Image_Path'];?>" alt="<?php echo $row['Forename'];?>" border='0' height='50' /></td>
             <?php
             foreach($fieldname as $field)

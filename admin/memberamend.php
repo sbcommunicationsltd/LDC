@@ -3,19 +3,27 @@
 if(isset($_GET['delete']))
 {
 	$delid = $_GET['delete'];
-	$query2 = "SELECT Forename, Surname, Image_Path FROM Members WHERE ID = '$delid'";
+	$type = $_GET['type'];
+	if ('Gold' == $type) {
+		$tableName = 'Gold_Members';
+		$foldername = 'goldimages';
+	} else {
+		$tableName = 'Members';
+		$foldername = 'images';
+	}
+	$query2 = "SELECT Forename, Surname, Image_Path FROM $tableName WHERE ID = '$delid'";
 	$result2 = mysql_query($query2) or die(mysql_error());
 	$row = mysql_fetch_array($result2);
 	$fullname = "$row[0] $row[1]";
-	$query3 = "DELETE FROM Members WHERE ID = $delid";
+	$query3 = "DELETE FROM $tableName WHERE ID = $delid";
 	$result3 = mysql_query($query3) or die(mysql_error());
-    if(file_exists('../member/images/' . $row[2]))
+    if(file_exists('../member/' . $foldername . '/' . $row[2]))
 	{
-		unlink('../member/images/' . $row[2]);
+		unlink('../member/' . $foldername . '/' . $row[2]);
 	}?>
 	<script>
 	alert("Thanks - Member '<?php echo $fullname;?> Deleted!");
-    location.href='membershipdatabase.php';
+    location.href='membershipdatabase.php?type=<?php echo $type;?>';
 	</script>
 	<?php
 }
@@ -75,7 +83,13 @@ if(isset($_POST['Submit']))
 		$first = $_POST['Forename'];
 		$second = $_POST['Surname'];
 		$name = "$first $second";
-		$query5 = "UPDATE Members SET ";
+		$type = $_POST['type'];
+		if ('Gold' == $type) {
+			$tableName = 'Gold_Members';
+		} else {
+			$tableName = 'Members';
+		}
+		$query5 = "UPDATE $tableName SET ";
 		foreach($fields as $field)
 		{
 			$formvar = $_POST[$field];
@@ -87,7 +101,7 @@ if(isset($_POST['Submit']))
 		?>
         <script>
         alert("Thanks - Member '<?php echo $name;?>' Details Amended!");
-        location.href='membershipdatabase.php';
+        location.href='membershipdatabase.php?type=<?php echo $type;?>';
         </script>
 		<?php
 	}
@@ -191,7 +205,13 @@ if(isset($_POST['Submit']))
 if(isset($_GET['edit']))
 {
 	$editid = $_GET['edit'];
-	$query4 = "SELECT * FROM Members WHERE ID = '$editid'";
+	$type = $_GET['type'];
+	if ('Gold' == $type) {
+		$tableName = 'Gold_Members';
+	} else {
+		$tableName = 'Members';
+	}
+	$query4 = "SELECT * FROM $tableName WHERE ID = $editid";
 	$result4 = mysql_query($query4) or die(mysql_error());
 	$row3 = mysql_fetch_array($result4);
 	$DOB = $row3['DOB'];
@@ -201,9 +221,8 @@ if(isset($_GET['edit']))
 	$dateyear = $arrdate[2];
 	$fore = $row3['Forename'];
 	$sur = $row3['Surname'];
-	$names = "$fore $sur";
-	?>
-    <form method='post' name='memberdatabase' action='membershipdatabase.php'>
+	$names = "$fore $sur";?>
+    <form method='post' name='memberdatabase' action='membershipdatabase.php?type=<?php echo $type;?>'>
 	<input type='hidden' name='member' />
 	<p><img src="../images/sumi_buttons_04.png" width="11" height="19" alt="" style='float:left;' />
     <input type='submit' value='Back to Members Database' class='singlebutton' />
@@ -211,7 +230,7 @@ if(isset($_GET['edit']))
     </p>
   	</form><br/><br/>
 	<p><img src="../images/sumi_buttons_04.png" width="11" height="19" alt="" style='float:left;' />
-	<input type='button' class='singlebutton' name='Delete' onclick="if(confirm('Are you sure you want to delete this contact: <?php echo $names;?>?')){location.href='?delete=<?php echo $editid;?>';}else{window.location.reload(false);}" value='Delete Member' />
+	<input type='button' class='singlebutton' name='Delete' onclick="if(confirm('Are you sure you want to delete this contact: <?php echo $names;?>?')){location.href='?type=<?php echo $type;?>&delete=<?php echo $editid;?>';}else{window.location.reload(false);}" value='Delete Member' />
 	<img src="../images/sumi_buttons_06.png" width="11" height="19" alt="" style='float:left;' /></p>
 	<form method="post" id="profileform" name="ContactForm">
 		       <div id="regformwrap">
@@ -221,6 +240,7 @@ if(isset($_GET['edit']))
 		          <div class="rowwrap">
 		            <div class="cell-2"  style="display:none;"  id="div_nicname">
 					<input type='hidden' name='ID' value='<?php echo $editid;?>' />
+					<input type='hidden' name='type' value='<?php echo $type;?>' />
 		            </div>
 	          </div>
 	          <div class="rowwrap">
