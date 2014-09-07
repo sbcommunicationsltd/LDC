@@ -1,8 +1,6 @@
 <?php session_start();
 include '../database/databaseconnect.php';
 
-set_time_limit(0);
-
 if(!isset($_SESSION['admin_is_logged_in'])){
 	header('Location: login.php');
 }
@@ -223,8 +221,6 @@ function check()
 						{
 							$failed[] = $to;
 						}
-						
-						sleep(1);
 					}
 
 					if(empty($failed))
