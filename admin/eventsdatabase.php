@@ -941,7 +941,7 @@ if((!isset($_GET['edit'])) && (!isset($_POST['submitedit'])) && (!isset($_GET['a
 				</tr>
 				<tr>
 					<th align='left' valign='top'>Description</th>
-					<td><?php echo $row['Description'];?></td>
+					<td><?php echo htmlspecialchars($row['Description']);?></td>
 				</tr>
 				<tr>
 					<th align='left'>Availability</th>

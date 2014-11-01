@@ -74,69 +74,75 @@ if (isset($_POST['txtUserId']) && isset($_POST['txtPassword'])) {
 	//Check if user is locked out
 	$query = "SELECT status, reset FROM tbl_auth_user WHERE admin_id = '$userId'";
 	$res = mysql_query($query) or die(mysql_error());
-	$ro = mysql_fetch_array($res);
-	if($ro[0] == 0)
-	{
-		$password = md5($_POST['txtPassword']);
-
-		// check if the user id and password combination exist in database
-		$sql = "SELECT *
-				FROM tbl_auth_user
-				WHERE admin_id = '$userId'
-					AND user_pass = '$password'";
-
-		$result = mysql_query($sql)
-				or die('Query failed. ' . mysql_error());
-
-		if (mysql_num_rows($result) == 1) {
-			// the user id and password match,
-			// set the session
-			$_SESSION['admin_is_logged_in'] = true;
-
-			// after login we move to the main page
-			header('Location: ../admin/');
-			exit;
-		} 
-		/*else 
+	$login = 0;
+	if (0 != mysql_num_rows($res)) {
+		$ro = mysql_fetch_array($res);
+		if($ro[0] == 0)
 		{
-			$errorMessage = 'Sorry, wrong user id / password';
-		}*/
-		else
-   		{
-   			if($ro[1] == 1)
-   			{
-   				$_SESSION['countlog'] = 1;
-				$sql3 = "SELECT * FROM tbl_auth_user WHERE admin_id = '$userId'";
-   		   		$result3 = mysql_query($sql3) or die(mysql_error());
-   		   		if(mysql_num_rows($result3) == 1)
+			$password = md5($_POST['txtPassword']);
+
+			// check if the user id and password combination exist in database
+			$sql = "SELECT *
+					FROM tbl_auth_user
+					WHERE admin_id = '$userId'
+						AND user_pass = '$password'";
+
+						echo $sql; exit;
+			$result = mysql_query($sql)
+					or die('Query failed. ' . mysql_error());
+
+			if (mysql_num_rows($result) == 1) {
+				// the user id and password match,
+				// set the session
+				$_SESSION['admin_is_logged_in'] = true;
+
+				// after login we move to the main page
+				header('Location: ../admin/');
+				exit;
+			} 
+			/*else 
+			{
+				$errorMessage = 'Sorry, wrong user id / password';
+			}*/
+			else
+			{
+				if($ro[1] == 1)
 				{
-					$sql4 = "UPDATE tbl_auth_user SET reset = 0 WHERE admin_id = '$userId'";
-					mysql_query($sql4) or die(mysql_error());
+					$_SESSION['countlog'] = 1;
+					$sql3 = "SELECT * FROM tbl_auth_user WHERE admin_id = '$userId'";
+					$result3 = mysql_query($sql3) or die(mysql_error());
+					if(mysql_num_rows($result3) == 1)
+					{
+						$sql4 = "UPDATE tbl_auth_user SET reset = 0 WHERE admin_id = '$userId'";
+						mysql_query($sql4) or die(mysql_error());
+					}
 				}
-   			}
-   			else
-   			{
-   				$_SESSION['countlog']++;
-   			}
-   			//echo 'COUNT: ' . $countlog;
-   			if($_SESSION['countlog'] < 3)
-   			{
-   		   		$errorMessage = $errorMessage1;
-   		   	}
-   		   	else
-   		   	{
-   		   		$errorMessage = $errorMessage2;
-   		   		$sql2 = "SELECT * FROM tbl_auth_user WHERE admin_id = '$userId'";
-   		   		$result2 = mysql_query($sql2) or die(mysql_error());
-   		   		if(mysql_num_rows($result2) == 1)
-   		   		{
-   		   			$sql3 = "UPDATE tbl_auth_user SET status = 1 WHERE admin_id = '$userId'";
-   		   			mysql_query($sql3) or die(mysql_error());
-   		   		}
-   		   	}
-   		}
+				else
+				{
+					$_SESSION['countlog']++;
+				}
+				//echo 'COUNT: ' . $countlog;
+				if($_SESSION['countlog'] < 3)
+				{
+					$errorMessage = $errorMessage1;
+				}
+				else
+				{
+					$errorMessage = $errorMessage2;
+					$sql2 = "SELECT * FROM tbl_auth_user WHERE admin_id = '$userId'";
+					$result2 = mysql_query($sql2) or die(mysql_error());
+					if(mysql_num_rows($result2) == 1)
+					{
+						$sql3 = "UPDATE tbl_auth_user SET status = 1 WHERE admin_id = '$userId'";
+						mysql_query($sql3) or die(mysql_error());
+					}
+				}
+			}
+		}
+		$login = 1;
 	}
-	else
+	
+	if (0 == $login)
    	{
    		$errorMessage = $errorMessage2;
    	}

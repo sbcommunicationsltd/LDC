@@ -157,7 +157,7 @@ if (isset($_GET['success'])) {?>
                     <!--<h3 class="little-header uppercase"><a href="new-events.php#<?php echo $venue;?>" title="<?php echo $row['Event_Title'];?>" target="_self"><?php echo $row['Event_Title'];?></a></h3>-->
                     <h3 class="little-header uppercase"><a href="new-events.php#<?php echo $venue;?>" title="<?php echo $venue;?>" target="_self"><?php echo $venue;?></a></h3>
                         <div class="details">
-                            <p><?php echo $row['Description'];?></p>
+                            <p><?php echo htmlspecialchars($row['Description']);?></p>
                                 <ul class="bullets fl">
                                     <li><span class="bold">Type:</span><?php echo $row['Event_Type'];?></li>
                                     <li><span class="bold">Date:</span><?php echo date('dS F Y', strtotime($row['Date']));?></li>

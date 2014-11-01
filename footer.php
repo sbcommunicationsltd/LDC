@@ -1,6 +1,6 @@
 <?php
+$logout = false;
 if (strpos($_SERVER['PHP_SELF'], '/admin') !== false) {
-    $logout = false;
     if (isset($_SESSION['admin_is_logged_in'])) {
         $logout = true;
     }

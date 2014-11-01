@@ -74,7 +74,7 @@
                 
                         <h3 class="little-header uppercase"><?php echo $row['Venue'];?></h3>
                             <div class="details">
-                                <p><?php echo $row['Description'];?></p>
+                                <p><?php echo htmlspecialchars($row['Description']);?></p>
                                     <ul class="bullets fl">
                                         <li><span class="bold">Type:</span><?php echo $row['Event_Type'];?></li>
                                         <li><span class="bold">Date:</span><?php echo date('dS F Y', strtotime($row['Date']));?></li>
