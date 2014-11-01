@@ -87,7 +87,6 @@ if (isset($_POST['txtUserId']) && isset($_POST['txtPassword'])) {
 					WHERE admin_id = '$userId'
 						AND user_pass = '$password'";
 
-						echo $sql; exit;
 			$result = mysql_query($sql)
 					or die('Query failed. ' . mysql_error());
 
