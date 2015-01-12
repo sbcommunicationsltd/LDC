@@ -8,11 +8,11 @@ include 'database/databaseconnect.php';?>
 <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
 <head>
 
-    <title>Membership | London Dinner Club | Connecting People | London</title>
+    <title>Membership | London Dinner Club | Connecting Single Professionals</title>
     
     <!-- Meta -->
 	<meta charset="UTF-8">
-	<meta name="keywords" content="Dinner parties London, London Dinner Club, london events, events, london, salima manji, supperclub, vogue, luxury events, luxe events, networking, socialising, professional networking, city networking, city events" />
+	<meta name="keywords" content="Dating, singles, singles London, singles events, dinners, dinner parties, exclusive dating, matchmaking, professional matchmakers, Mayfair, Knightsbridge, Chelsea, networking" />
 	<meta name="description" content="Register with London Dinner Club for free and stay up to date with all the latest events" />
 	<meta name="robots" content="index, follow" />
     
@@ -287,9 +287,9 @@ include 'database/databaseconnect.php';?>
 					<input type='hidden' name='cmd' value='_xclick'>
 					<input type='hidden' name='amount' value="59.99">
 					<input type='hidden' name='currency_code' value="GBP">
-					<input type='hidden' name='item_name' value="Gold Membership">
-					<input type="hidden" name="return" value="http://www.londondinnerclub.org/?success">
-					<input type="hidden" name="cancel_return" value="http://www.londondinnerclub.org/?cancel">
+					<input type='hidden' name='item_name' value="Gold Membership for 6months">
+					<input type="hidden" name="return" value="http://www.londondinnerclub.org/?success=Gold">
+					<input type="hidden" name="cancel_return" value="http://www.londondinnerclub.org/?cancel=Gold">
 					<input type="image" src="http://www.londondinnerclub.org/images/paypalbutton2.png" border="0" name="submit" alt="PayPal - The safer, easier way to pay online.">
 					</form>
 					<?php
@@ -328,7 +328,7 @@ include 'database/databaseconnect.php';?>
         if(!isset($_POST['Submit']) || isset($errormess))
         {?>
        		<div class="fl box-326">
-               <p class="bold">Membership is £59.99 for 6 months </p>
+               <p class="bold">Membership is &pound;59.99 for 6 months</p>
                <p><strong>Benefits include:</strong><br>Silver membership plus: Exclusive events held at Private Members Clubs such as Home House<br>
 <br>Dinner parties at Michelin star restaurants in London such as Nobu, Hakkasan and Benares<br><br>Benefits and discounts from elite shops in Knightsbridge and Mayfair, spas and hotels</p>
                

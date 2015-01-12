@@ -1,12 +1,14 @@
 <?php
 include_once('database/databaseconnect.php');
-if (isset($_GET['success'])) {?>
-	<script>alert('You have successfully paid for your Gold Membership. Please wait for the approval email.');
+if (isset($_GET['success'])) {
+	$type = $_GET['success'];?>
+	<script>alert('You have successfully paid for your <?php echo $type;?> Membership. Please wait for the approval email.');
 	location.href='../';
 	</script>
 <?php
-} elseif (isset($_GET['cancel'])) {?>
-	<script>alert('You have cancelled the payment for Gold Membership. Please contact sales@londondinnerclub.org when you wish to pay.');
+} elseif (isset($_GET['cancel'])) {
+	$type = $_GET['cancel'];?>
+	<script>alert('You have cancelled the payment for <?php echo $type;?> Membership. Please contact sales@londondinnerclub.org when you wish to pay.');
 	location.href='../';
 	</script>
 <?php

@@ -8,11 +8,11 @@ include 'database/databaseconnect.php';?>
 <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
 <head>
 
-    <title>Membership | London Dinner Club | Connecting People | London</title>
+    <title>Membership | London Dinner Club | Connecting Single Professionals</title>
     
     <!-- Meta -->
 	<meta charset="UTF-8">
-	<meta name="keywords" content="Dinner parties London, London Dinner Club, london events, events, london, salima manji, supperclub, vogue, luxury events, luxe events, networking, socialising, professional networking, city networking, city events" />
+	<meta name="keywords" content="Dating, singles, singles London, singles events, dinners, dinner parties, exclusive dating, matchmaking, professional matchmakers, Mayfair, Knightsbridge, Chelsea, networking" />
 	<meta name="description" content="Register with London Dinner Club for free and stay up to date with all the latest events" />
 	<meta name="robots" content="index, follow" />
     
@@ -282,7 +282,19 @@ include 'database/databaseconnect.php';?>
 				$headers = "From: London Dinner Club <sales@londondinnerclub.org> \r\n";
 				if(mail($to, $subject, $body, $headers))
 				{
-					echo '<p><b>Thank You!</b></p><p>We will contact you within 48hrs to discuss your membership application.</p>';
+					//echo '<p><b>Thank You!</b></p><p>We will contact you within 48hrs to discuss your membership application.</p>';
+					echo "<p><b>Thank You</b></p><p>Please proceed to PayPal by clicking the button below.</p>";?>
+					<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+					<input type="hidden" name="business" value="sales@londondinnerclub.org">
+					<input type='hidden' name='cmd' value='_xclick'>
+					<input type='hidden' name='amount' value="9.99">
+					<input type='hidden' name='currency_code' value="GBP">
+					<input type='hidden' name='item_name' value="Silver Membership for 12months">
+					<input type="hidden" name="return" value="http://www.londondinnerclub.org/?success=Silver">
+					<input type="hidden" name="cancel_return" value="http://www.londondinnerclub.org/?cancel=Silver">
+					<input type="image" src="http://www.londondinnerclub.org/images/paypalbutton2.png" border="0" name="submit" alt="PayPal - The safer, easier way to pay online.">
+					</form>
+					<?php
 					$result2 = mysql_query($query2) or die(mysql_error());
 		                    //echo 'QUERY: ' . $query2;
 				}
@@ -318,7 +330,7 @@ include 'database/databaseconnect.php';?>
         if(!isset($_POST['Submit']) || isset($errormess))
         {?>
        		<div class="fl box-326">
-               <p class="bold">This is a FREE membership</p>
+               <p class="bold">Membership is &pound;9.99 for 12 months</p>
                <p><strong>Benefits include:</strong><br>Dinner parties in Knightsbridge and Mayfair including restaurants such as Budhha Bar and Harvey Nichols<br><br>Drinks/cocktail evenings at Baku Lounge Bar and No 5 Cavendish</p>
                
                <?php 

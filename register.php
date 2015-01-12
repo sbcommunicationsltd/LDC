@@ -8,7 +8,7 @@ include 'database/databaseconnect.php';?>
 <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
 <head>
 
-    <title>Membership | London Dinner Club | Connecting People | London</title>
+    <title>Membership | London Dinner Club | Connecting Single Professionals</title>
     
     <!-- Meta -->
 	<meta charset="UTF-8">
@@ -122,8 +122,8 @@ include 'database/databaseconnect.php';?>
             
             <h3 class="little-header uppercase">Silver membership</h3>
             <div class="line" style="width:300px;margin:20px auto;"></div>
-            <p>This is a FREE membership</p>
-			<p><strong>Benefits include:</strong><br>Dinner parties in Knightsbridge and Mayfair including restaurants such as Budhha Bar and Harvey Nichols</p>
+            <p>Membership is &pound;9.99 for 12 months</p>
+			<p><strong>Benefits include:</strong><br/>Dinner parties in Knightsbridge and Mayfair including restaurants such as Budhha Bar and Harvey Nichols</p>
     		<p>Drinks/cocktail evenings at Baku Lounge Bar and No 5 Cavendish</p>
 
 			<a href="register-silver.php" target="_self" title="Silver membership London Dinner Club" class="button-silvermembership"><span class="displace"></span></a>
@@ -134,7 +134,7 @@ include 'database/databaseconnect.php';?>
        	    <img src="images/membership2.png" alt="Gold membership" class="membership-icon" />
             <h3 class="little-header uppercase">Gold membership</h3>
             <div class="line" style="width:300px;margin:20px auto;"></div>
-            <p>Membership is £59.99 for 6 months <br><u>(only £10 per month)</u></p>
+            <p>Membership is &pound;59.99 for 6 months<br/><u>(only £10 per month)</u></p>
 			<p><strong>Benefits include:</strong><br>Silver membership plus: Exclusive events held at Private Members Clubs such as Home House</p>
     		<p>Dinner parties at Michelin star restaurants in London such as Nobu, Hakkasan and Benares</p>
             <p>Benefits and discounts from elite shops in Knightsbridge and Mayfair, spas and hotels</p>
