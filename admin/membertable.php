@@ -5,8 +5,12 @@
 jQuery(document).ready(function($){
 	$('tr').each(function () {
 		$(this).children('td:not(:first)').click(function () {
-			//alert($("#amendLink").find('a').attr("href"));
-			parent.location.href = $("#amendLink").find('a').attr("href");
+			var id = $(this).closest('tr').children("td:nth-child(2)").attr('id');
+			if (id.indexOf('amendLink') == 0) {
+				//alert(id);
+				//alert($("#" + id).find('a').attr("href"));
+				parent.location.href = $("#" + id).find('a').attr("href");
+			}
 			return false;
 		});
 	});
@@ -253,7 +257,7 @@ if(mysql_num_rows($result) != 0)
 					echo 'Yes';
 				}?>
 			</td>
-			<td id='amendLink'><a href='memberamend.php?type=Silver&edit=<?php echo $id;?>' target='_parent'><img src="../member/images/<?php echo $row['Image_Path'];?>" alt="<?php echo $row['Forename'];?>" border='0' height='50' /></a></td>      
+			<td id='amendLink<?php echo $id;?>'><a href='memberamend.php?type=Silver&edit=<?php echo $id;?>' target='_parent'><img src="../member/images/<?php echo $row['Image_Path'];?>" alt="<?php echo $row['Forename'];?>" border='0' height='50' /></a></td>      
 			<?php
 			foreach($fieldname as $field) {
 				if($field == 'DateJoined' || $field == 'DateExpire') {
