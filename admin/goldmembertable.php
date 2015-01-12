@@ -1,5 +1,16 @@
 <html>
 <head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+jQuery(document).ready(function($){
+	$('tr').each(function () {
+		$(this).children('td:not(:first)').click(function () {
+			parent.location.href = $("#amendLink").find('a').attr("href");
+			return false;
+		});
+	});
+});
+</script>
 <style type='text/css'>
 .table {
 	font-size:11px;
@@ -92,29 +103,30 @@ if(isset($_GET['renew']))
 	/*$email = $row3['EmailAddress'];
 	$to = $email;
 	//$to = 'sumita.biswas@gmail.com';
-	$subject = 'Renewed Premier Membership to Asian Dinner Club';
-	$body = "<html><head><title>Renewed Premier Membership to Asian Dinner Club</title></head><body>";
-	$body .= "<p>Dear Premier Member,</p>";
-	$body .= "<p>Thank you for renewing your Premier Membership for a further 6 months.</p>";
+	$subject = 'Renewed Gold Membership to London Dinner Club';
+	$body = "<html><head><title>Renewed Gold Membership to London Dinner Club</title></head><body>";
+	$body .= "<p>Dear Gold Member,</p>";
+	$body .= "<p>Thank you for renewing your Gold Membership for a further 6 months.</p>";
 	$body .= "<p>You will need to reset your password so please click on the link below.</p>";
 	$body .= "<p><br/></p><p><b>Login- in details</b></p>";
 	$body .= "<p>Username: $email</p>";
-	$body .= "<p>Password:<a href='http://www.asiandinnerclub.com/member/premier/login.php?renew=$renid'>click here</a></p>";
+	$body .= "<p>Password:<a href='http://www.londondinnerclub.org/member/goldmemember/login.php?renew=$renid'>click here</a></p>";
 	$body .= "<p><br/></p><p>Best Wishes,</p>";
-	$body .= "<p><br/></p><p>Asian Dinner Club</p>";
-	$body .= "<p><img src='http://www.asiandinnerclub.com/images/logo.gif' alt='Asian Dinner Club' border='0' /></p></body></html>";
+	$body .= "<p><br/></p><p>London Dinner Club</p>";
+	$body .= "<p><img src='http://www.londondinnerclub.org/images/logo.gif' alt='London Dinner Club' border='0' /></p></body></html>";
 
 	$headers = "MIME-Version: 1.0 \r\n";
 	$headers .= "Content-type: text/html; charset=iso-8859-1 \r\n";
-	$headers .= "From: Asian Dinner Club <sales@asiandinnerclub.com> \r\n";
+	$headers .= "From: London Dinner Club <sales@londondinnerclub.org> \r\n";
 
 	if(mail($to, $subject, $body, $headers))
 	{*/
 		$fullname = $row3['Forename'] . ' ' . $row3['Surname'];?>
 		<script>
-		alert("Thank You! Premier Member - <?php echo $fullname;?> has been renewed!");
+		alert("Thank You! Gold Member - <?php echo $fullname;?> has been renewed!");
 		</script>
 	<?php
+		exit;
 	/*}
 	else
 	{?>
@@ -155,73 +167,60 @@ for ($i=0; $i < $numfields; $i++)
 {
 	$fieldname[] = mysql_field_name($result, $i);
 }?>
-
 <table class='table' style="border:1px solid #d0d3d5;" cellspacing='2' cellpadding='2' align='center' border='0'>
 	<tr style="background-color:#999999; font-size:12px;">
-		<td>
-			<table width='100%' class='table' cellspacing='2' cellpadding='2'>
-				<tr>
-					<form method="post" name="sortedthird" action='goldmembertable.php'>
-					<input type="hidden" name="sorted" value="approved" />
+		<th>
+			<form method="post" name="sortedthird" action='goldmembertable.php'>
+				<input type="hidden" name="sorted" value="approved" />
+				<a style="color:black; text-decoration:none;" onclick="sorts3();"><img src="../images/marker-right.GIF" height="10" width="10" style="border: none;" alt="sort by approved" align="left" class="closed2" />
+		<?php	if($_POST['sorted'] == 'approved')
+				{?>
+					<style type="text/css">img.closed2 {display:none;}
+					</style>
+					<img src="../images/marker-down.GIF" alt="sorted by approved" align="left" class="arrow" height="10" width="10" style="border: none;" />
+				<?php
+				}?>Approved</a>
+			</form>
+		</th>
+		<th>Image</th>
+<?php 	foreach($fieldname as $field)
+		{
+			if($field!='ID' && $field!='Image_Path' && $field!='Approved')
+			{
+				if($field=='Forename')
+				{?>
+					<form method="post" name="sortedfirst" action='goldmembertable.php'>
+					<input type="hidden" name="sorted" value="forename" />
 					<th>
-						<a href="#" style="color:black; text-decoration:none;" onclick="sorts3();" style="color:black; text-decoration:none;"><img src="../images/marker-right.GIF" height="10" width="10" style="border: none;" alt="sort by approved" align="left" class="closed2" />
-				<?php	if($_POST['sorted'] == 'approved')
+						<a style="color:black; text-decoration:none;" onclick="sorts1();"><img src="../images/marker-down.GIF" height="10" width="10" style="border: none;" alt="sorted by forename" align="left" class="open" />
+						<?php if($_POST['sorted'] == 'surname' || $_POST['sorted'] == 'approved')
 						{?>
-							<style type="text/css">img.closed2 {display:none;}
-							</style>
-							<img src="../images/marker-down.GIF" alt="sorted by approved" align="left" class="arrow" height="10" width="10" style="border: none;" />
+							<style type="text/css">img.open {display:none;}</style>
+							<img src="../images/marker-right.GIF" height="10" width="10" style="border: none;" alt="sort by forename" align="left" class="arrow" />
 						<?php
-						}?>Approved</a>
+						}?>Forename</a>
 					</th></form>
-				</tr>
-			</table>
-		</td>
-		<td>
-			<table width='100%' class='table' cellspacing='2' cellpadding='2'>
-				<tr>
-					<th>Image</th>
-			<?php 	foreach($fieldname as $field)
-					{
-						if($field!='ID' && $field!='Image_Path' && $field!='Approved')
-						{
-							if($field=='Forename')
-							{?>
-								<form method="post" name="sortedfirst" action='goldmembertable.php'>
-								<input type="hidden" name="sorted" value="forename" />
-								<th>
-									<a href="#" style="color:black; text-decoration:none;" onclick="sorts1();" style="color:black; text-decoration:none;"><img src="../images/marker-down.GIF" height="10" width="10" style="border: none;" alt="sorted by forename" align="left" class="open" />
-									<?php if($_POST['sorted'] == 'surname' || $_POST['sorted'] == 'approved')
-									{?>
-										<style type="text/css">img.open {display:none;}</style>
-										<img src="../images/marker-right.GIF" height="10" width="10" style="border: none;" alt="sort by forename" align="left" class="arrow" />
-									<?php
-									}?>Forename</a>
-								</th></form>
-					<?php	}
-							elseif($field=='Surname')
-							{?>
-								<form method="post" name="sortedsecond" action='goldmembertable.php'>
-								<input type="hidden" name="sorted" value="surname" />
-								<th>
-									<a href="#" style="color:black; text-decoration:none;" onclick="sorts2();" style="color:black; text-decoration:none;"><img src="../images/marker-right.GIF" height="10" width="10" style="border: none;" alt="sort by surname" align="left" class="closed1" />
-									<?php if($_POST['sorted'] == 'surname')
-									{?>
-										<style type="text/css">img.closed1 {display:none;}
-										</style>
-										<img src="../images/marker-down.GIF" alt="sorted by surname" align="left" class="arrow" height="10" width="10" style="border: none;" />
-									<?php
-									}?>Surname</a>
-								</th></form>
-					<?php	}
-							else
-							{?>
-								<th><?php echo $field;?></th>
-					<?php	}
-						}
-					} ?>
-				</tr>
-			</table>
-		</td>
+		<?php	}
+				elseif($field=='Surname')
+				{?>
+					<form method="post" name="sortedsecond" action='goldmembertable.php'>
+					<input type="hidden" name="sorted" value="surname" />
+					<th>
+						<a style="color:black; text-decoration:none;" onclick="sorts2();"><img src="../images/marker-right.GIF" height="10" width="10" style="border: none;" alt="sort by surname" align="left" class="closed1" />
+						<?php if($_POST['sorted'] == 'surname')
+						{?>
+							<style type="text/css">img.closed1 {display:none;}</style>
+							<img src="../images/marker-down.GIF" alt="sorted by surname" align="left" class="arrow" height="10" width="10" style="border: none;" />
+						<?php
+						}?>Surname</a>
+					</th></form>
+		<?php	}
+				else
+				{?>
+					<th><?php echo $field;?></th>
+		<?php	}
+			}
+		} ?>
 	</tr>
 	<?php
 	if(mysql_num_rows($result) != 0)
@@ -233,62 +232,53 @@ for ($i=0; $i < $numfields; $i++)
 			$counter++;
 			$background_color = ( $counter % 2 == 0 ) ? ('#EAC117') : ('#ffffff');
 			$date = date('Y-m-d H:i');
-			$dateexpire = $row['DateExpire'];?>
-			<tr class='table' bgcolor="<?php echo $background_color;?>" onmouseover="this.className='table tablehover'" onmouseout="this.className='table'">
-				<td>
-					<table width='100%' class='table' cellspacing='2' cellpadding='2'>
-						<tr>
-							<td><?php if($row['Approved']=='No') {?><!--<input type='button' name='approve' value='Approve' style='cursor:pointer; font-size:14px;' onclick="location.href='?approved=<?php echo $id;?>';" />-->
-								<table cellspacing='0' cellpadding='0' border='0'>
-									<tr>
-										<td><img src="../images/sumi_buttons_04.png" width="11" height="19" alt=""></td>
-										<td class='singlebutton'><a title='Approve' href="?approved=<?php echo $id;?>">Approve</a></td>
-										<td><img src="../images/sumi_buttons_06.png" width="11" height="19" alt=""></td>
-									</tr>
-								</table>
-								<?php 
-								}
-								elseif($row['Approved'] == 'RenewNo')
-								{?>
-									<table cellspacing='0' cellpadding='0' border='0'>
-										<tr>
-											<td><img src="../images/sumi_buttons_04.png" width="11" height="19" alt=""></td>
-											<td class='singlebutton'><a title='Renew' href="?renew=<?php echo $id;?>">Renew</a></td>
-											<td><img src="../images/sumi_buttons_06.png" width="11" height="19" alt=""></td>
-										</tr>
-									</table>
-								<?php
-								}
-								else{ echo 'Yes';}?>
-							</td>
-						</tr>
-					</table>
+			$dateexpire = $row['DateExpire'];
+			$fullname = $row['Forename'] . ' ' . $row['Surname'];?>
+			<tr class='table' id='dataTable' 
+				<?php if($row['Approved'] == 'No'){ echo "style='color:red;'"; } if ($dateexpire!=''){if($dateexpire < $date){echo "style='color:blue;'";}}?> 
+				bgcolor="<?php echo $background_color;?>" onmouseover="this.className='table tablehover'" onmouseout="this.className='table'">
+				<td><?php 
+					if($row['Approved']=='No') {?><!--<input type='button' name='approve' value='Approve' style='cursor:pointer; font-size:14px;' onclick="location.href='?approved=<?php echo $id;?>';" />-->
+						<table cellspacing='0' cellpadding='0' border='0'>
+							<tr>
+								<td><img src="../images/sumi_buttons_04.png" width="11" height="19" alt=""></td>
+								<td class='singlebutton'><a title='Approve'  onclick="if(confirm('Are you sure you want to approve the applicant <?php echo $fullname; ?>?')){location.href='?approved=<?php echo $id;?>';}">Approve</a></td>
+								<td><img src="../images/sumi_buttons_06.png" width="11" height="19" alt=""></td>
+							</tr>
+						</table>
+					<?php 
+					} elseif($row['Approved'] == 'RenewNo') {?>
+						<table cellspacing='0' cellpadding='0' border='0'>
+							<tr>
+								<td><img src="../images/sumi_buttons_04.png" width="11" height="19" alt=""></td>
+								<td class='singlebutton'><a title='Renew' href="?renew=<?php echo $id;?>">Renew</a></td>
+								<td><img src="../images/sumi_buttons_06.png" width="11" height="19" alt=""></td>
+							</tr>
+						</table>
+					<?php
+					} else{ 
+						echo 'Yes';
+					}?>
 				</td>
-				<td>
-					<table width='100%' class='table' cellspacing='2' cellpadding='2'>		
-						<tr onclick="parent.location.href='memberamend.php?type=Gold&edit=<?php echo $id;?>';" <?php if($row['Approved'] == 'No'){ echo "style='color:red;'"; } if($dateexpire < $date){echo "style='color:blue;'";}?>>	
-							<td><img src="../member/goldimages/<?php echo $row['Image_Path'];?>" alt="<?php echo $row['Forename'];?>" border='0' height='50' /></td>
-							<?php
-							foreach ($fieldname as $field) {
-								if ($field == 'DateJoined' || $field == 'DateExpire') {
-									if ($row[$field]!='') {
-										$row[$field] = date('d/m/Y H:i', strtotime($row[$field]));
-									}
-								}
+				<td id='amendLink'><a href='memberamend.php?type=Gold&edit=<?php echo $id;?>' target='_parent'><img src="../member/goldimages/<?php echo $row['Image_Path'];?>" alt="<?php echo $row['Forename'];?>" border='0' height='50' /></a></td>
+				<?php
+				foreach ($fieldname as $field) {
+					if ($field == 'DateJoined' || $field == 'DateExpire') {
+						if ($row[$field]!='') {
+							$row[$field] = date('d/m/Y H:i', strtotime($row[$field]));
+						}
+					}
 
-								if ($field=='Interests') {
-									$row[$field] = wordwrap($row[$field], 50, "<br />\n");
-								}
+					if ($field=='Interests') {
+						$row[$field] = wordwrap($row[$field], 50, "<br />\n");
+					}
 
-								if ($field!='ID' && $field!='Image_Path' && $field!='Approved') {?>
-									<td <?php if($field=='Height' || $field=='Profession' || $field=='DOB' || $field=='Interests'){echo "nowrap='nowrap'";}?>><?php echo $row[$field];?></td>
-						<?php	}
-							} ?>
-						</tr>
-					</table>
-				</td>
+					if ($field!='ID' && $field!='Image_Path' && $field!='Approved') {?>
+						<td <?php if($field=='Height' || $field=='Profession' || $field=='DOB' || $field=='Interests'){echo "nowrap='nowrap'";}?>><?php echo $row[$field];?></td>
+			<?php	}
+				} ?>
 			</tr>
-	<?php
+		<?php
 		}
 	}?>
 </table>
